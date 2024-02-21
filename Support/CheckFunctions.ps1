@@ -6,9 +6,8 @@ function CheckXmlTemplate {
         [Parameter(Mandatory = $true)] [string] $OutDir
     )
     # Check template file
-
     $Msg = "Checking that the template file {0} is valid" -f $XmlPath
-    Write-Host $Msg
+    Write-Verbose $Msg
 
     # Check that the file exists
     if (-not (Test-Path $XmlPath)) {
@@ -76,7 +75,7 @@ function CheckJsonRule {
 
     if ($PlaceholderKey -like "*EXCEPTION*") {
         if ($Rule.IsException -ne $true -and $Rule.IsException -ne $false) {
-            $Msg = "Invalid IsException value {0} for {1}, must be true or false" -f $Rule.IsException, $Rule.FilePath
+            $Msg = "Invalid IsException value {0} for {1}, must be true" -f $Rule.IsException, $Rule.FilePath
             Write-Warning $Msg
             throw
         }
@@ -103,10 +102,10 @@ function CheckBinDirectory {
     )
     # Check that every file in $BinDir folder is concerned by at least one Rule in $JsonConfigFile
     $Msg = "Checking that every file in {0} folder is concerned by at least one Rule in {1}" -f $BinDir, $JsonConfigFile
-    Write-Host $Msg
+    Write-Verbose $Msg
     Get-ChildItem -LiteralPath $BinDir | ForEach-Object {
         $FileIsInConfig = Select-String -Path $JsonConfigFile -Pattern $_.Name
-        if ($null -eq $FileIsInConfig) {
+        if ($null -eq $FileIsInConfig -and $PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent) {
             $Msg = "File '{0}' does not appear in '{1}' config file and won't therefore be concerned by any applocker Rule defined there" -f $_.Name, $JsonConfigFile
             Write-Warning $Msg
         }

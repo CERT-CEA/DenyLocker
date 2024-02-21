@@ -17,8 +17,7 @@ function TestXmlRule {
             TestRuleAgainstGpo -BinDir $BinDir -JsonConfigFile $JsonConfigFile -GpoToTest $GpoToTest
         } elseif ($XmlToTest) {
             TestRuleAgainstXml -BinDir $BinDir -JsonConfigFile $JsonConfigFile -Xml $XmlToTest
-        }
-        else {
+        } else {
             $XmlOutFile = Join-Path -Path $OutDir -ChildPath ((Get-Date -Format "yyyyMMdd")+"_$GpoName.xml") 
             TestRuleAgainstXml -BinDir $BinDir -JsonConfigFile $JsonConfigFile -Xml $XmlOutFile
         }
@@ -105,7 +104,7 @@ function TestRuleAgainstGPO {
 
     if ($CountRules -gt 0) {
         $Msg = "** TESTING RULES from '{0}' **" -f $GpoToTest
-        Write-Host $Msg
+        Write-Verbose $Msg
 
         foreach ($PlaceholderKey in $Placeholders.Keys) {
         # Iterate over every EXE, MSI and SCRIPT Rules
@@ -119,7 +118,9 @@ function TestRuleAgainstGPO {
                         if ($TestResult.PolicyDecision -ne $PolicyDecision.Item($Rule.Action)) {
                             if ($Rule.isException -and $TestResult.PolicyDecision -eq "DeniedByDefault") {
                                 $Msg = "'{0}' is '{1}' for '{2}' due to an exception" -f $TestResult.FilePath, $TestResult.PolicyDecision, $Rule.UserOrGroup
-                                Write-Host $Msg -ForegroundColor Green
+                                if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent) {
+                                    Write-Host $Msg -ForegroundColor Green
+                                }
                             } else {
                                 $Msg = "'{0}' is '{1}' for '{2}' and should be '{3}'" -f $TestResult.FilePath, $TestResult.PolicyDecision, $Rule.UserOrGroup, $Rule.Action
                                 Write-Host $Msg -ForegroundColor Red
@@ -130,7 +131,9 @@ function TestRuleAgainstGPO {
                                 Write-Host $Msg -ForegroundColor Red
                             } else {
                                 $Msg = "'{0}' is '{1}' for '{2}' by '{3}'" -f $TestResult.FilePath, $TestResult.PolicyDecision, $Rule.UserOrGroup, $TestResult.MatchingRule
-                                Write-Host $Msg -ForegroundColor Green
+                                if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent) {
+                                    Write-Host $Msg -ForegroundColor Green
+                                }
                             }
                         }
                     } else {
@@ -139,7 +142,9 @@ function TestRuleAgainstGPO {
                     }
                 } elseif ($PlaceholderKey -like "*PATH*") {
                     $Msg = "Not testing {0} Rules based on PATH" -f $PlaceholderKey
-                    Write-Warning $Msg
+                    if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent) {
+                        Write-Warning $Msg
+                    }
                 } else {
                     $Msg = "Invalid Rule name {0}" -f $PlaceholderKey
                     Write-Warning $Msg

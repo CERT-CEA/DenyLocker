@@ -37,10 +37,8 @@ if (!(Test-Path $XmlTemplateFile)) {
 
 # OutDir is created if it does not exist
 if (!(Test-Path $OutDir)) {
-    if ($Verbose.IsPresent) {
-        $Msg = "Creating output directory {0}" -f $OutDir
-        Write-Host $Msg
-    }
+    $Msg = "Creating output directory {0}" -f $OutDir
+    Write-Verbose $Msg
     mkdir $OutDir
 }
 

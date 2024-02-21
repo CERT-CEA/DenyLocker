@@ -37,15 +37,23 @@
     (c) Florian MARTIN 2023
     version 1.0
 
-    TODO
     Example
-    .\CEALocker.ps1 -CreateRules -ExportRules -TestRules -JsonConfigFile config.json
-    Fichier de sortie par défaut : yyyyMMdd_cealocker.xml
+    To build a valid Applocker XML file from config.json :
+    .\DenyLocker.ps1 -CreateRules -ExportRules -TestRules -JsonConfigFile config.json -Verbose
+
+    To build a valid Applocker XML file from config.json, if some group SID are missing and you want to autocomplete them
+    .\DenyLocker.ps1 -CreateRules -ExportRules -TestRules -JsonConfigFile config.json -ResolveSID -Verbose
+
+    To test config.json against a GPO :
+    .\DenyLocker.ps1 -TestRules -GpoToTest GPOApplocker4MISC -JsonConfigFile .\misc-config.json -Verbose
+
+    To test config.json against an XML :
+    .\DenyLocker.ps1 -TestRules -XmlToTest output\GPOApplocker4MISC.xml -JsonConfigFile .\misc-config.json -Verbose
 
 #>
 
 Param(
-    [Parameter(Mandatory=$False)][string]$JsonConfigFile="config.json",
+    [Parameter(Mandatory=$False)][string]$JsonConfigFile="example-config.json",
     [Parameter(Mandatory=$False)][string]$XmlTemplateFile="Support/template.xml",
     [Parameter(Mandatory=$False)][string]$BinDir="binaries",
     [Parameter(Mandatory=$False)][string]$OutDir="output",
@@ -54,8 +62,7 @@ Param(
     [Parameter(Mandatory=$False)][switch]$TestRules,
     [Parameter(Mandatory=$False)][switch]$ResolveSID,
     [Parameter(Mandatory=$False)]$GpoToTest,
-    [Parameter(Mandatory=$False)]$XmlToTest,
-    [Parameter(Mandatory=$False)][switch]$Verbose
+    [Parameter(Mandatory=$False)]$XmlToTest
     )
 
 $ErrorActionPreference="Stop"
@@ -104,13 +111,13 @@ if ($CreateRules.IsPresent) {
 if ($TestRules.IsPresent) {
     if ($GpoToTest) {
         TestXmlRule -BinDir $BinDir -JsonConfigFile $JsonConfigFile -GpoToTest $GpoToTest
-    } elseif ($XmlToTest) {
+    } elseif ((Test-Path -Path $XmlToTest -PathType leaf)) {
         TestXmlRule -BinDir $BinDir -JsonConfigFile $JsonConfigFile -XmlToTest $XmlToTest
     } else {
         TestXmlRule -BinDir $BinDir -JsonConfigFile $JsonConfigFile
     }
-} elseif ($Verbose) {
-    Write-Hosting "Testing is disabled"
+} else {
+    Write-Verbose "Testing is disabled"
 }
 
 if ($ExportRules.IsPresent) {

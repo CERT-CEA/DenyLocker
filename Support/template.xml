@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-16"?>
+<AppLockerPolicy Version="1">
+  <!-- ************************************ -->
+  <!-- ***  CEALOCKER BASE RULE FILE **** -->
+  <!-- ************************************ -->
+
+  <!-- ************************************ -->
+  <!-- *****  EXECUTABLE RULES ************ -->
+  <!-- ************************************ -->
+  <RuleCollection Type="Exe" EnforcementMode="Enabled">
+    <FilePathRule Id="a0a9b96b-5dc0-4e33-863c-6eddbfa516bf" Name="Allow Administrators Any" Description="Allows members of the local Administrators group to run all applications." UserOrGroupSid="S-1-5-32-544" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="6af48fc9-e062-43c8-8a9c-523dfa70bffd" Name="Allow SYSTEM Any" Description="Allows SYSTEM to run all applications." UserOrGroupSid="S-1-5-18" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="2bf63959-8fb6-4d8b-a8f0-90ea7d75b848" Name="Allow Everyone Any except some directories" Description="Excluded: IE Temp, System Temp, TrashBin" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="*" />
+      </Conditions>
+      <Exceptions>
+        <FilePathCondition Path="%OSDRIVE%\$Recycle.bin\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\INetCache\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\Temporary Internet Files\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\Public\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\All Users\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\*\AppData\Local\Temp\MicrosoftEdgeDownloads\*" />
+        <!-- Trop ambitieux de bloquer les EXE depuis ISO et USB pour le moment
+          %HOT% : Removable storage device (USB, flash drive)
+          %REMOVABLE% : Removable media (ISO)
+        <FilePathCondition Path="%HOT%\*" />
+        <FilePathCondition Path="%REMOVABLE%\*" />
+        -->
+        <FilePathCondition Path="%SYSTEM32%\spool\drivers\color\*" />
+        <FilePathCondition Path="%SYSTEM32%\tasks\*" />
+        <FilePathCondition Path="%WINDIR%\debug\wia\*" />
+        <FilePathCondition Path="%WINDIR%\tasks\*" />
+        <FilePathCondition Path="%WINDIR%\tracing\*" />
+        <FilePathCondition Path="%WINDIR%\Temp\*" />
+        <PLACEHOLDER_EXE_PATH_DENY_EXCEPTION/>
+        <PLACEHOLDER_EXE_PRODUCT_DENY_EXCEPTION/>
+        <PLACEHOLDER_MSI_PRODUCT_DENY_EXCEPTION/>
+      </Exceptions>
+    </FilePathRule>
+    <FilePathRule Id="5e550bf5-4ec8-4bb2-b23c-aa2405604ddd" Name="Deny Everyone AppData Roaming root" Description="" UserOrGroupSid="S-1-1-0" Action="Deny">
+      <Conditions>
+        <FilePathCondition Path="%OSDRIVE%\Users\*\AppData\Roaming\*" />
+      </Conditions>
+      <Exceptions>
+        <FilePathCondition Path="%OSDRIVE%\Users\*\AppData\Roaming\*\*" />
+      </Exceptions>
+    </FilePathRule>
+    <PLACEHOLDER_EXE_PATH_DENY/>
+    <PLACEHOLDER_EXE_PATH_ALLOW/>
+    <PLACEHOLDER_EXE_PRODUCT_DENY/>
+    <PLACEHOLDER_EXE_PRODUCT_ALLOW/>
+  </RuleCollection>
+  <RuleCollection Type="Script" EnforcementMode="Enabled">
+    <FilePathRule Id="60c98c00-6bf8-4adb-862d-46d2890659e1" Name="Allow Administrators Any" Description="Allows members of the local Administrators group to run all scripts." UserOrGroupSid="S-1-5-32-544" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="7cc446a4-d4a0-4cde-9e05-3ec21d0f04c9" Name="Allow SYSTEM Any" Description="Allows SYSTEM to run all scripts." UserOrGroupSid="S-1-5-18" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%PROGRAMFILES%\*" />
+      </Conditions>
+    </FilePathRule>
+    <!-- Not necessary but may prevent to break some system if somone deletes the wrong rule -->
+    <FilePathRule Id="26db2209-e8ea-432a-8954-8d726b219bdf" Name="Allow Everyone PROGRAMFILES" Description="Allow Everyone PROGRAMFILES" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%PROGRAMFILES%\*" />
+      </Conditions>
+    </FilePathRule>
+    <!-- Not necessary but may prevent to break some system if somone deletes the wrong rule -->
+    <FilePathRule Id="7dcb64e8-b26d-431e-8081-bf83fd72639c" Name="Allow Everyone WINDIR" Description="Allow Everyone WINDIR" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%WINDIR%\*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="ddbd187e-e0fe-4c22-ab2e-86ec8b33d6a9" Name="Allow Everyone Any except some directories" Description="Excluded: IE Temp, System Temp, TrashBin" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="*" />
+      </Conditions>
+      <Exceptions>
+      <FilePathCondition Path="%OSDRIVE%\$Recycle.bin\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\INetCache\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\Temporary Internet Files\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\Public\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\All Users\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\*\AppData\Local\Temp\MicrosoftEdgeDownloads\*" />
+        <!-- Trop ambitieux de bloquer les EXE depuis ISO et USB pour le moment
+          %HOT% : Removable storage device (USB, flash drive)
+          %REMOVABLE% : Removable media (ISO)
+        -->
+        <FilePathCondition Path="%HOT%\*" />
+        <FilePathCondition Path="%REMOVABLE%\*" />
+        <FilePathCondition Path="%SYSTEM32%\spool\drivers\color\*" />
+        <FilePathCondition Path="%SYSTEM32%\tasks\*" />
+        <FilePathCondition Path="%WINDIR%\debug\wia\*" />
+        <FilePathCondition Path="%WINDIR%\tasks\*" />
+        <FilePathCondition Path="%WINDIR%\tracing\*" />
+        <FilePathCondition Path="%WINDIR%\Temp\*" />
+        <PLACEHOLDER_SCRIPT_PATH_DENY_EXCEPTION/>
+      </Exceptions>
+    </FilePathRule>
+    <FilePathRule Id="f75e8c57-9e05-4865-941c-6169b18c25ca" Name="Deny Everyone AppData Roaming root" Description="" UserOrGroupSid="S-1-1-0" Action="Deny">
+      <Conditions>
+        <FilePathCondition Path="%OSDRIVE%\Users\*\AppData\Roaming\*" />
+      </Conditions>
+      <Exceptions>
+        <FilePathCondition Path="%OSDRIVE%\Users\*\AppData\Roaming\*\*" />
+      </Exceptions>
+    </FilePathRule>
+    <PLACEHOLDER_SCRIPT_PATH_DENY/>
+    <PLACEHOLDER_SCRIPT_PATH_ALLOW/>
+  </RuleCollection>
+  <RuleCollection Type="Dll" EnforcementMode="NotConfigured" />
+  <RuleCollection Type="Msi" EnforcementMode="AuditOnly">
+
+    <FilePathRule Id="C64E52FE-BD05-43ED-AE91-F3612182829E" Name="Allow Everyone %windir% ccmcache" Description="Allows everyone to run installer files in the SCCM cache." UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%WINDIR%\ccmcache\*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="5b290184-345a-4453-b184-45305f6d9a54" Name="Allow Everyone %WINDIR% Installer" Description="Allows everyone to run all Windows Installer files located in %systemdrive%\Windows\Installer." UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%WINDIR%\Installer\*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="64ad46ff-0d71-4fa0-a30b-3f3d30c5433d" Name="Allow Administrators Any" Description="Allows members of the local Administrators group to run all Windows Installer files." UserOrGroupSid="S-1-5-32-544" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="*.*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="f62cb22d-f4b6-456f-8118-5dfde1be7396" Name="Allow SYSTEM Any" Description="Allows members of the local Administrators group to run all Windows Installer files." UserOrGroupSid="S-1-5-18" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="*.*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePublisherRule Id="2137ced8-f8f6-4ea1-a27c-c7bbb9be4b2e" Name="Allow Everyone Any Signed except some directories" Description="Allows members of the Everyone group to run digitally signed Windows Installer files." UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="*" ProductName="*" BinaryName="*">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+      <Exceptions>
+        <FilePathCondition Path="%OSDRIVE%\$Recycle.bin\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\INetCache\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\Temporary Internet Files\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\Public\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\All Users\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\*" />
+        <FilePathCondition Path="%OSDRIVE%\Users\*\AppData\Local\Temp\MicrosoftEdgeDownloads\*" />
+        <!-- Trop ambitieux de bloquer les EXE depuis ISO et USB pour le moment
+          %HOT% : Removable storage device (USB, flash drive)
+          %REMOVABLE% : Removable media (ISO)
+        -->
+        <FilePathCondition Path="%HOT%\*" />
+        <FilePathCondition Path="%REMOVABLE%\*" />
+        <FilePathCondition Path="%SYSTEM32%\spool\drivers\color\*" />
+        <FilePathCondition Path="%SYSTEM32%\tasks\*" />
+        <FilePathCondition Path="%WINDIR%\debug\wia\*" />
+        <FilePathCondition Path="%WINDIR%\tasks\*" />
+        <FilePathCondition Path="%WINDIR%\tracing\*" />
+        <FilePathCondition Path="%WINDIR%\Temp\*" />
+        <PLACEHOLDER_MSI_PATH_DENY_EXCEPTION/>
+      </Exceptions>
+    </FilePublisherRule>
+
+    <PLACEHOLDER_MSI_PRODUCT_DENY/>
+    <PLACEHOLDER_MSI_PRODUCT_ALLOW/>
+
+    <PLACEHOLDER_MSI_PATH_DENY/>
+    <PLACEHOLDER_MSI_PATH_ALLOW/>
+
+    </RuleCollection>
+  <RuleCollection Type="Appx" EnforcementMode="Enabled">
+    <FilePublisherRule Id="1516ccf5-4d06-4518-a5cb-3c37fde8b41f" Name="Blocage Prise de contact avec le support" Description="" UserOrGroupSid="S-1-1-0" Action="Deny">
+      <Conditions>
+        <FilePublisherCondition PublisherName="CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" ProductName="Windows.ContactSupport" BinaryName="*">
+          <BinaryVersionRange LowSection="10.0.0.0" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="662277c4-9c33-4f7f-9df5-f27e6f7dc855" Name="Allow Everyone Any" Description="" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="*" ProductName="*" BinaryName="*">
+          <BinaryVersionRange LowSection="0.0.0.0" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="993c163a-6fda-4a1f-a47e-cc34a0be92e5" Name="Blocage Miracast" Description="" UserOrGroupSid="S-1-1-0" Action="Deny">
+      <Conditions>
+        <FilePublisherCondition PublisherName="CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" ProductName="Microsoft.PPIProjection" BinaryName="*">
+          <BinaryVersionRange LowSection="10.0.0.0" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+  </RuleCollection>
+</AppLockerPolicy>

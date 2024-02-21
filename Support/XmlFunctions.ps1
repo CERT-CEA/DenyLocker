@@ -17,9 +17,8 @@ function WriteXml {
     # Get the gpo name and its Rules
     $GpoName = $Gpo.Name
     $Rules = $Gpo.Value
-
     $Msg = "Building Applocker Gpo policy '{0}' to '{1}'" -f $GpoName, $XmlOutFile
-    Write-Host $Msg
+    Write-Verbose $Msg
 
     # Iterate over every EXE, MSI and SCRIPT Rules
     foreach ($Placeholder in $Placeholders.Keys) {
@@ -52,10 +51,10 @@ function GenerateXmlRule {
     $CountRules = ($Rules|Measure-Object).Count
     if ($CountRules -gt 0) {
         $Msg = "Building RuleCollection '{0}' Rules" -f $PlaceholderKey
-        Write-Host $Msg
+        Write-Verbose $Msg
     } else {
         $Msg = "No Rules defined for {0}" -f $PlaceholderKey
-        Write-Debug $Msg
+        Write-Verbose $Msg
     }
 
     # Let's create an XML child
@@ -124,9 +123,8 @@ function ExportXmlRule {
     foreach ($Gpo in $ConfigData.PSObject.Properties) {
         $GpoName = $Gpo.Name
         $XmlOutFile = Join-Path -Path $OutDir -ChildPath ((Get-Date -Format "yyyyMMdd")+"_$GpoName.xml")
-
         $Msg = "** EXPORTING RULES '{0}' TO EXCEL **" -f $XmlOutFile
-        Write-Host $Msg
+        Write-Verbose $Msg
         # SaveWorkbook : saves workbook to same directory as input
         # File with same File name and default Excel File extension
         & $ps1_ExportPolicyToExcel -AppLockerXml $XmlOutFile -SaveWorkbook
