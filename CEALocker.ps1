@@ -314,13 +314,10 @@ foreach ($GPO in $configData.PSObject.Properties) {
         $msg = "Building Applocker GPO policy '{0}' to '{1}'" -f $gpoName, $xmlOutFile
         Write-Host $msg
         
-        # FIXME : can't find a way to enumerate the PS object using key/value
-        CreateGPORules $xDocument "EXE DENY" $binDir $rules[0].'EXE DENY'
-        CreateGPORules $xDocument "EXE ALLOW" $binDir $rules[0].'EXE ALLOW'
-        CreateGPORules $xDocument "EXE EXCEPTION" $binDir $rules[0].'EXE EXCEPTION'
-        CreateGPORules $xDocument "MSI DENY" $binDir $rules[0].'MSI DENY'
-        CreateGPORules $xDocument "MSI ALLOW" $binDir $rules[0].'MSI ALLOW'
-        CreateGPORules $xDocument "MSI EXCEPTION" $binDir $rules[0].'MSI EXCEPTION'
+        # Iterate over every EXE, MSI and SCRIPT rules
+        foreach ($placeholder in $placeholders.Keys) {
+            CreateGPORules $xDocument $placeholder $binDir $rules[0].$placeholder
+        }
 
         Write-Debug $xDocument.OuterXml
 
