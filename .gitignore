@@ -1,9 +1,5 @@
 backup.xml
-everyonePublisherToDeny
-everyoneProductToDeny
-everyoneBinaryToDeny
-adminProductToDeny
-anyProductToDenyException
+BinariesRules
 *cealocker.xml
 *.xlsx
 *.csv
