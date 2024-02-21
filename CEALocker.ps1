@@ -92,13 +92,13 @@ function CreateFilePublisherCondition {
 
     $filePublisherCondition.SetAttribute("PublisherName", $publisher.PublisherName)
     
-    if ($rule.ruleProduct -and $publisher.ProductName) {
+    if ($rule.ruleProduct -eq $true -and $publisher.ProductName) {
         $filePublisherCondition.SetAttribute("ProductName", $publisher.ProductName)
     } else {
         $filePublisherCondition.SetAttribute("ProductName", "*" )
     }
 
-    if ($rule.ruleBinary -and $publisher.BinaryName) {
+    if ($rule.ruleBinary -eq $true -and $publisher.BinaryName) {
         $filePublisherCondition.SetAttribute("BinaryName", $publisher.binarytodeny)
     } else {
         $filePublisherCondition.SetAttribute("BinaryName", "*" )
@@ -122,8 +122,9 @@ function CreateFilePathCondition {
     # Create a FilePathCondition element
     # <FilePathCondition Path="ngrok*.exe" />
     # This XML is used between <Exceptions> OR <FilePathRule>
+    $filename_wc = "*{0}*.exe" -f $rule.filename.split('.')[0]
     $filePathCondition = $xDocument.CreateElement("FilePathCondition")   
-    $filePathCondition.SetAttribute("Path", "*"+$rule.filename+"*.exe")
+    $filePathCondition.SetAttribute("Path", $filename_wc)
     $msg = "Building {0} rule for group {1} for software {2} in {3} based on filename" -f $rule.action, $rule.UserOrGroup, $rule.filename, $directory
     Write-Warning $msg
     Return $filePathCondition
@@ -170,27 +171,32 @@ function CreateFilePathRule {
 function TestRule {
 
     Param(
-        [Parameter(Mandatory = $true)] [ValidateScript( { $_ -in $applockerRuleCollection } )] [string] $ruleCollection,
-        [Parameter(Mandatory = $true)] [array] $rules,
+        [Parameter(Mandatory = $true)] [ValidateScript( { $_ -in $placeholders.Keys } )] [string] $placeholderKey,
+        [Parameter(Mandatory = $true)] [string] $binariesDirectory,
+        [Parameter(Mandatory = $true)] [AllowEmptyCollection()] [array] $rules,
         [Parameter(Mandatory = $true)] $applockerPolicy
     )
 
     $PolicyDecision = @{"Allow" = "Allowed"; "Deny" = "Denied"}
 
-    foreach ($rule in $rules) {
-        Get-ChildItem $rule.directory -File | ForEach-Object {
-            $testresult = ($_  |Convert-Path| Test-AppLockerPolicy -XmlPolicy $applockerPolicy -User $rule.UserOrGroupSid)
-            if ($testresult.PolicyDecision -ne $PolicyDecision.Item($rule.action) -and -not $rule.isException) {
-                $msg = "'{0}' is {1} for {2} and should be '{3}'" -f $testresult.FilePath, $testresult.PolicyDecision, $rule.UserOrGroup, $rule.action
+    foreach ($binary in $rules) {
+
+        if (-not (Test-Path -Path $(Join-Path -Path $binariesDirectory -ChildPath $binary.filename))) {
+            $msg = "{0} could not be found in {1}, download it or fix the json config file" -f $binary.filename, $binariesDirectory
+            Write-Warning $msg
+        } 
+        else 
+        {
+            $testresult = Get-ChildItem -LiteralPath $binariesDirectory $binary.filename |Convert-Path | Test-AppLockerPolicy -XmlPolicy $applockerPolicy -User $binary.UserOrGroupSid
+            if ($testresult.PolicyDecision -ne $PolicyDecision.Item($binary.action) -and -not $binary.isException) {
+                $msg = "'{0}' is {1} for {2} and should be '{3}'" -f $testresult.FilePath, $testresult.PolicyDecision, $binary.UserOrGroup, $binary.action
                 Write-Host $msg -ForegroundColor Red
             } else {
-                $msg = "'{0}' is {1} for {2} by '{3}'" -f $testresult.FilePath, $testresult.PolicyDecision, $rule.UserOrGroup, $testresult.MatchingRule
+                $msg = "'{0}' is {1} for {2} by '{3}'" -f $testresult.FilePath, $testresult.PolicyDecision, $binary.UserOrGroup, $testresult.MatchingRule
                 Write-Host $msg -ForegroundColor Green
             }
-            
         }
     }
-
 }
 function CreateGPORules {
 
@@ -256,24 +262,23 @@ function CreateGPORules {
     $xPlaceholderParentNode.RemoveChild($xPlaceholder) | Out-Null   
 }
 
-if ($createRules) {
+try {
+    $jsonContent = Get-Content -Raw -Path $configFile
+    $configData = $jsonContent | ConvertFrom-Json
+} catch [System.ArgumentException] {
+    $_.Exception.GetType().FullName
+    $msg = "{0} is not a valid json file" -f $configFile
+    Write-Error $msg
+}
 
-    try {
-        $jsonContent = Get-Content -Raw -Path $configFile
-        $configData = $jsonContent | ConvertFrom-Json
-    } catch [System.ArgumentException] {
-        $_.Exception.GetType().FullName
-        $msg = "{0} is not a valid json file" -f $configFile
-        Write-Error $msg
-    }
+foreach ($GPO in $configData.PSObject.Properties) {
 
-    foreach ($GPO in $configData.PSObject.Properties) {
+    $xDocument = [xml](Get-Content $defRulesXml)
+    $gpoName = $GPO.Name
+    $rules = $GPO.Value
+    $xmlOutFile = Join-Path -Path $outDir -ChildPath ((Get-Date -Format "yyyyMMdd")+"_$gpoName.xml")
 
-        $xDocument = [xml](Get-Content $defRulesXml)
-        $gpoName = $GPO.Name
-        $rules = $GPO.Value
-        $xmlOutFile = Join-Path -Path $outDir -ChildPath ((Get-Date -Format "yyyyMMdd")+"_$gpoName.xml")
-
+    if ($createRules) {
         $msg = "Building Applocker GPO policy {0} to {1}" -f $gpoName, $xmlOutFile
         Write-Host $msg
 
@@ -294,42 +299,23 @@ if ($createRules) {
             throw $_
             exit 1
         }
-        <#
-        if ($testRules) {
-            $msg = "TESTING RULES from {0}" -f $xmlOutFile
-            Write-Host $msg
-            TestRule "Exe" $denyRules $xmlOutFile
-            TestRule "Exe" $allowExceptDenyRule $xmlOutFile
-        }
-        #>
-    
-        if ($exportRules) {
-            $msg = "EXPORTING RULES {0} TO EXCEL" -f $xmlOutFile
-            & $ps1_ExportPolicyToExcel -AppLockerXML $xmlOutFile
-        }
 
-        }
-}
+    }  
 
-<#
-
-if ($createRules) {
-    $msg = "BUILDING RULES TO {0}" -f $xmlOutFile
-    Write-Host $msg
-    CreateRule $xDocument "Exe" $denyRules "EXE DENY"
-    CreateRule $xDocument "Msi" $denyRules "MSI DENY"
-    CreateRule $xDocument "Exe" $allowExceptDenyRule "EXE EXCEPTION"
-    CreateRule $xDocument "Exe" $everyonePublisherToAllowRule "EXE ALLOW"
-
-    Write-Debug $xDocument.OuterXml
-
-    try {
-        $masterPolicy = [Microsoft.Security.ApplicationId.PolicyManagement.PolicyModel.AppLockerPolicy]::FromXml($xDocument.OuterXml)
-        SaveAppLockerPolicyAsUnicodeXml -ALPolicy $masterPolicy -xmlFilename $rulesFileEnforceNew
-    } catch [System.Management.Automation.MethodInvocationException] {
-        throw $_
-        exit 1
+    if ($testRules) {
+        $msg = "TESTING RULES from {0}" -f $xmlOutFile
+        Write-Host $msg
+        TestRule "EXE DENY" $binDir $rules[0].'EXE DENY' $xmlOutFile
+        TestRule "EXE ALLOW" $binDir $rules[0].'EXE ALLOW' $xmlOutFile
+        TestRule "EXE EXCEPTION" $binDir $rules[0].'EXE EXCEPTION' $xmlOutFile
+        TestRule "MSI DENY" $binDir $rules[0].'MSI DENY' $xmlOutFile
+        TestRule "MSI ALLOW" $binDir $rules[0].'MSI ALLOW' $xmlOutFile
+        TestRule "MSI EXCEPTION" $binDir $rules[0].'MSI EXCEPTION' $xmlOutFile
     }
-}
 
-#>
+    if ($exportRules) {
+        $msg = "EXPORTING RULES {0} TO EXCEL" -f $xmlOutFile
+        & $ps1_ExportPolicyToExcel -AppLockerXML $xmlOutFile
+    }
+
+}
