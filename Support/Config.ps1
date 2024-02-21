@@ -1,9 +1,9 @@
-$supportDir = [System.IO.Path]::Combine($rootDir, "Support")
+$SupportDir = [System.IO.Path]::Combine($rootDir, "Support")
 
-$ps1_ExportPolicyToCSV = [System.IO.Path]::Combine($supportDir, "ExportPolicy-ToCsv.ps1")
-$ps1_ExportPolicyToExcel = [System.IO.Path]::Combine($supportDir, "ExportPolicy-ToExcel.ps1")
+$ps1_ExportPolicyToCSV = [System.IO.Path]::Combine($SupportDir, "ExportPolicy-ToCsv.ps1")
+$ps1_ExportPolicyToExcel = [System.IO.Path]::Combine($SupportDir, "ExportPolicy-ToExcel.ps1")
 
-$placeholders = @{"EXE PRODUCT DENY" = "PLACEHOLDER_EXE_PRODUCT_DENY"; 
+$Placeholders = @{"EXE PRODUCT DENY" = "PLACEHOLDER_EXE_PRODUCT_DENY"; 
                 "EXE PRODUCT ALLOW" = "PLACEHOLDER_EXE_PRODUCT_ALLOW";
                 "EXE PRODUCT DENY EXCEPTION" = "PLACEHOLDER_EXE_PRODUCT_DENY_EXCEPTION" ;
 
@@ -23,4 +23,4 @@ $placeholders = @{"EXE PRODUCT DENY" = "PLACEHOLDER_EXE_PRODUCT_DENY";
                 "SCRIPT PATH ALLOW" = "PLACEHOLDER_SCRIPT_PATH_ALLOW";
                 "SCRIPT PATH DENY EXCEPTION" = "PLACEHOLDER_SCRIPT_PATH_DENY_EXCEPTION";}
 
-$applockerRuleCollection = ('Exe','Script','MSI','Dll','Appx')
+$ApplockerRuleCollection = ('Exe','Script','MSI','Dll','Appx')

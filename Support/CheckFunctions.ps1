@@ -1,111 +1,111 @@
 function CheckXmlTemplate {
     Param(
-        [Parameter(Mandatory = $true)] [string] $xmlpath,
-        [Parameter(Mandatory = $true)] [string] $binDir,
-        [Parameter(Mandatory = $true)] [string] $outDir
+        [Parameter(Mandatory = $true)] [string] $XmlPath,
+        [Parameter(Mandatory = $true)] [string] $BinDir,
+        [Parameter(Mandatory = $true)] [string] $OutDir
     )
     # Check template file
 
-    $msg = "Checking that the template file {0} is valid" -f $xmlpath
-    Write-Host $msg
+    $Msg = "Checking that the template file {0} is valid" -f $XmlPath
+    Write-Host $Msg
 
     # Check that the file exists
-    if (-not (Test-Path $xmlpath)) {
-        $msg = "XML template file {0} could not be found" -f $xmlpath
-        Write-Error $msg
+    if (-not (Test-Path $XmlPath)) {
+        $Msg = "XML template file {0} could not be found" -f $XmlPath
+        Write-Error $Msg
     }
 
     # Check that all placeholder are in the template
-    $xDocument = [xml](Get-Content $xmlpath)
-    foreach ($placeholderKey in $placeholders.Keys) {
-        $x = $xDocument.SelectNodes("//"+$placeholders.Item($placeholderKey))
+    $xDocument = [xml](Get-Content $XmlPath)
+    foreach ($PlaceholderKey in $Placeholders.Keys) {
+        $x = $xDocument.SelectNodes("//"+$Placeholders.Item($PlaceholderKey))
         if ($x.Count -eq 0) {
-            $msg = "Placeholder {0} could not be found in {1}" -f $placeholders.Item($placeholderKey), $xmlpath
-            Write-Error $msg
+            $Msg = "Placeholder {0} could not be found in {1}" -f $Placeholders.Item($PlaceholderKey), $XmlPath
+            Write-Error $Msg
         }
     }
 
     try {
-        $EmptyJsonConfigPath = "Support\empty.json"
-        GenerateApplockerXml -jsonConfigPath $EmptyJsonConfigPath -binDir $binDir -xmlTemplateFile $xmlpath -outDir $outDir
+        $EmptyJsonConfigFile = "Support\empty.json"
+        GenerateApplockerXml -JsonConfigFile $EmptyJsonConfigFile -BinDir $BinDir -xmlTemplateFile $XmlPath -OutDir $OutDir
 
-        $xmlOutFile = Join-Path -Path $outDir -ChildPath ((Get-Date -Format "yyyyMMdd")+"_empty.xml")
-        Remove-Item -Path $xmlOutFile
+        $XmlOutFile = Join-Path -Path $OutDir -ChildPath ((Get-Date -Format "yyyyMMdd")+"_empty.xml")
+        Remove-Item -Path $XmlOutFile
     } catch [System.Management.Automation.MethodInvocationException] {
-        $msg = "Template file {0} is not valid" -f $xmlpath
-        Write-Warning $msg
+        $Msg = "Template file {0} is not valid" -f $XmlPath
+        Write-Warning $Msg
         throw $_
     }
 }
 
 function CheckJsonRule {
     Param(
-        [Parameter(Mandatory = $true)] [ValidateScript( { $_ -in $placeholders.Keys } )] [string] $placeholderKey,
-        [Parameter(Mandatory = $true)] [string] $binDir,
-        [Parameter(Mandatory = $true)] $rule
+        [Parameter(Mandatory = $true)] [ValidateScript( { $_ -in $Placeholders.Keys } )] [string] $PlaceholderKey,
+        [Parameter(Mandatory = $true)] [string] $BinDir,
+        [Parameter(Mandatory = $true)] $Rule
     )
-    # Verify som attributes of a given rule
+    # Verify som attributes of a given Rule
     # Display a warning if 
 
-    if ($placeholderKey -like "*PRODUCT*") {
-        if (-not (Test-Path -PathType leaf -Path $(Join-Path -Path $binDir -ChildPath $rule.filepath))) {
-            $msg = "file '{0}' could not be found in '{1}', download it or fix the json config file" -f $rule.filepath, $binDir
-            Write-Warning $msg
+    if ($PlaceholderKey -like "*PRODUCT*") {
+        if (-not (Test-Path -PathType leaf -Path $(Join-Path -Path $BinDir -ChildPath $Rule.FilePath))) {
+            $Msg = "file '{0}' could not be found in '{1}', download it or fix the json config file" -f $Rule.FilePath, $BinDir
+            Write-Warning $Msg
         }
-        if ($rule.rulePublisher -ne $true -and $rule.rulePublisher -ne $false) {
-            $msg = "Invalid rulePublisher value {0} for {1}, must be true or false." -f $rule.rulePublisher, $rule.filepath
-            Write-Warning $msg
+        if ($Rule.RulePublisher -ne $true -and $Rule.RulePublisher -ne $false) {
+            $Msg = "Invalid RulePublisher value {0} for {1}, must be true or false." -f $Rule.RulePublisher, $Rule.FilePath
+            Write-Warning $Msg
             throw
         }
     
-        if ($rule.ruleProduct -ne $true -and $rule.ruleProduct -ne $false) {
-            $msg = "Invalid ruleProduct value {0} for {1}, must be true or false" -f $rule.ruleProduct, $rule.ruleProduct
-            Write-Warning $msg 
+        if ($Rule.RuleProduct -ne $true -and $Rule.RuleProduct -ne $false) {
+            $Msg = "Invalid RuleProduct value {0} for {1}, must be true or false" -f $Rule.RuleProduct, $Rule.RuleProduct
+            Write-Warning $Msg 
             throw
         }
     
-        if ($rule.ruleBinary -ne $true -and $rule.ruleBinary -ne $false) {
-            $msg = "Invalid ruleBinary value {0} for {1}, must be true or false" -f $rule.ruleBinary, $rule.filepath
-            Write-Warning $msg 
+        if ($Rule.RuleBinary -ne $true -and $Rule.RuleBinary -ne $false) {
+            $Msg = "Invalid RuleBinary value {0} for {1}, must be true or false" -f $Rule.RuleBinary, $Rule.FilePath
+            Write-Warning $Msg 
             throw
         }
         
     }
 
-    if ($placeholderKey -like "*EXCEPTION*") {
-        if ($rule.isException -ne $true -and $rule.isException -ne $false) {
-            $msg = "Invalid isException value {0} for {1}, must be true or false" -f $rule.isException, $rule.filepath
-            Write-Warning $msg 
+    if ($PlaceholderKey -like "*EXCEPTION*") {
+        if ($Rule.IsException -ne $true -and $Rule.IsException -ne $false) {
+            $Msg = "Invalid IsException value {0} for {1}, must be true or false" -f $Rule.IsException, $Rule.FilePath
+            Write-Warning $Msg 
             throw
         }
     }
     
-    if (-not ($rule.UserOrGroupSID -match "S-[0-9-]+" )) {
-        $msg = "Invalid group SID : {0}" -f $rule.UserOrGroupSID
-        Write-Warning $msg
+    if (-not ($Rule.UserOrGroupSID -match "S-[0-9-]+" )) {
+        $Msg = "Invalid group SID : {0}" -f $Rule.UserOrGroupSID
+        Write-Warning $Msg
         throw 
     }
 
-    if ($rule.action -ne "Allow" -and $rule.action -ne "Deny") {
-        $msg = "Invalid action value {0} for {1}, must be Allow or Deny" -f $rule.action, $rule.filepath
-        Write-Warning $msg 
+    if ($Rule.action -ne "Allow" -and $Rule.action -ne "Deny") {
+        $Msg = "Invalid action value {0} for {1}, must be Allow or Deny" -f $Rule.action, $Rule.FilePath
+        Write-Warning $Msg 
         throw
     }    
 }
 
 function CheckBinDirectory {
     Param(
-        [Parameter(Mandatory = $true)] [string] $binDir,
-        [Parameter(Mandatory = $true)] [string] $jsonConfigPath
+        [Parameter(Mandatory = $true)] [string] $BinDir,
+        [Parameter(Mandatory = $true)] [string] $JsonConfigFile
     )
-    # Check that every file in $binDir folder is concerned by at least one rule in $jsonConfigPath
-    $msg = "Checking that every file in {0} folder is concerned by at least one rule in {1}" -f $binDir, $jsonConfigPath
-    Write-Host $msg
-    Get-ChildItem -LiteralPath $binDir | ForEach-Object {
-        $fileIsInConfig = Select-String -Path $jsonConfigPath -Pattern $_.Name
-        if ($null -eq $fileIsInConfig) {
-            $msg = "File '{0}' does not appear in '{1}' config file and won't therefore be concerned by any applocker rule defined there" -f $_.Name, $jsonConfigPath
-            Write-Warning $msg
+    # Check that every file in $BinDir folder is concerned by at least one Rule in $JsonConfigFile
+    $Msg = "Checking that every file in {0} folder is concerned by at least one Rule in {1}" -f $BinDir, $JsonConfigFile
+    Write-Host $Msg
+    Get-ChildItem -LiteralPath $BinDir | ForEach-Object {
+        $FileIsInConfig = Select-String -Path $JsonConfigFile -Pattern $_.Name
+        if ($null -eq $FileIsInConfig) {
+            $Msg = "File '{0}' does not appear in '{1}' config file and won't therefore be concerned by any applocker Rule defined there" -f $_.Name, $JsonConfigFile
+            Write-Warning $Msg
         }
     }
 }

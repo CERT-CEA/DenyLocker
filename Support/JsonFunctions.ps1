@@ -3,15 +3,15 @@
 ####################################################################################################
 function ReadJson {
     Param(
-        [Parameter(Mandatory = $true)] [string] $filepath
+        [Parameter(Mandatory = $true)] [string] $FilePath
     )
     try {
-        $jsonContent = Get-Content -Raw -Path $filepath
-        $configData = $jsonContent | ConvertFrom-Json
-        $configData
+        $jsonContent = Get-Content -Raw -Path $FilePath
+        $ConfigData = $jsonContent | ConvertFrom-Json
+        $ConfigData
     } catch [System.ArgumentException] {
         $_.Exception.GetType().FullName
-        $msg = "'{0}' is not a valid json file" -f $configFile
-        Write-Error $msg
+        $Msg = "'{0}' is not a valid json file" -f $FilePath
+        Write-Error $Msg
     }
 }

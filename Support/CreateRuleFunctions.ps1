@@ -2,76 +2,76 @@
 function CreateFilePublisherCondition {
     Param(
         [Parameter(Mandatory = $true)] $xDocument,
-        [Parameter(Mandatory = $true)] $publisher,
-        [Parameter(Mandatory = $true)] [string] $directory,
-        [Parameter(Mandatory = $true)] $rule
+        [Parameter(Mandatory = $true)] $Publisher,
+        [Parameter(Mandatory = $true)] [string] $Directory,
+        [Parameter(Mandatory = $true)] $Rule
     )
     # Create a FilePublisherCondition element
     # <FilePublisherCondition PublisherName="O=MULLVAD VPN AB, L=GÖTEBORG, C=SE" ProductName="MULLVAD VPN" BinaryName="*">
     # <BinaryVersionRange LowSection="*" HighSection="*" />
     # This XML is used between <Exceptions> OR <FilePublisherRule>
 
-    $filePublisherCondition = $xDocument.CreateElement("FilePublisherCondition")   
-    if ($publisher.ProductName) {
-        $msg = "Building '{0}' rule for group '{1}' for product '{2}' in '{3}' directory" -f $rule.action, $rule.UserOrGroup, $publisher.ProductName, $directory
+    $FilePublisherCondition = $xDocument.CreateElement("FilePublisherCondition")   
+    if ($Publisher.ProductName) {
+        $Msg = "Building '{0}' Rule for group '{1}' for product '{2}' in '{3}' Directory" -f $Rule.Action, $Rule.UserOrGroup, $Publisher.ProductName, $Directory
     } else {
-        $msg = "Building '{0}' rule for group '{1}' for filename '{2}' in '{3}' directory" -f $rule.action, $rule.UserOrGroup, $rule.filepath, $directory
+        $Msg = "Building '{0}' Rule for group '{1}' for filename '{2}' in '{3}' Directory" -f $Rule.Action, $Rule.UserOrGroup, $Rule.Filepath, $Directory
     }
-    Write-Host $msg -ForegroundColor Green
+    Write-Host $Msg -ForegroundColor Green
 
-    $filePublisherCondition.SetAttribute("PublisherName", $publisher.PublisherName)
+    $FilePublisherCondition.SetAttribute("PublisherName", $Publisher.PublisherName)
     
-    if ($rule.ruleProduct -eq $true -and $publisher.ProductName) {
-        $filePublisherCondition.SetAttribute("ProductName", $publisher.ProductName)
+    if ($Rule.RuleProduct -eq $true -and $Publisher.ProductName) {
+        $FilePublisherCondition.SetAttribute("ProductName", $Publisher.ProductName)
     } else {
-        $filePublisherCondition.SetAttribute("ProductName", "*" )
+        $FilePublisherCondition.SetAttribute("ProductName", "*" )
     }
 
-    if ($rule.ruleBinary -eq $true -and $publisher.BinaryName) {
-        $filePublisherCondition.SetAttribute("BinaryName", $publisher.binarytodeny)
+    if ($Rule.RuleBinary -eq $true -and $Publisher.BinaryName) {
+        $FilePublisherCondition.SetAttribute("BinaryName", $Publisher.BinaryToDeny)
     } else {
-        $filePublisherCondition.SetAttribute("BinaryName", "*" )
+        $FilePublisherCondition.SetAttribute("BinaryName", "*" )
     }
     
     # Set version number range to "any"
-    $elemVerRange = $xDocument.CreateElement("BinaryVersionRange")
-    $elemVerRange.SetAttribute("LowSection", "*")
-    $elemVerRange.SetAttribute("HighSection", "*")
-    # Add the version range to the publisher condition
-    $filePublisherCondition.AppendChild($elemVerRange) | Out-Null
-    Return $filePublisherCondition
+    $ElemVerRange = $xDocument.CreateElement("BinaryVersionRange")
+    $ElemVerRange.SetAttribute("LowSection", "*")
+    $ElemVerRange.SetAttribute("HighSection", "*")
+    # Add the version range to the Publisher condition
+    $FilePublisherCondition.AppendChild($ElemVerRange) | Out-Null
+    Return $FilePublisherCondition
 }
 
 function CreateFilePathCondition {
     Param(
         [Parameter(Mandatory = $true)] $xDocument,
-        [Parameter(Mandatory = $true)] [string] $directory,
-        [Parameter(Mandatory = $true)] $rule
+        [Parameter(Mandatory = $true)] [string] $Directory,
+        [Parameter(Mandatory = $true)] $Rule
     )
     # Create a FilePathCondition element
     # <FilePathCondition Path="ngrok*.exe" />
     # This XML is used between <Exceptions> OR <FilePathRule>
-    $filePathCondition = $xDocument.CreateElement("FilePathCondition")  
-    if ($rule -like "*PRODUCT*") {
-        $filename_wc = "*{0}*.exe" -f $rule.filepath.split('.')[0]
-        $filePathCondition.SetAttribute("Path", $filename_wc)
-        $msg = "Building '{0}' rule for group '{1}' for software '{2}' in '{3}' based on filename" -f $rule.action, $rule.UserOrGroup, $rule.filepath, $directory
-        Write-Warning $msg
+    $FilePathCondition = $xDocument.CreateElement("FilePathCondition")  
+    if ($Rule -like "*PRODUCT*") {
+        $FilenameWildcard = "*{0}*.exe" -f $Rule.Filepath.split('.')[0]
+        $FilePathCondition.SetAttribute("Path", $FilenameWildcard)
+        $Msg = "Building '{0}' Rule for group '{1}' for software '{2}' in '{3}' based on filename" -f $Rule.Action, $Rule.UserOrGroup, $Rule.Filepath, $Directory
+        Write-Warning $Msg
     
     } else {
-        $filePathCondition.SetAttribute("Path", $rule.filepath)
-        $msg = "Building '{0}' rule for group '{1}' for path '{2}'" -f $rule.action, $rule.UserOrGroup, $rule.filepath
-        Write-Host $msg -ForegroundColor Green
+        $FilePathCondition.SetAttribute("Path", $Rule.Filepath)
+        $Msg = "Building '{0}' Rule for group '{1}' for path '{2}'" -f $Rule.Action, $Rule.UserOrGroup, $Rule.Filepath
+        Write-Host $Msg -ForegroundColor Green
     }  
 
-    Return $filePathCondition
+    Return $FilePathCondition
 }
 
 function CreateFilePublisherRule {
     Param(
         [Parameter(Mandatory = $true)] $xDocument,
-        [Parameter(Mandatory = $true)] $publisher,
-        [Parameter(Mandatory = $true)] $rule
+        [Parameter(Mandatory = $true)] $Publisher,
+        [Parameter(Mandatory = $true)] $Rule
     )
     # Create a FilePublisherRule element
     # <FilePublisherRule Action="Deny" UserOrGroupSid="S-1-1-0" Description="" Name="DropBox">
@@ -79,29 +79,29 @@ function CreateFilePublisherRule {
     #      ...
     #   </Conditions>
     # </FilePublisherRule>
-    $fileRule = $xDocument.CreateElement("FilePublisherRule")
+    $FileRule = $xDocument.CreateElement("FilePublisherRule")
 
-    if ($publisher.ProductName) {
-        $fileRule.SetAttribute("Description", $rule.action + " " + $rule.UserOrGroup + " " + $publisher.ProductName)
-        $fileRule.SetAttribute("Name", $rule.action + " " + $rule.UserOrGroup + " " + $publisher.ProductName)
+    if ($Publisher.ProductName) {
+        $FileRule.SetAttribute("Description", $Rule.Action + " " + $Rule.UserOrGroup + " " + $Publisher.ProductName)
+        $FileRule.SetAttribute("Name", $Rule.Action + " " + $Rule.UserOrGroup + " " + $Publisher.ProductName)
     } else {
-        $fileRule.SetAttribute("Description", $rule.action + " " + $rule.UserOrGroup + " " + $rule.filepath)
-        $fileRule.SetAttribute("Name", $rule.action + " " + $rule.UserOrGroup + " " + $rule.filepath)
+        $FileRule.SetAttribute("Description", $Rule.Action + " " + $Rule.UserOrGroup + " " + $Rule.Filepath)
+        $FileRule.SetAttribute("Name", $Rule.Action + " " + $Rule.UserOrGroup + " " + $Rule.Filepath)
     }
-    Return $fileRule
+    Return $FileRule
 }
 
 function CreateFilePathRule {
     Param(
         [Parameter(Mandatory = $true)] $xDocument,
-        [Parameter(Mandatory = $true)] $rule
+        [Parameter(Mandatory = $true)] $Rule
     )
     # Create a FilePathRule element
     # <FilePathRule Action="Deny" UserOrGroupSid="S-1-1-0" Description="" Name="DropBox">
     #      ...
     # </FilePathRule>
-    $fileRule = $xDocument.CreateElement("FilePathRule")
-    $fileRule.SetAttribute("Description", $rule.action + " " + $rule.UserOrGroup + " " + $rule.filepath)
-    $fileRule.SetAttribute("Name", $rule.action + " " + $rule.UserOrGroup + " " + $rule.filepath)
-    Return $fileRule
+    $FileRule = $xDocument.CreateElement("FilePathRule")
+    $FileRule.SetAttribute("Description", $Rule.Action + " " + $Rule.UserOrGroup + " " + $Rule.Filepath)
+    $FileRule.SetAttribute("Name", $Rule.Action + " " + $Rule.UserOrGroup + " " + $Rule.Filepath)
+    Return $FileRule
 }

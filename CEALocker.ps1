@@ -3,25 +3,25 @@
     Ce script génère un fichier xml de règles Applocker.
     Les règles autorise tout sauf la liste de logiciels présents dans différents dossiers
     
-    .PARAMETER jsonConfigPath
+    .PARAMETER JsonConfigFile
     Nom du fichier json contenant les binaires et la règle à leur appliquer
 
-    .PARAMETER xmlTemplateFile
+    .PARAMETER XmlTemplateFile
     Nom du fichier xml utilisé comme template
 
-    .PARAMETER binDir
-    Dossier contenant les binaires définies dans jsonConfigPath
+    .PARAMETER BinDir
+    Dossier contenant les binaires définies dans JsonConfigFile
 
-    .PARAMETER outDir
+    .PARAMETER OutDir
     Dossier dans lequel les xml Applocker seront écrits
 
-    .PARAMETER testRules
+    .PARAMETER TestRules
     Test les règles générés
 
-    .PARAMETER createRules
+    .PARAMETER CreateRules
     Génère les règles
 
-    .PARAMETER exportRules
+    .PARAMETER ExportRules
     Exporte les règles XML sous excel
 
     .NOTES
@@ -34,67 +34,68 @@
     Fichier de sortie par défaut : yyyyMMdd_cealocker.xml
     .\CEALocker.ps1
     Pour ne pas tester les règles générées :
-    .\CEALocker.ps1 -testRules $false
+    .\CEALocker.ps1 -TestRules $false
     Pour tester un xml de règles : 
-    .\CEALocker.ps1 -xmlOutFile example.xml -createRules $false -exportRules $false -testRules $true
+    .\CEALocker.ps1 -XmlOutFile example.xml -CreateRules $false -ExportRules $false -TestRules $true
 
 #>
 
 Param(
-    [Parameter(Mandatory=$False)][string]$jsonConfigPath="CEA-config.json",
-    [Parameter(Mandatory=$False)][string]$xmlTemplateFile="Support/template.xml",
-    [Parameter(Mandatory=$False)][string]$binDir="binaries",
-    [Parameter(Mandatory=$False)][string]$outDir="output",
-    [Parameter(Mandatory=$False)][bool]$createRules=$true,
-    [Parameter(Mandatory=$False)][bool]$exportRules=$true,
-    [Parameter(Mandatory=$False)][bool]$testRules=$true
+    [Parameter(Mandatory=$False)][string]$JsonConfigFile="CEA-config.json",
+    [Parameter(Mandatory=$False)][string]$XmlTemplateFile="Support/template.xml",
+    [Parameter(Mandatory=$False)][string]$BinDir="binaries",
+    [Parameter(Mandatory=$False)][string]$OutDir="output",
+    [Parameter(Mandatory=$False)][bool]$CreateRules=$true,
+    [Parameter(Mandatory=$False)][bool]$ExportRules=$true,
+    [Parameter(Mandatory=$False)][bool]$TestRules=$true
     )
 
 $ErrorActionPreference="Stop"
-$rootDir = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path)
+$RootDir = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path)
 # Dot-source the config file.
-. $rootDir\Support\Config.ps1
+. $RootDir\Support\Config.ps1
 
 # Check arguments
-. $rootDir\Support\Init.ps1
+. $RootDir\Support\Init.ps1
 
 # Import required functions
-. $rootDir\Support\CheckFunctions.ps1
-. $rootDir\Support\CreateRuleFunctions.ps1
-. $rootDir\Support\JsonFunctions.ps1
-. $rootDir\Support\SupportFunctions.ps1
-. $rootDir\Support\TestFunctions.ps1
-. $rootDir\Support\XmlFunctions.ps1
+. $RootDir\Support\CheckFunctions.ps1
+. $RootDir\Support\CreateRuleFunctions.ps1
+. $RootDir\Support\JsonFunctions.ps1
+. $RootDir\Support\SupportFunctions.ps1
+. $RootDir\Support\TestFunctions.ps1
+. $RootDir\Support\XmlFunctions.ps1
 function GenerateApplockerXml {
     Param(
-        [Parameter(Mandatory = $true)] [string] $binDir,
-        [Parameter(Mandatory = $true)] [string] $jsonConfigPath,
-        [Parameter(Mandatory = $true)] [string] $xmlTemplateFile,
-        [Parameter(Mandatory = $true)] [string] $outDir
+        [Parameter(Mandatory = $true)] [string] $BinDir,
+        [Parameter(Mandatory = $true)] [string] $JsonConfigFile,
+        [Parameter(Mandatory = $true)] [string] $XmlTemplateFile,
+        [Parameter(Mandatory = $true)] [string] $OutDir
     )
     # Main function
-    # Create the rules according to createRules option
+    # Create the rules according to CreateRules option
 
-    $configData = ReadJson $jsonConfigPath
-    foreach ($GPO in $configData.PSObject.Properties) {
-        $gpoName = $GPO.Name
-        $xmlOutFile = Join-Path -Path $outDir -ChildPath ((Get-Date -Format "yyyyMMdd")+"_$gpoName.xml")
-        WriteXml -GPO $GPO -binDir $binDir -xmlOutFile $xmlOutFile -applockerXml $xmlTemplateFile
+    $ConfigData = ReadJson $JsonConfigFile
+    foreach ($Gpo in $ConfigData.PSObject.Properties) {
+        $gpoName = $Gpo.Name
+        $XmlOutFile = Join-Path -Path $OutDir -ChildPath ((Get-Date -Format "yyyyMMdd")+"_$gpoName.xml")
+        WriteXml -Gpo $Gpo -BinDir $BinDir -XmlOutFile $XmlOutFile -ApplockerXml $XmlTemplateFile
     }
 }
 
-if ($createRules) {
-    CheckXmlTemplate -xmlpath $xmlTemplateFile -binDir $binDir -outDir $outDir
-    CheckBinDirectory -binDir $binDir -jsonConfigPath $jsonConfigPath
-    GenerateApplockerXml -jsonConfigPath $jsonConfigPath -binDir $binDir -xmlTemplateFile $xmlTemplateFile -outDir $outDir
+if ($CreateRules) {
+    CheckXmlTemplate -xmlpath $XmlTemplateFile -BinDir $BinDir -OutDir $OutDir
+    CheckBinDirectory -BinDir $BinDir -JsonConfigFile $JsonConfigFile
+    GenerateApplockerXml -JsonConfigFile $JsonConfigFile -BinDir $BinDir -XmlTemplateFile $XmlTemplateFile -OutDir $OutDir
 } else {
-    $msg = "createRule option is at {0} so the rules defined in {1} won't be used" -f $createRules, $jsonConfigPath
+    $Msg = "createRule option is at {0} so the rules defined in {1} won't be used" -f $CreateRules, $JsonConfigFile
+    Write-Warning $Msg
 }
 
-if ($testRules) {
-    TestXmlRule -binDir $binDir -jsonConfigPath $jsonConfigPath
+if ($TestRules) {
+    TestXmlRule -BinDir $BinDir -JsonConfigFile $JsonConfigFile
 }
 
-if ($exportRules) {
-    ExportXmlRule -jsonConfigPath $jsonConfigPath
+if ($ExportRules) {
+    ExportXmlRule -JsonConfigFile $JsonConfigFile
 }
