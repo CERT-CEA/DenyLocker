@@ -39,7 +39,7 @@
 
 Param(
     [Parameter(Mandatory=$False)][string]$configFile="CEA-config.json",
-    [Parameter(Mandatory=$False)][string]$xmlTemplateFile="template.xml",
+    [Parameter(Mandatory=$False)][string]$xmlTemplateFile="Support/template.xml",
     [Parameter(Mandatory=$False)][string]$binDir="binaries",
     [Parameter(Mandatory=$False)][string]$outDir="output",
     [Parameter(Mandatory=$False)][bool]$createRules=$true,
@@ -171,6 +171,12 @@ function CheckXmlTemplate {
 
     $msg = "Checking that the template file {0} is valid" -f $xmlpath
     Write-Host $msg
+
+    if (-not (Test-Path $xmlTemplateFile)) {
+        $msg = "XML template file {0} could not be found" -f $xmlTemplateFile
+        Write-Error $msg
+    }
+
     try {
         $EmptyJsonConfigPath = "Support\empty.json"
         GenerateApplockerXml -jsonConfigPath $EmptyJsonConfigPath -binariesDirectory $binariesDirectory -xmlTemplateFile $xmlpath -outDir $outDir
@@ -470,8 +476,8 @@ function GenerateApplockerXml {
 }
 
 if ($createRules) {
-    CheckXmlTemplate -xmlpath $defRulesXml -binariesDirectory $binDir -outDir $outDir
-    GenerateApplockerXml -jsonConfigPath $configFile -binariesDirectory $binDir -xmlTemplateFile $defRulesXml -outDir $outDir
+    CheckXmlTemplate -xmlpath $xmlTemplateFile -binariesDirectory $binDir -outDir $outDir
+    GenerateApplockerXml -jsonConfigPath $configFile -binariesDirectory $binDir -xmlTemplateFile $xmlTemplateFile -outDir $outDir
 } else {
     $msg = "createRule option is at {0} so the rules defined in {1} won't be used" -f $createRules, $jsonConfigPath
 }

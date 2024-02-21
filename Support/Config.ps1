@@ -1,14 +1,5 @@
 $supportDir = [System.IO.Path]::Combine($rootDir, "Support")
 
-if (Test-Path -PathType leaf -Path $(Join-Path -Path $supportDir -ChildPath $xmlTemplateFile)) {
-    $defRulesXml = [System.IO.Path]::Combine($supportDir, $xmlTemplateFile)
-} elseif (Test-Path -PathType leaf -Path $xmlTemplateFile) {
-    $defRulesXml = $xmlTemplateFile
-} else {
-    $msg = "XML template file {0} could not be found, nor in current folder, nor in Support folder" -f $xmlTemplateFile
-    Write-Error $msg
-}
-
 $ps1_ExportPolicyToCSV = [System.IO.Path]::Combine($supportDir, "ExportPolicy-ToCsv.ps1")
 $ps1_ExportPolicyToExcel = [System.IO.Path]::Combine($supportDir, "ExportPolicy-ToExcel.ps1")
 
