@@ -47,7 +47,7 @@ function CheckJsonRule {
         [Parameter(Mandatory = $true)] $Rule
     )
     # Verify som attributes of a given Rule
-    # Display a warning if 
+    # Display a warning if
 
     if ($PlaceholderKey -like "*PRODUCT*") {
         if (-not (Test-Path -PathType leaf -Path $(Join-Path -Path $BinDir -ChildPath $Rule.FilePath))) {
@@ -59,40 +59,40 @@ function CheckJsonRule {
             Write-Warning $Msg
             throw
         }
-    
+
         if ($Rule.RuleProduct -ne $true -and $Rule.RuleProduct -ne $false) {
             $Msg = "Invalid RuleProduct value {0} for {1}, must be true or false" -f $Rule.RuleProduct, $Rule.RuleProduct
-            Write-Warning $Msg 
+            Write-Warning $Msg
             throw
         }
-    
+
         if ($Rule.RuleBinary -ne $true -and $Rule.RuleBinary -ne $false) {
             $Msg = "Invalid RuleBinary value {0} for {1}, must be true or false" -f $Rule.RuleBinary, $Rule.FilePath
-            Write-Warning $Msg 
+            Write-Warning $Msg
             throw
         }
-        
+
     }
 
     if ($PlaceholderKey -like "*EXCEPTION*") {
         if ($Rule.IsException -ne $true -and $Rule.IsException -ne $false) {
             $Msg = "Invalid IsException value {0} for {1}, must be true or false" -f $Rule.IsException, $Rule.FilePath
-            Write-Warning $Msg 
+            Write-Warning $Msg
             throw
         }
     }
-    
+
     if (-not ($Rule.UserOrGroupSID -match "S-[0-9-]+" )) {
         $Msg = "Invalid group SID : {0}" -f $Rule.UserOrGroupSID
         Write-Warning $Msg
-        throw 
+        throw
     }
 
     if ($Rule.action -ne "Allow" -and $Rule.action -ne "Deny") {
         $Msg = "Invalid action value {0} for {1}, must be Allow or Deny" -f $Rule.action, $Rule.FilePath
-        Write-Warning $Msg 
+        Write-Warning $Msg
         throw
-    }    
+    }
 }
 
 function CheckBinDirectory {

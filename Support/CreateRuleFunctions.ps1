@@ -12,7 +12,7 @@ function CreateFilePublisherCondition {
     # <BinaryVersionRange LowSection="*" HighSection="*" />
     # This XML is used between <Exceptions> OR <FilePublisherRule>
 
-    $FilePublisherCondition = $xDocument.CreateElement("FilePublisherCondition")   
+    $FilePublisherCondition = $xDocument.CreateElement("FilePublisherCondition")
     if ($Publisher.ProductName) {
         $Msg = "Building '{0}' Rule for group '{1}' for product '{2}' in '{3}' Directory" -f $Rule.Action, $Rule.UserOrGroup, $Publisher.ProductName, $Directory
     } else {
@@ -21,7 +21,7 @@ function CreateFilePublisherCondition {
     Write-Host $Msg -ForegroundColor Green
 
     $FilePublisherCondition.SetAttribute("PublisherName", $Publisher.PublisherName)
-    
+
     if ($Rule.RuleProduct -eq $true -and $Publisher.ProductName) {
         $FilePublisherCondition.SetAttribute("ProductName", $Publisher.ProductName)
     } else {
@@ -33,7 +33,7 @@ function CreateFilePublisherCondition {
     } else {
         $FilePublisherCondition.SetAttribute("BinaryName", "*" )
     }
-    
+
     # Set version number range to "any"
     $ElemVerRange = $xDocument.CreateElement("BinaryVersionRange")
     $ElemVerRange.SetAttribute("LowSection", "*")
@@ -53,18 +53,18 @@ function CreateFilePathCondition {
     # Create a FilePathCondition element
     # <FilePathCondition Path="ngrok*.exe" />
     # This XML is used between <Exceptions> OR <FilePathRule>
-    $FilePathCondition = $xDocument.CreateElement("FilePathCondition")  
+    $FilePathCondition = $xDocument.CreateElement("FilePathCondition")
     if ($Rule -like "*PRODUCT*") {
         $FilenameWildcard = "*{0}*.exe" -f $Rule.Filepath.split('.')[0]
         $FilePathCondition.SetAttribute("Path", $FilenameWildcard)
         $Msg = "Building '{0}' Rule for group '{1}' for software '{2}' in '{3}' based on filename" -f $Rule.Action, $Rule.UserOrGroup, $Rule.Filepath, $Directory
         Write-Warning $Msg
-    
+
     } else {
         $FilePathCondition.SetAttribute("Path", $Rule.Filepath)
         $Msg = "Building '{0}' Rule for group '{1}' for path '{2}'" -f $Rule.Action, $Rule.UserOrGroup, $Rule.Filepath
         Write-Host $Msg -ForegroundColor Green
-    }  
+    }
 
     Return $FilePathCondition
 }

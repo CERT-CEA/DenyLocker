@@ -7,7 +7,7 @@ function WriteXml {
         [Parameter(Mandatory = $true)] [string] $BinDir,
         [Parameter(Mandatory = $true)] $Gpo,
         [Parameter(Mandatory = $true)] $XmlOutFile,
-        [Parameter(Mandatory = $true)] $ApplockerXml   
+        [Parameter(Mandatory = $true)] $ApplockerXml
     )
     # Write the XML created by CreateRule to a File
 
@@ -20,7 +20,7 @@ function WriteXml {
 
     $Msg = "Building Applocker Gpo policy '{0}' to '{1}'" -f $GpoName, $XmlOutFile
     Write-Host $Msg
-    
+
     # Iterate over every EXE, MSI and SCRIPT Rules
     foreach ($Placeholder in $Placeholders.Keys) {
         GenerateXmlRule -xDocument $xDocument -PlaceholderKey $Placeholder -BinDir $BinDir -Rules $Rules[0].$Placeholder
@@ -48,7 +48,7 @@ function GenerateXmlRule {
         [Parameter(Mandatory = $true)] [AllowEmptyCollection()] [array] $Rules
     )
     # Create the resulting xml for a given Rule
-    
+
     $CountRules = ($Rules|Measure-Object).Count
     if ($CountRules -gt 0) {
         $Msg = "Building RuleCollection '{0}' Rules" -f $PlaceholderKey
@@ -71,7 +71,7 @@ function GenerateXmlRule {
             $File = Get-ChildItem -LiteralPath $BinDir $Rule.Filepath
             $Publisher = (Get-AppLockerFileInformation $File.FullName).Publisher
         }
-    
+
         # the Rule may not have a Publisher if it is not signed
         if ($null -eq $Publisher)
         {
@@ -87,10 +87,10 @@ function GenerateXmlRule {
         else
         {
             $FileRule = CreateFilePublisherRule -xDocument $xDocument -Publisher $Publisher -Rule $Rule
-            # Create a FilePublisherCondition element   
+            # Create a FilePublisherCondition element
             # <FilePublisherCondition BinaryName="*" ProductName="*" PublisherName="O=DROPBOX, INC, L=SAN FRANCISCO, S=CALIFORNIA, C=US">
-            $FileCondition = CreateFilePublisherCondition -xDocument $xDocument -Publisher $Publisher -directory $BinDir -Rule $Rule    
-       
+            $FileCondition = CreateFilePublisherCondition -xDocument $xDocument -Publisher $Publisher -directory $BinDir -Rule $Rule
+
         }
 
         # If the binary is to be placed in an applocker exception
@@ -109,9 +109,9 @@ function GenerateXmlRule {
             # Add the Publisher Condition where the Placeholder is
             $xPlaceholderParentNode.AppendChild($FileRule) | Out-Null
         }
-    }     
+    }
     # Remove Placeholder elements
-    $xPlaceholderParentNode.RemoveChild($xPlaceholder) | Out-Null   
+    $xPlaceholderParentNode.RemoveChild($xPlaceholder) | Out-Null
 }
 
 function ExportXmlRule {
@@ -124,10 +124,10 @@ function ExportXmlRule {
     foreach ($Gpo in $ConfigData.PSObject.Properties) {
         $GpoName = $Gpo.Name
         $XmlOutFile = Join-Path -Path $OutDir -ChildPath ((Get-Date -Format "yyyyMMdd")+"_$GpoName.xml")
-        
+
         $Msg = "** EXPORTING RULES '{0}' TO EXCEL **" -f $XmlOutFile
         Write-Host $Msg
-        # SaveWorkbook : saves workbook to same directory as input 
+        # SaveWorkbook : saves workbook to same directory as input
         # File with same File name and default Excel File extension
         & $ps1_ExportPolicyToExcel -AppLockerXml $XmlOutFile -SaveWorkbook
     }

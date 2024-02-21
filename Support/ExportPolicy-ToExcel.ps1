@@ -30,7 +30,7 @@ If this parameter is specified, AppLocker policy is read from the specified CSV 
 If set, saves workbook to same directory as input file with same file name and default Excel file extension.
 
 .EXAMPLE
-.\ExportPolicy-ToExcel.ps1 
+.\ExportPolicy-ToExcel.ps1
 
 Generates an Excel worksheet representing the computer's effective AppLocker policy.
 

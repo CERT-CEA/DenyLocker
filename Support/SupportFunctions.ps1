@@ -30,7 +30,7 @@ Global variables defining known file extensions
 if (Test-Path("function:\SaveXmlDocAsUnicode"))
 {
     return
-} 
+}
 
 ####################################################################################################
 # Ensure the AppLocker assembly is loaded. (Scripts sometimes run into TypeNotFound errors if not.)
@@ -239,10 +239,10 @@ function AddWorksheetFromCsvFile([string]$filename, [string]$tabname, [string]$C
             $ix++
         }
     }
-        
+
     # Formatting: autosize row heights, then set maximum height (if CrLf replacement on)
     $dummy = $worksheet.Cells.EntireRow.AutoFit()
-    # If line breaks added, limit autofit row height to 
+    # If line breaks added, limit autofit row height to
     if ($CrLfEncoded.Length -gt 0)
     {
         $ix = 1
@@ -512,11 +512,11 @@ function RenamePaths($paths, $forUsername)
 # Global variables - known file extensions
 ####################################################################################################
 #
-# With the -Directory switch, the Get-AppLockerFileInformation cmdlet inspects files with the extensions shown below (GetAlfiDefaultExts). 
-# Create-Policies.ps1 (via BuildRulesForFilesInWritableDirectories.ps1) and Scan-Directories.ps1 inspect the content of other files to 
+# With the -Directory switch, the Get-AppLockerFileInformation cmdlet inspects files with the extensions shown below (GetAlfiDefaultExts).
+# Create-Policies.ps1 (via BuildRulesForFilesInWritableDirectories.ps1) and Scan-Directories.ps1 inspect the content of other files to
 # determine whether any of them are Portable Executable files with non-standard extensions. To save the cost of reading in lots of files that
 # are never PE files (never should be, anyway), those scripts consume this script's output and doesn't inspect files with these extensions.
-# 
+#
 # NOTE THAT IF YOU EDIT THE NeverExecutableExts ARRAY:
 # * Make sure the script returns one array of strings: comma after each one except the last.
 # * Each extension must begin with a ".".
@@ -524,11 +524,11 @@ function RenamePaths($paths, $forUsername)
 # * Do NOT add any of the extensions that Get-AppLockerFileInformation searches.
 # * Order doesn't matter.
 # * Do not edit the GetAlfiDefaultExts array.
-# 
+#
 
 Set-Variable -Name GetAlfiDefaultExts -Option Constant -Value ".com", ".exe", ".dll", ".ocx", ".msi", ".msp", ".mst", ".bat", ".cmd", ".js", ".ps1", ".vbs", ".appx"
 Set-Variable -Name NeverExecutableExts -Option Constant -Value `
-    ".admx", ".adml", ".opax", ".opal", 
+    ".admx", ".adml", ".opax", ".opal",
     ".etl", ".evtx", ".msc", ".pdb",
     ".chm", ".hlp",
     ".gif", ".jpg", ".jpeg", ".png", ".bmp", ".svg", ".ico", ".pfm", ".ttf", ".fon", ".otf", ".cur",
