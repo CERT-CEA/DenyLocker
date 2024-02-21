@@ -415,8 +415,10 @@ function TestXmlRule {
                 foreach ($rule in $GPO.Value[0].$placeholderKey) {
 
                     if ($placeholderKey -like "*PRODUCT*") {
+                        # Does the file exist
                         if (Test-Path -PathType leaf -Path $(Join-Path -Path $binDir -ChildPath $rule.filepath)) {
                             $testresult = Get-ChildItem -LiteralPath $binDir $rule.filepath |Convert-Path | Test-AppLockerPolicy -XmlPolicy $xmlOutFile -User $rule.UserOrGroupSid
+                            # Checking Appocker result
                             if ($testresult.PolicyDecision -ne $PolicyDecision.Item($rule.action) -and -not $rule.isException) {
                                 $msg = "'{0}' is '{1}' for '{2}' and should be ''{3}''" -f $testresult.FilePath, $testresult.PolicyDecision, $rule.UserOrGroup, $rule.action
                                 Write-Host $msg -ForegroundColor Red
@@ -470,27 +472,19 @@ function GenerateApplockerXml {
         [Parameter(Mandatory = $true)] [string] $outDir
     )
     # Main function
-    # Parse the config file
-    # Create the rules according to createRules, testRules and exportRules options
-
-    CheckBinDirectory -binDir $binDir -jsonConfigPath $jsonConfigPath
+    # Create the rules according to createRules option
 
     $configData = ReadJson $jsonConfigPath
     foreach ($GPO in $configData.PSObject.Properties) {
         $gpoName = $GPO.Name
         $xmlOutFile = Join-Path -Path $outDir -ChildPath ((Get-Date -Format "yyyyMMdd")+"_$gpoName.xml")
-
         WriteXml -GPO $GPO -binDir $binDir -xmlOutFile $xmlOutFile -applockerXml $xmlTemplateFile
-
-        $count_rules = 0
-        foreach ($placeholder in $placeholders.Keys) {
-            $count_rules += ($GPO.Value[0].$placeholder|Measure-Object).Count
-        }
     }
 }
 
 if ($createRules) {
     CheckXmlTemplate -xmlpath $xmlTemplateFile -binDir $binDir -outDir $outDir
+    CheckBinDirectory -binDir $binDir -jsonConfigPath $jsonConfigPath
     GenerateApplockerXml -jsonConfigPath $configFile -binDir $binDir -xmlTemplateFile $xmlTemplateFile -outDir $outDir
 } else {
     $msg = "createRule option is at {0} so the rules defined in {1} won't be used" -f $createRules, $jsonConfigPath
