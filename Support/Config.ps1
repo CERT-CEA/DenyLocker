@@ -1,12 +1,17 @@
+. $rootDir\Support\SupportFunctions.ps1
+$supportDir = [System.IO.Path]::Combine($rootDir, "Support")
+$binariesDir = [System.IO.Path]::Combine($rootDir, "BinariesRules")
+
 $defRulesXml = [System.IO.Path]::Combine($rootDir, "template.xml")
-$rulesFileEnforceNew = [System.IO.Path]::Combine($rootDir, $OutFile)
+$rulesFileEnforceNew = [System.IO.Path]::Combine($rootDir, $xmlOutFile)
 
-$everyoneProductToDenyDir = [System.IO.Path]::Combine($rootDir, "everyoneProductToDeny")
-$everyoneBinaryToDenyDir = [System.IO.Path]::Combine($rootDir, "everyoneBinaryToDeny")
+$everyoneProductToDenyDir = [System.IO.Path]::Combine($binariesDir, "everyoneProductToDeny")
+$everyoneBinaryToDenyDir = [System.IO.Path]::Combine($binariesDir, "everyoneBinaryToDeny")
+$adminProductToDenyDir = [System.IO.Path]::Combine($binariesDir, "adminProductToDeny")
+$anyProductToDenyExceptionDir = [System.IO.Path]::Combine($binariesDir, "anyProductToDenyException")
 
-$adminProductToDenyDir = [System.IO.Path]::Combine($rootDir, "adminProductToDeny")
-
-$anyProductToDenyExceptionDir = [System.IO.Path]::Combine($rootDir, "anyProductToDenyException")
+$ps1_ExportPolicyToCSV = [System.IO.Path]::Combine($supportDir, "ExportPolicy-ToCsv.ps1")
+$ps1_ExportPolicyToExcel = [System.IO.Path]::Combine($supportDir, "ExportPolicy-ToExcel.ps1")
 
 $placeholders = @{"EXE DENY" = "PLACEHOLDER_EXETODENY"; "MSI DENY" = "PLACEHOLDER_MSITODENY"; "EXE EXCEPTION" = "PLACEHOLDER_EXETODENY_EXCEPTION"}
 
