@@ -53,23 +53,6 @@ $rootDir = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path)
 . $rootDir\Support\Init.ps1
 . $rootDir\Support\SupportFunctions.ps1
 
-# Code from AaronLocker
-function SaveXmlDocAsUnicode([System.Xml.XmlDocument] $xmlDoc, [string] $xmlFilename)
-{
-    $xws = [System.Xml.XmlWriterSettings]::new()
-    $xws.Encoding = [System.Text.Encoding]::Unicode
-    $xws.Indent = $true
-    $xw = [System.Xml.XmlWriter]::Create($xmlFilename, $xws)
-    $xmlDoc.Save($xw)
-    $xw.Close()
-}
-
-# Code from AaronLocker
-function SaveAppLockerPolicyAsUnicodeXml([Microsoft.Security.ApplicationId.PolicyManagement.PolicyModel.AppLockerPolicy]$ALPolicy, [string]$xmlFilename)
-{
-    SaveXmlDocAsUnicode -xmlDoc ([xml]($ALPolicy.ToXml())) -xmlFilename $xmlFilename
-}
-
 function CreateFilePublisherCondition {
     Param(
         [Parameter(Mandatory = $true)] $xDocument,

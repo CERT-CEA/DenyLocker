@@ -53,6 +53,24 @@ function SaveXmlDocAsUnicode([System.Xml.XmlDocument] $xmlDoc, [string] $xmlFile
     $xw.Close()
 }
 
+# Code from AaronLocker
+function SaveXmlDocAsUnicode([System.Xml.XmlDocument] $xmlDoc, [string] $xmlFilename)
+{
+    $xws = [System.Xml.XmlWriterSettings]::new()
+    $xws.Encoding = [System.Text.Encoding]::Unicode
+    $xws.Indent = $true
+    $xw = [System.Xml.XmlWriter]::Create($xmlFilename, $xws)
+    $xmlDoc.Save($xw)
+    $xw.Close()
+}
+
+# Code from AaronLocker
+function SaveAppLockerPolicyAsUnicodeXml([Microsoft.Security.ApplicationId.PolicyManagement.PolicyModel.AppLockerPolicy]$ALPolicy, [string]$xmlFilename)
+{
+    SaveXmlDocAsUnicode -xmlDoc ([xml]($ALPolicy.ToXml())) -xmlFilename $xmlFilename
+}
+
+
 function SaveAppLockerPolicyAsUnicodeXml([Microsoft.Security.ApplicationId.PolicyManagement.PolicyModel.AppLockerPolicy]$ALPolicy, [string]$xmlFilename)
 {
     SaveXmlDocAsUnicode -xmlDoc ([xml]($ALPolicy.ToXml())) -xmlFilename $xmlFilename
