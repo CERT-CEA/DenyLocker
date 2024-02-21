@@ -51,7 +51,7 @@
                         "Action": "Allow"
                     }
                 ],
-                "EXE PRODUCT DENY EXCEPTION" : [
+                "EXE PRODUCT DENY WITH EXCEPTION" : [
                     {
                         "FilePath": "Firefox.exe",
                         "UserOrGroup": "Everyone",
@@ -79,7 +79,7 @@
                         "Action": "Deny"
                     }
                 ],
-                "EXE PATH DENY EXCEPTION": [
+                "EXE PATH DENY WITH EXCEPTION": [
                     {
                         "FilePath": "%WINDIR%\\Temp\\EXEPATHDENYEXCEPTION\\*",
                         "UserOrGroup": "Everyone",
@@ -121,7 +121,7 @@
                         "Action": "Allow"
                     }
                 ],
-                "MSI PRODUCT DENY EXCEPTION" : [
+                "MSI PRODUCT DENY WITH EXCEPTION" : [
                     {
                         "FilePath": "MSIPRODUCTDENYEXCEPTION.msi",
                         "UserOrGroup": "Everyone",
@@ -149,7 +149,7 @@
                         "Action": "Deny"
                     }
                 ],
-                "MSI PATH DENY EXCEPTION": [
+                "MSI PATH DENY WITH EXCEPTION": [
                     {
                         "FilePath": "%WINDIR%\\Temp\\MSIPATHDENYEXCEPTION\\*",
                         "UserOrGroup": "Everyone",
@@ -174,7 +174,7 @@
                         "Action": "Deny"
                     }
                 ],
-                "SCRIPT PATH DENY EXCEPTION": [
+                "SCRIPT PATH DENY WITH EXCEPTION": [
                     {
                         "FilePath": "%WINDIR%\\Temp\\SCRIPTPATHDENYEXCEPTION\\*",
                         "UserOrGroup": "Everyone",
@@ -183,6 +183,6 @@
                         "IsException": "true"
                     }
                 ]
-            }    
+            }
         ]
 }
