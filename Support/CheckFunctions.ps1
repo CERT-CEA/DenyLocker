@@ -6,8 +6,12 @@ function CheckXmlTemplate {
         [Parameter(Mandatory = $true)] [string] $OutDir
     )
     # Check template file
-    $Msg = "Checking that the template file {0} is valid" -f $XmlPath
-    Write-Verbose $Msg
+
+    if ($Verbose.IsPresent) {
+        $Msg = "Checking that the template file {0} is valid" -f $XmlPath
+        Write-Host $Msg
+    }
+
 
     # Check that the file exists
     if (-not (Test-Path $XmlPath)) {
@@ -81,10 +85,19 @@ function CheckJsonRule {
         }
     }
 
-    if (-not ($Rule.UserOrGroupSID -match "S-[0-9-]+" )) {
-        $Msg = "Invalid group SID : {0}" -f $Rule.UserOrGroupSID
+    if (-not ($Rule.UserOrGroup)) {
+        $Msg = "No group where specified in {0} : FilePath {1}" -f $PlaceholderKey, $Rule.FilePath
         Write-Warning $Msg
         throw
+    }
+
+    if (-not ($Rule.UserOrGroupSID -match "S-[0-9-]+" )) {
+        $ResolvedUserOrGroupSID = (GetObjectSID -UserOrGroup $Rule.UserOrGroup)
+        if (-not $ResolvedUserOrGroupSID) {
+            $Msg = "An error occured for {0}. FilePath {1}. Look at the warning above." -f $PlaceholderKey, $Rule.FilePath
+            Write-Warning $Msg
+            throw
+        }
     }
 
     if ($Rule.action -ne "Allow" -and $Rule.action -ne "Deny") {
@@ -102,12 +115,40 @@ function CheckBinDirectory {
     )
     # Check that every file in $BinDir folder is concerned by at least one Rule in $JsonConfigFile
     $Msg = "Checking that every file in {0} folder is concerned by at least one Rule in {1}" -f $BinDir, $JsonConfigFile
-    Write-Verbose $Msg
+    Write-Host $Msg
     Get-ChildItem -LiteralPath $BinDir | ForEach-Object {
         $FileIsInConfig = Select-String -Path $JsonConfigFile -Pattern $_.Name
-        if ($null -eq $FileIsInConfig -and $PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent) {
+        if ($null -eq $FileIsInConfig -and $Verbose.IsPresent) {
             $Msg = "File '{0}' does not appear in '{1}' config file and won't therefore be concerned by any applocker Rule defined there" -f $_.Name, $JsonConfigFile
             Write-Warning $Msg
         }
     }
+}
+
+
+function GetObjectSID {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory = $true)] [string] $UserOrGroup
+    )
+    # Given a user or group name, get its SID
+
+    if ($ResolveSID.IsPresent) {
+        # We check that the ActiveDirectory is installed in CheckParameters
+        # Let's check that we can resolve the group SID
+
+        if ($UserOrGroup -eq "Everyone") {
+            return "S-1-1-0"
+        }
+
+        try {
+            (Get-ADGroup $UserOrGroup).SID.Value
+        } catch [Microsoft.ActiveDirectory.Management.ADIdentityNotFoundException] {
+            $Msg = "Group {0} could not be resolved" -f $UserOrGroup
+            Write-Warning $Msg
+        }
+    } else  {
+        $Msg = "Please specify the -ResolveSID or the correct group SID for the group {0}" -f $UserOrGroup
+        Write-Warning $Msg
+    }  
 }

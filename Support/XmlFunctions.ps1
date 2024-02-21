@@ -98,7 +98,14 @@ function GenerateXmlRule {
             $xPlaceholderParentNode.AppendChild($FileCondition) | Out-Null
         } else {
             $FileRule.SetAttribute("Action", $Rule.Action)
-            $FileRule.SetAttribute("UserOrGroupSid", $Rule.UserOrGroupSid)
+
+            if (-not ($Rule.UserOrGroupSid)) {
+                $ResolvedUserOrGroupSID = (GetObjectSID -UserOrGroup $Rule.UserOrGroup)
+                $FileRule.SetAttribute("UserOrGroupSid", $ResolvedUserOrGroupSID)
+            } else {
+                $FileRule.SetAttribute("UserOrGroupSid", $Rule.UserOrGroupSid)
+            }
+
             $FileRule.SetAttribute("Id", ([guid]::NewGuid()).Guid)
             # Create a Conditions element
             # <Conditions>
