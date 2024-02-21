@@ -177,6 +177,8 @@ function TestRule {
         [Parameter(Mandatory = $true)] $applockerPolicy
     )
 
+    # Test applocker rules generated to ensure they work
+
     $PolicyDecision = @{"Allow" = "Allowed"; "Deny" = "Denied"}
 
     foreach ($binary in $rules) {
@@ -215,16 +217,18 @@ function CreateGPORules {
 
     foreach ($binary in $rules) {
 
+        # check if the binary exists
         if (-not (Test-Path -Path $(Join-Path -Path $binariesDirectory -ChildPath $binary.filename))) {
             $msg = "'{0}' could not be found in '{1}', download it or fix the json config file" -f $binary.filename, $binariesDirectory
             Write-Warning $msg
         } 
         else 
         {
+            # Get the publisher of the file
             $file = Get-ChildItem -LiteralPath $binariesDirectory $binary.filename
-    
             $publisher = (Get-AppLockerFileInformation $file.FullName).Publisher
         
+            # the binary may not have a publisher if it is not signed
             if ($null -eq $publisher)
             {
                 $msg = "Unable to build '{0}' rule based on signature for file '{1}' in '{2}' directory" -f $binary.action, $binary.filename, $binariesDirectory
@@ -242,6 +246,8 @@ function CreateGPORules {
                 $fileCondition = CreateFilePublisherCondition $xDocument $publisher $binariesDirectory $binary
             }
 
+            # If the binary is to be placed in an applocker exception
+            # the structure in "else" is not required
             if ($binary.isException) {
                 $xPlaceholderParentNode.AppendChild($fileCondition) | Out-Null
             } else {
@@ -262,6 +268,7 @@ function CreateGPORules {
     $xPlaceholderParentNode.RemoveChild($xPlaceholder) | Out-Null   
 }
 
+# Read the json config file
 try {
     $jsonContent = Get-Content -Raw -Path $configFile
     $configData = $jsonContent | ConvertFrom-Json
@@ -282,15 +289,21 @@ Get-ChildItem -LiteralPath $binDir | ForEach-Object {
 
 foreach ($GPO in $configData.PSObject.Properties) {
 
+    # Read the xml template
     $xDocument = [xml](Get-Content $defRulesXml)
+
+    # Get the gpo name and its rules
     $gpoName = $GPO.Name
     $rules = $GPO.Value
+
+    # Generate the xml output file name
     $xmlOutFile = Join-Path -Path $outDir -ChildPath ((Get-Date -Format "yyyyMMdd")+"_$gpoName.xml")
 
     if ($createRules) {
         $msg = "Building Applocker GPO policy '{0}' to '{1}'" -f $gpoName, $xmlOutFile
         Write-Host $msg
-
+        
+        # FIXME : can't find a way to enumerate the PS object using key/value
         CreateGPORules $xDocument "EXE DENY" $binDir $rules[0].'EXE DENY'
         CreateGPORules $xDocument "EXE ALLOW" $binDir $rules[0].'EXE ALLOW'
         CreateGPORules $xDocument "EXE EXCEPTION" $binDir $rules[0].'EXE EXCEPTION'
@@ -300,10 +313,10 @@ foreach ($GPO in $configData.PSObject.Properties) {
 
         Write-Debug $xDocument.OuterXml
 
+        # Save the applocker policy generated
         try {
-            $rulesFileEnforceNew = $xmlOutFile
             $masterPolicy = [Microsoft.Security.ApplicationId.PolicyManagement.PolicyModel.AppLockerPolicy]::FromXml($xDocument.OuterXml)
-            SaveAppLockerPolicyAsUnicodeXml -ALPolicy $masterPolicy -xmlFilename $rulesFileEnforceNew
+            SaveAppLockerPolicyAsUnicodeXml -ALPolicy $masterPolicy -xmlFilename $xmlOutFile
         } catch [System.Management.Automation.MethodInvocationException] {
             throw $_
             exit 1
@@ -324,6 +337,8 @@ foreach ($GPO in $configData.PSObject.Properties) {
 
     if ($exportRules) {
         $msg = "EXPORTING RULES '{0}' TO EXCEL" -f $xmlOutFile
+        # SaveWorkbook : saves workbook to same directory as input 
+        # file with same file name and default Excel file extension
         & $ps1_ExportPolicyToExcel -AppLockerXML $xmlOutFile -SaveWorkbook
     }
 
