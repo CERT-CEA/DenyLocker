@@ -172,9 +172,20 @@ function CheckXmlTemplate {
     $msg = "Checking that the template file {0} is valid" -f $xmlpath
     Write-Host $msg
 
-    if (-not (Test-Path $xmlTemplateFile)) {
-        $msg = "XML template file {0} could not be found" -f $xmlTemplateFile
+    # Check that the file exists
+    if (-not (Test-Path $xmlpath)) {
+        $msg = "XML template file {0} could not be found" -f $xmlpath
         Write-Error $msg
+    }
+
+    # Check that all placeholder are in the template
+    $xDocument = [xml](Get-Content $xmlpath)
+    foreach ($placeholderKey in $placeholders.Keys) {
+        $x = $xDocument.SelectNodes("//"+$placeholders.Item($placeholderKey))
+        if ($x.Count -eq 0) {
+            $msg = "Placeholder {0} could not be found in {1}" -f $placeholders.Item($placeholderKey), $xmlpath
+            Write-Error $msg
+        }
     }
 
     try {
