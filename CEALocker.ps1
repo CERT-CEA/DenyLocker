@@ -3,14 +3,14 @@
     Ce script génère un fichier xml de règles Applocker.
     Les règles autorise tout sauf la liste de logiciels présents dans différents dossiers
     
-    .PARAMETER configFile
+    .PARAMETER jsonConfigPath
     Nom du fichier json contenant les binaires et la règle à leur appliquer
 
     .PARAMETER xmlTemplateFile
     Nom du fichier xml utilisé comme template
 
     .PARAMETER binDir
-    Dossier contenant les binaires définies dans configFile
+    Dossier contenant les binaires définies dans jsonConfigPath
 
     .PARAMETER outDir
     Dossier dans lequel les xml Applocker seront écrits
@@ -41,7 +41,7 @@
 #>
 
 Param(
-    [Parameter(Mandatory=$False)][string]$configFile="CEA-config.json",
+    [Parameter(Mandatory=$False)][string]$jsonConfigPath="CEA-config.json",
     [Parameter(Mandatory=$False)][string]$xmlTemplateFile="Support/template.xml",
     [Parameter(Mandatory=$False)][string]$binDir="binaries",
     [Parameter(Mandatory=$False)][string]$outDir="output",
@@ -485,15 +485,15 @@ function GenerateApplockerXml {
 if ($createRules) {
     CheckXmlTemplate -xmlpath $xmlTemplateFile -binDir $binDir -outDir $outDir
     CheckBinDirectory -binDir $binDir -jsonConfigPath $jsonConfigPath
-    GenerateApplockerXml -jsonConfigPath $configFile -binDir $binDir -xmlTemplateFile $xmlTemplateFile -outDir $outDir
+    GenerateApplockerXml -jsonConfigPath $jsonConfigPath -binDir $binDir -xmlTemplateFile $xmlTemplateFile -outDir $outDir
 } else {
     $msg = "createRule option is at {0} so the rules defined in {1} won't be used" -f $createRules, $jsonConfigPath
 }
 
 if ($testRules) {
-    TestXmlRule -binDir $binDir -jsonConfigPath $configFile
+    TestXmlRule -binDir $binDir -jsonConfigPath $jsonConfigPath
 }
 
 if ($exportRules) {
-    ExportXmlRule -jsonConfigPath $configFile
+    ExportXmlRule -jsonConfigPath $jsonConfigPath
 }
