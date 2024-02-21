@@ -168,8 +168,6 @@ function TestRule {
 
     # Test applocker rules generated to ensure they work
 
-    $PolicyDecision = @{"Allow" = "Allowed"; "Deny" = "Denied"}
-
     foreach ($rule in $rules) {
 
         if (-not (Test-Path -Path $(Join-Path -Path $binariesDirectory -ChildPath $rule.filepath))) {
@@ -179,7 +177,7 @@ function TestRule {
         else 
         {
             $testresult = Get-ChildItem -LiteralPath $binariesDirectory $rule.filepath |Convert-Path | Test-AppLockerPolicy -XmlPolicy $applockerPolicy -User $rule.UserOrGroupSid
-            if ($testresult.PolicyDecision -ne $PolicyDecision.Item($rule.action) -and -not $rule.isException) {
+            if ($testresult.PolicyDecision -ne $rule.action -and -not $rule.isException) {
                 $msg = "'{0}' is '{1}' for '{2}' and should be ''{3}''" -f $testresult.FilePath, $testresult.PolicyDecision, $rule.UserOrGroup, $rule.action
                 Write-Host $msg -ForegroundColor Red
             } else {
