@@ -170,20 +170,20 @@ function TestRule {
 
     $PolicyDecision = @{"Allow" = "Allowed"; "Deny" = "Denied"}
 
-    foreach ($binary in $rules) {
+    foreach ($rule in $rules) {
 
-        if (-not (Test-Path -Path $(Join-Path -Path $binariesDirectory -ChildPath $binary.filepath))) {
-            $msg = "'{0}' could not be found in '{1}', download it or fix the json config file" -f $binary.filepath, $binariesDirectory
+        if (-not (Test-Path -Path $(Join-Path -Path $binariesDirectory -ChildPath $rule.filepath))) {
+            $msg = "'{0}' could not be found in '{1}', download it or fix the json config file" -f $rule.filepath, $binariesDirectory
             Write-Warning $msg
         } 
         else 
         {
-            $testresult = Get-ChildItem -LiteralPath $binariesDirectory $binary.filepath |Convert-Path | Test-AppLockerPolicy -XmlPolicy $applockerPolicy -User $binary.UserOrGroupSid
-            if ($testresult.PolicyDecision -ne $PolicyDecision.Item($binary.action) -and -not $binary.isException) {
-                $msg = "'{0}' is '{1}' for '{2}' and should be ''{3}''" -f $testresult.FilePath, $testresult.PolicyDecision, $binary.UserOrGroup, $binary.action
+            $testresult = Get-ChildItem -LiteralPath $binariesDirectory $rule.filepath |Convert-Path | Test-AppLockerPolicy -XmlPolicy $applockerPolicy -User $rule.UserOrGroupSid
+            if ($testresult.PolicyDecision -ne $PolicyDecision.Item($rule.action) -and -not $rule.isException) {
+                $msg = "'{0}' is '{1}' for '{2}' and should be ''{3}''" -f $testresult.FilePath, $testresult.PolicyDecision, $rule.UserOrGroup, $rule.action
                 Write-Host $msg -ForegroundColor Red
             } else {
-                $msg = "'{0}' is '{1}' for '{2}' by ''{3}''" -f $testresult.FilePath, $testresult.PolicyDecision, $binary.UserOrGroup, $testresult.MatchingRule
+                $msg = "'{0}' is '{1}' for '{2}' by ''{3}''" -f $testresult.FilePath, $testresult.PolicyDecision, $rule.UserOrGroup, $testresult.MatchingRule
                 Write-Host $msg -ForegroundColor Green
             }
         }
@@ -205,48 +205,48 @@ function CreateGPORules {
     $xPlaceholder = $xDocument.SelectNodes("//"+$placeholders.Item($placeholderKey))[0]
     $xPlaceholderParentNode = $xPlaceholder.ParentNode
 
-    foreach ($binary in $rules) {
+    foreach ($rule in $rules) {
 
-        # check if the binary exists
-        if ($placeholderKey -contains "PRODUCT" -and -not (Test-Path -Path $(Join-Path -Path $binariesDirectory -ChildPath $binary.filepath))) {
-            $msg = "'{0}' could not be found in '{1}', download it or fix the json config file" -f $binary.filepath, $binariesDirectory
+        # check if the rule exists
+        if ($placeholderKey -like "*PRODUCT*" -and -not (Test-Path -Path $(Join-Path -Path $binariesDirectory -ChildPath $rule.filepath))) {
+            $msg = "'{0}' could not be found in '{1}', download it or fix the json config file" -f $rule.filepath, $binariesDirectory
             Write-Warning $msg
         } 
         else 
         {
-            if ($placeholderKey -contains "PRODUCT") {
+            if ($placeholderKey -like "*PRODUCT*") {
                 # Get the publisher of the file
-                $file = Get-ChildItem -LiteralPath $binariesDirectory $binary.filepath
+                $file = Get-ChildItem -LiteralPath $binariesDirectory $rule.filepath
                 $publisher = (Get-AppLockerFileInformation $file.FullName).Publisher
             }
         
-            # the binary may not have a publisher if it is not signed
+            # the rule may not have a publisher if it is not signed
             if ($null -eq $publisher)
             {
-                if ($placeholderKey -contains "PRODUCT") {
-                    $msg = "Unable to build '{0}' rule based on signature for file '{1}' in '{2}' directory" -f $binary.action, $binary.filepath, $binariesDirectory
+                if ($placeholderKey -like "*PRODUCT*") {
+                    $msg = "Unable to build '{0}' rule based on signature for file '{1}' in '{2}' directory" -f $rule.action, $rule.filepath, $binariesDirectory
                     Write-Warning $msg
                 }
-                $fileRule = CreateFilePathRule $xDocument $binary
+                $fileRule = CreateFilePathRule $xDocument $rule
                 # Create a FilePathCondition element
                 # <FilePathCondition FilePath="ngrok">
-                $fileCondition = CreateFilePathCondition $xDocument $binariesDirectory $binary
+                $fileCondition = CreateFilePathCondition $xDocument $binariesDirectory $rule
             }
             else
             {
-                $fileRule = CreateFilePublisherRule $xDocument $publisher $binary
+                $fileRule = CreateFilePublisherRule $xDocument $publisher $rule
                 # Create a FilePublisherCondition element   
                 # <FilePublisherCondition BinaryName="*" ProductName="*" PublisherName="O=DROPBOX, INC, L=SAN FRANCISCO, S=CALIFORNIA, C=US">
-                $fileCondition = CreateFilePublisherCondition $xDocument $publisher $binariesDirectory $binary
+                $fileCondition = CreateFilePublisherCondition $xDocument $publisher $binariesDirectory $rule
             }
 
             # If the binary is to be placed in an applocker exception
             # the structure in "else" is not required
-            if ($binary.isException) {
+            if ($rule.isException) {
                 $xPlaceholderParentNode.AppendChild($fileCondition) | Out-Null
             } else {
-                $fileRule.SetAttribute("Action", $binary.action)
-                $fileRule.SetAttribute("UserOrGroupSid", $binary.UserOrGroupSid)
+                $fileRule.SetAttribute("Action", $rule.action)
+                $fileRule.SetAttribute("UserOrGroupSid", $rule.UserOrGroupSid)
                 $fileRule.SetAttribute("Id", ([guid]::NewGuid()).Guid)
                 # Create a Conditions element
                 # <Conditions>
@@ -273,6 +273,8 @@ try {
 }
 
 # Quick check that every file in $binDir folder is concerned by at least one rule in $configFile
+$msg = "Checking that every file in {0} folder is concerned by at least one rule in {1}" -f $binDir, $configFile
+Write-Host $msg
 Get-ChildItem -LiteralPath $binDir | ForEach-Object {
     $fileIsInConfig = Select-String -Path $configFile -Pattern $_.Name
     if ($fileIsInConfig -eq $null) {
