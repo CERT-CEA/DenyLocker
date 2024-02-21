@@ -3,8 +3,14 @@
     Ce script génère un fichier xml de règles Applocker.
     Les règles autorise tout sauf la liste de logiciels présents dans différents dossiers
     
-    .PARAMETER xmlOutFile
-    Nom du fichier de sortie xml Applocker voulu
+    .PARAMETER configFile
+    Nom du fichier json contenant les binaires et la règle à leur appliquer
+
+    .PARAMETER binDir
+    Dossier contenant les binaires définies dans configFile
+
+    .PARAMETER outDir
+    Dossier dans lequel les xml Applocker seront écrits
 
     .PARAMETER testRules
     Test les règles générés
@@ -19,8 +25,9 @@
     (c) Florian MARTIN 2023
     version 1.0
 
+    TODO
     Example
-    .\CEALocker.ps1 -xmlOutFile example.xml
+    .\CEALocker.ps1 
     Fichier de sortie par défaut : yyyyMMdd_cealocker.xml
     .\CEALocker.ps1
     Pour ne pas tester les règles générées :
@@ -31,18 +38,20 @@
 #>
 
 Param(
-    [Parameter(Mandatory=$False)][string]$xmlOutFile=(Get-Date -Format "yyyyMMdd")+"_cealocker.xml",
     [Parameter(Mandatory=$False)][bool]$testRules=$true,
+    [Parameter(Mandatory=$False)][string]$configFile="CEA-config.json",
     [Parameter(Mandatory=$False)][bool]$createRules=$true,
-    [Parameter(Mandatory=$False)][bool]$exportRules=$true
+    [Parameter(Mandatory=$False)][bool]$exportRules=$true,
+    [Parameter(Mandatory=$False)][string]$binDir="Binaries",
+    [Parameter(Mandatory=$False)][string]$outDir="output"
     )
 
+$ErrorActionPreference="Stop"
 $rootDir = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path)
 # Dot-source the config file.
 . $rootDir\Support\Config.ps1
 . $rootDir\Support\Init.ps1
-. $rootDir\SupportFunctions.ps1
-$xDocument = [xml](Get-Content $defRulesXml)
+. $rootDir\Support\SupportFunctions.ps1
 
 # Code from AaronLocker
 function SaveXmlDocAsUnicode([System.Xml.XmlDocument] $xmlDoc, [string] $xmlFilename)
@@ -65,7 +74,7 @@ function CreateFilePublisherCondition {
     Param(
         [Parameter(Mandatory = $true)] $xDocument,
         [Parameter(Mandatory = $true)] $publisher,
-        [Parameter(Mandatory = $true)] [string] $filename,
+        [Parameter(Mandatory = $true)] [string] $directory,
         [Parameter(Mandatory = $true)] $rule
     )
     # Create a FilePublisherCondition element
@@ -75,9 +84,9 @@ function CreateFilePublisherCondition {
 
     $filePublisherCondition = $xDocument.CreateElement("FilePublisherCondition")   
     if ($publisher.ProductName) {
-        $msg = "Building {0} rule for group {1} for {2} IN {3}" -f $rule.action, $rule.UserOrGroup, $publisher.ProductName, $rule.directory
+        $msg = "Building {0} rule for group {1} for product {2} in {3} directory" -f $rule.action, $rule.UserOrGroup, $publisher.ProductName, $directory
     } else {
-        $msg = "Building {0} rule for group {1} for {2} IN {3}" -f $rule.action, $rule.UserOrGroup, $filename, $rule.directory
+        $msg = "Building {0} rule for group {1} for filename {2} in {3} directory" -f $rule.action, $rule.UserOrGroup, $rule.filename, $directory
     }
     Write-Host $msg -ForegroundColor Green
 
@@ -89,7 +98,7 @@ function CreateFilePublisherCondition {
         $filePublisherCondition.SetAttribute("ProductName", "*" )
     }
 
-    if ($rule.denyBinary -and $publisher.BinaryName) {
+    if ($rule.ruleBinary -and $publisher.BinaryName) {
         $filePublisherCondition.SetAttribute("BinaryName", $publisher.binarytodeny)
     } else {
         $filePublisherCondition.SetAttribute("BinaryName", "*" )
@@ -107,15 +116,15 @@ function CreateFilePublisherCondition {
 function CreateFilePathCondition {
     Param(
         [Parameter(Mandatory = $true)] $xDocument,
-        [Parameter(Mandatory = $true)] [string] $filename,
+        [Parameter(Mandatory = $true)] [string] $directory,
         [Parameter(Mandatory = $true)] $rule
     )
     # Create a FilePathCondition element
     # <FilePathCondition Path="ngrok*.exe" />
     # This XML is used between <Exceptions> OR <FilePathRule>
     $filePathCondition = $xDocument.CreateElement("FilePathCondition")   
-    $filePathCondition.SetAttribute("Path", "*"+$filename+"*.exe")
-    $msg = "Building {0} rule for group {1} for software {2} IN {3} based on filename" -f $rule.action, $rule.UserOrGroup, $filename, $rule.directory
+    $filePathCondition.SetAttribute("Path", "*"+$rule.filename+"*.exe")
+    $msg = "Building {0} rule for group {1} for software {2} in {3} based on filename" -f $rule.action, $rule.UserOrGroup, $rule.filename, $directory
     Write-Warning $msg
     Return $filePathCondition
 }
@@ -124,7 +133,6 @@ function CreateFilePublisherRule {
     Param(
         [Parameter(Mandatory = $true)] $xDocument,
         [Parameter(Mandatory = $true)] $publisher,
-        [Parameter(Mandatory = $true)] [string] $filename,
         [Parameter(Mandatory = $true)] $rule
     )
     # Create a FilePublisherRule element
@@ -139,8 +147,8 @@ function CreateFilePublisherRule {
         $fileRule.SetAttribute("Description", $rule.action + " " + $rule.UserOrGroup + " " + $publisher.ProductName)
         $fileRule.SetAttribute("Name", $rule.action + " " + $rule.UserOrGroup + " " + $publisher.ProductName)
     } else {
-        $fileRule.SetAttribute("Description", $rule.action + " " + $rule.UserOrGroup + " " + $filename)
-        $fileRule.SetAttribute("Name", $rule.action + " " + $rule.UserOrGroup + " " + $filename)
+        $fileRule.SetAttribute("Description", $rule.action + " " + $rule.UserOrGroup + " " + $rule.filename)
+        $fileRule.SetAttribute("Name", $rule.action + " " + $rule.UserOrGroup + " " + $rule.filename)
     }
     Return $fileRule
 }
@@ -148,7 +156,6 @@ function CreateFilePublisherRule {
 function CreateFilePathRule {
     Param(
         [Parameter(Mandatory = $true)] $xDocument,
-        [Parameter(Mandatory = $true)] [string] $filename,
         [Parameter(Mandatory = $true)] $rule
     )
     # Create a FilePathRule element
@@ -156,76 +163,10 @@ function CreateFilePathRule {
     #      ...
     # </FilePathRule>
     $fileRule = $xDocument.CreateElement("FilePathRule")
-    $fileRule.SetAttribute("Description", $rule.action + " " + $rule.UserOrGroup + " " + $filename)
-    $fileRule.SetAttribute("Name", $rule.action + " " + $rule.UserOrGroup + " " + $filename)
+    $fileRule.SetAttribute("Description", $rule.action + " " + $rule.UserOrGroup + " " + $rule.filename)
+    $fileRule.SetAttribute("Name", $rule.action + " " + $rule.UserOrGroup + " " + $rule.filename)
     Return $fileRule
 }
-
-function CreateRule {
-
-    Param(
-        [Parameter(Mandatory = $true)] $xDocument,
-        [Parameter(Mandatory = $true)] [ValidateScript( { $_ -in $applockerRuleCollection } )] [string] $ruleCollection,
-        [Parameter(Mandatory = $true)] [array] $rules,
-        [Parameter(Mandatory = $true)] [ValidateScript( { $_ -in $placeholders.Keys } )] [string] $placeholderKey
-    )
-    $msg = "Building ruleCollection {0} '{1}' rules" -f $ruleCollection, $placeholderKey
-    Write-Host $msg -ForegroundColor Green
-
-    # Let's create an XML child
-    $xPlaceholder = $xDocument.SelectNodes("//"+$placeholders.Item($placeholderKey))[0]
-    $xPlaceholderParentNode = $xPlaceholder.ParentNode
-
-    foreach ($rule in $rules) {
-
-        # We want to block MSI file installation if the product has one
-        if ($ruleCollection -eq "Msi") {
-            $files = Get-ChildItem $rule.directory -File -Filter "*.msi"
-        # But also the resulting EXE, so we want EXE AND MSI files signature
-        } else {
-            $files = Get-ChildItem $rule.directory -File 
-        }
-        $files | ForEach-Object {
-    
-            $publisher = (Get-AppLockerFileInformation $_.FullName).Publisher
-            $filename = $_.Name.split('.')[0]
-            
-            if ($null -eq $publisher)
-            {
-                Write-Warning "UNABLE TO BUILD DENYLIST RULE BASED ON SIGNATURE FOR $_"
-                $fileRule = CreateFilePathRule $xDocument $filename $rule
-                # Create a FilePathCondition element
-                # <FilePathCondition FilePath="ngrok">
-                $fileCondition = CreateFilePathCondition $xDocument $filename $rule
-            }
-            else
-            {
-                $fileRule = CreateFilePublisherRule $xDocument $publisher $filename $rule
-                # Create a FilePublisherCondition element
-                # <FilePublisherCondition BinaryName="*" ProductName="*" PublisherName="O=DROPBOX, INC, L=SAN FRANCISCO, S=CALIFORNIA, C=US">
-                $fileCondition = CreateFilePublisherCondition $xDocument $publisher $filename $rule
-            }
-
-            if ($rule.isException) {
-                $xPlaceholderParentNode.AppendChild($fileCondition) | Out-Null
-            } else {
-                $fileRule.SetAttribute("Action", $rule.action)
-                $fileRule.SetAttribute("UserOrGroupSid", $rule.UserOrGroupSid)
-                $fileRule.SetAttribute("Id", ([guid]::NewGuid()).Guid)
-                # Create a Conditions element
-                # <Conditions>
-                $condition = $xDocument.CreateElement("Conditions")
-                $condition.AppendChild($fileCondition) | Out-Null
-                $fileRule.AppendChild($condition) | Out-Null
-                # Add the publisher condition where the placeholder is
-                $xPlaceholderParentNode.AppendChild($fileRule) | Out-Null
-            }
-        } 
-    }
-    # Remove placeholder elements
-    $xPlaceholderParentNode.RemoveChild($xPlaceholder) | Out-Null
-}
-
 function TestRule {
 
     Param(
@@ -251,6 +192,126 @@ function TestRule {
     }
 
 }
+function CreateGPORules {
+
+    Param(
+        [Parameter(Mandatory = $true)] $xDocument,
+        [Parameter(Mandatory = $true)] [ValidateScript( { $_ -in $placeholders.Keys } )] [string] $placeholderKey,
+        [Parameter(Mandatory = $true)] [string] $binariesDirectory,
+        [Parameter(Mandatory = $true)] [AllowEmptyCollection()] [array] $rules
+    )
+    $msg = "Building ruleCollection '{0}' rules" -f $placeholderKey
+    Write-Host $msg -ForegroundColor Green
+
+    # Let's create an XML child
+    $xPlaceholder = $xDocument.SelectNodes("//"+$placeholders.Item($placeholderKey))[0]
+    $xPlaceholderParentNode = $xPlaceholder.ParentNode
+
+    foreach ($binary in $rules) {
+
+        if (-not (Test-Path -Path $(Join-Path -Path $binariesDirectory -ChildPath $binary.filename))) {
+            $msg = "{0} could not be found in {1}, download it or fix the json config file" -f $binary.filename, $binariesDirectory
+            Write-Warning $msg
+        } 
+        else 
+        {
+            $file = Get-ChildItem -LiteralPath $binariesDirectory $binary.filename
+    
+            $publisher = (Get-AppLockerFileInformation $file.FullName).Publisher
+        
+            if ($null -eq $publisher)
+            {
+                $msg = "Unable to build {0} rule based on signature for file {1} in {2} directory" -f $binary.action, $binary.filename, $binariesDirectory
+                Write-Warning $msg
+                $fileRule = CreateFilePathRule $xDocument $binary
+                # Create a FilePathCondition element
+                # <FilePathCondition FilePath="ngrok">
+                $fileCondition = CreateFilePathCondition $xDocument $binariesDirectory $binary
+            }
+            else
+            {
+                $fileRule = CreateFilePublisherRule $xDocument $publisher $binary
+                # Create a FilePublisherCondition element   
+                # <FilePublisherCondition BinaryName="*" ProductName="*" PublisherName="O=DROPBOX, INC, L=SAN FRANCISCO, S=CALIFORNIA, C=US">
+                $fileCondition = CreateFilePublisherCondition $xDocument $publisher $binariesDirectory $binary
+            }
+
+            if ($binary.isException) {
+                $xPlaceholderParentNode.AppendChild($fileCondition) | Out-Null
+            } else {
+                $fileRule.SetAttribute("Action", $binary.action)
+                $fileRule.SetAttribute("UserOrGroupSid", $binary.UserOrGroupSid)
+                $fileRule.SetAttribute("Id", ([guid]::NewGuid()).Guid)
+                # Create a Conditions element
+                # <Conditions>
+                $condition = $xDocument.CreateElement("Conditions")
+                $condition.AppendChild($fileCondition) | Out-Null
+                $fileRule.AppendChild($condition) | Out-Null
+                # Add the publisher condition where the placeholder is
+                $xPlaceholderParentNode.AppendChild($fileRule) | Out-Null
+            }
+        } 
+    }     
+    # Remove placeholder elements
+    $xPlaceholderParentNode.RemoveChild($xPlaceholder) | Out-Null   
+}
+
+if ($createRules) {
+
+    try {
+        $jsonContent = Get-Content -Raw -Path $configFile
+        $configData = $jsonContent | ConvertFrom-Json
+    } catch [System.ArgumentException] {
+        $_.Exception.GetType().FullName
+        $msg = "{0} is not a valid json file" -f $configFile
+        Write-Error $msg
+    }
+
+    foreach ($GPO in $configData.PSObject.Properties) {
+
+        $xDocument = [xml](Get-Content $defRulesXml)
+        $gpoName = $GPO.Name
+        $rules = $GPO.Value
+        $xmlOutFile = Join-Path -Path $outDir -ChildPath ((Get-Date -Format "yyyyMMdd")+"_$gpoName.xml")
+
+        $msg = "Building Applocker GPO policy {0} to {1}" -f $gpoName, $xmlOutFile
+        Write-Host $msg
+
+        CreateGPORules $xDocument "EXE DENY" $binDir $rules[0].'EXE DENY'
+        CreateGPORules $xDocument "EXE ALLOW" $binDir $rules[0].'EXE ALLOW'
+        CreateGPORules $xDocument "EXE EXCEPTION" $binDir $rules[0].'EXE EXCEPTION'
+        CreateGPORules $xDocument "MSI DENY" $binDir $rules[0].'MSI DENY'
+        CreateGPORules $xDocument "MSI ALLOW" $binDir $rules[0].'MSI ALLOW'
+        CreateGPORules $xDocument "MSI EXCEPTION" $binDir $rules[0].'MSI EXCEPTION'
+
+        Write-Debug $xDocument.OuterXml
+
+        try {
+            $rulesFileEnforceNew = $xmlOutFile
+            $masterPolicy = [Microsoft.Security.ApplicationId.PolicyManagement.PolicyModel.AppLockerPolicy]::FromXml($xDocument.OuterXml)
+            SaveAppLockerPolicyAsUnicodeXml -ALPolicy $masterPolicy -xmlFilename $rulesFileEnforceNew
+        } catch [System.Management.Automation.MethodInvocationException] {
+            throw $_
+            exit 1
+        }
+        <#
+        if ($testRules) {
+            $msg = "TESTING RULES from {0}" -f $xmlOutFile
+            Write-Host $msg
+            TestRule "Exe" $denyRules $xmlOutFile
+            TestRule "Exe" $allowExceptDenyRule $xmlOutFile
+        }
+        #>
+    
+        if ($exportRules) {
+            $msg = "EXPORTING RULES {0} TO EXCEL" -f $xmlOutFile
+            & $ps1_ExportPolicyToExcel -AppLockerXML $xmlOutFile
+        }
+
+        }
+}
+
+<#
 
 if ($createRules) {
     $msg = "BUILDING RULES TO {0}" -f $xmlOutFile
@@ -271,14 +332,4 @@ if ($createRules) {
     }
 }
 
-if ($testRules) {
-    $msg = "TESTING RULES from {0}" -f $xmlOutFile
-    Write-Host $msg
-    TestRule "Exe" $denyRules $xmlOutFile
-    TestRule "Exe" $allowExceptDenyRule $xmlOutFile
-}
-
-if ($exportRules) {
-    $msg = "EXPORTING RULES {0} TO EXCEL" -f $xmlOutFile
-    & $ps1_ExportPolicyToExcel -AppLockerXML $xmlOutFile
-}
+#>
