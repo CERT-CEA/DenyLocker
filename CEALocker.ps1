@@ -167,7 +167,7 @@ function CreateFilePathRule {
 function CheckXmlTemplate {
     Param(
         [Parameter(Mandatory = $true)] [string] $xmlpath,
-        [Parameter(Mandatory = $true)] [string] $binariesDirectory,
+        [Parameter(Mandatory = $true)] [string] $binDir,
         [Parameter(Mandatory = $true)] [string] $outDir
     )
     # Check template file
@@ -193,7 +193,7 @@ function CheckXmlTemplate {
 
     try {
         $EmptyJsonConfigPath = "Support\empty.json"
-        GenerateApplockerXml -jsonConfigPath $EmptyJsonConfigPath -binariesDirectory $binariesDirectory -xmlTemplateFile $xmlpath -outDir $outDir
+        GenerateApplockerXml -jsonConfigPath $EmptyJsonConfigPath -binDir $binDir -xmlTemplateFile $xmlpath -outDir $outDir
 
         $xmlOutFile = Join-Path -Path $outDir -ChildPath ((Get-Date -Format "yyyyMMdd")+"_empty.xml")
         Remove-Item -Path $xmlOutFile
@@ -207,15 +207,15 @@ function CheckXmlTemplate {
 function CheckJsonRule {
     Param(
         [Parameter(Mandatory = $true)] [ValidateScript( { $_ -in $placeholders.Keys } )] [string] $placeholderKey,
-        [Parameter(Mandatory = $true)] [string] $binariesDirectory,
+        [Parameter(Mandatory = $true)] [string] $binDir,
         [Parameter(Mandatory = $true)] $rule
     )
     # Verify som attributes of a given rule
     # Display a warning if 
 
     if ($placeholderKey -like "*PRODUCT*") {
-        if (-not (Test-Path -PathType leaf -Path $(Join-Path -Path $binariesDirectory -ChildPath $rule.filepath))) {
-            $msg = "file '{0}' could not be found in '{1}', download it or fix the json config file" -f $rule.filepath, $binariesDirectory
+        if (-not (Test-Path -PathType leaf -Path $(Join-Path -Path $binDir -ChildPath $rule.filepath))) {
+            $msg = "file '{0}' could not be found in '{1}', download it or fix the json config file" -f $rule.filepath, $binDir
             Write-Warning $msg
         }
         if ($rule.rulePublisher -ne $true -and $rule.rulePublisher -ne $false) {
@@ -261,13 +261,13 @@ function CheckJsonRule {
 
 function CheckBinDirectory {
     Param(
-        [Parameter(Mandatory = $true)] [string] $binariesDirectory,
+        [Parameter(Mandatory = $true)] [string] $binDir,
         [Parameter(Mandatory = $true)] [string] $jsonConfigPath
     )
-    # Check that every file in $binariesDirectory folder is concerned by at least one rule in $jsonConfigPath
-    $msg = "Checking that every file in {0} folder is concerned by at least one rule in {1}" -f $binariesDirectory, $jsonConfigPath
+    # Check that every file in $binDir folder is concerned by at least one rule in $jsonConfigPath
+    $msg = "Checking that every file in {0} folder is concerned by at least one rule in {1}" -f $binDir, $jsonConfigPath
     Write-Host $msg
-    Get-ChildItem -LiteralPath $binariesDirectory | ForEach-Object {
+    Get-ChildItem -LiteralPath $binDir | ForEach-Object {
         $fileIsInConfig = Select-String -Path $jsonConfigPath -Pattern $_.Name
         if ($null -eq $fileIsInConfig) {
             $msg = "File '{0}' does not appear in '{1}' config file and won't therefore be concerned by any applocker rule defined there" -f $_.Name, $jsonConfigPath
@@ -278,7 +278,7 @@ function CheckBinDirectory {
 
 function WriteXml {
     Param(
-        [Parameter(Mandatory = $true)] [string] $binariesDirectory,
+        [Parameter(Mandatory = $true)] [string] $binDir,
         [Parameter(Mandatory = $true)] $GPO,
         [Parameter(Mandatory = $true)] $xmlOutFile,
         [Parameter(Mandatory = $true)] $applockerXml   
@@ -297,7 +297,7 @@ function WriteXml {
     
     # Iterate over every EXE, MSI and SCRIPT rules
     foreach ($placeholder in $placeholders.Keys) {
-        GenerateXmlRule -xDocument $xDocument -placeholderKey $placeholder -binariesDirectory $binariesDirectory -rules $rules[0].$placeholder
+        GenerateXmlRule -xDocument $xDocument -placeholderKey $placeholder -binDir $binDir -rules $rules[0].$placeholder
     }
 
     Write-Debug $xDocument.OuterXml
@@ -317,7 +317,7 @@ function GenerateXmlRule {
     Param(
         [Parameter(Mandatory = $true)] $xDocument,
         [Parameter(Mandatory = $true)] [ValidateScript( { $_ -in $placeholders.Keys } )] [string] $placeholderKey,
-        [Parameter(Mandatory = $true)] [string] $binariesDirectory,
+        [Parameter(Mandatory = $true)] [string] $binDir,
         [Parameter(Mandatory = $true)] [AllowEmptyCollection()] [array] $rules
     )
     # Create the resulting xml for a given rule
@@ -337,11 +337,11 @@ function GenerateXmlRule {
 
     foreach ($rule in $rules) {
 
-        CheckJsonRule -placeholderKey $placeholderKey -binariesDirectory $binariesDirectory -rule $rule
+        CheckJsonRule -placeholderKey $placeholderKey -binDir $binDir -rule $rule
 
-        if ($placeholderKey -like "*PRODUCT*" -and (Test-Path -PathType leaf -Path $(Join-Path -Path $binariesDirectory -ChildPath $rule.filepath))) {
+        if ($placeholderKey -like "*PRODUCT*" -and (Test-Path -PathType leaf -Path $(Join-Path -Path $binDir -ChildPath $rule.filepath))) {
             # Get the publisher of the file
-            $file = Get-ChildItem -LiteralPath $binariesDirectory $rule.filepath
+            $file = Get-ChildItem -LiteralPath $binDir $rule.filepath
             $publisher = (Get-AppLockerFileInformation $file.FullName).Publisher
         }
     
@@ -349,20 +349,20 @@ function GenerateXmlRule {
         if ($null -eq $publisher)
         {
             if ($placeholderKey -like "*PRODUCT*") {
-                $msg = "Unable to build '{0}' rule based on signature for file '{1}' in '{2}' directory" -f $rule.action, $rule.filepath, $binariesDirectory
+                $msg = "Unable to build '{0}' rule based on signature for file '{1}' in '{2}' directory" -f $rule.action, $rule.filepath, $binDir
                 Write-Warning $msg
             }
             $fileRule = CreateFilePathRule -xDocument $xDocument -rule $rule
             # Create a FilePathCondition element
             # <FilePathCondition FilePath="ngrok">
-            $fileCondition = CreateFilePathCondition -xDocument $xDocument -directory $binariesDirectory -rule $rule
+            $fileCondition = CreateFilePathCondition -xDocument $xDocument -directory $binDir -rule $rule
         }
         else
         {
             $fileRule = CreateFilePublisherRule -xDocument $xDocument -publisher $publisher -rule $rule
             # Create a FilePublisherCondition element   
             # <FilePublisherCondition BinaryName="*" ProductName="*" PublisherName="O=DROPBOX, INC, L=SAN FRANCISCO, S=CALIFORNIA, C=US">
-            $fileCondition = CreateFilePublisherCondition -xDocument $xDocument -publisher $publisher -directory $binariesDirectory -rule $rule    
+            $fileCondition = CreateFilePublisherCondition -xDocument $xDocument -publisher $publisher -directory $binDir -rule $rule    
        
         }
 
@@ -389,7 +389,7 @@ function GenerateXmlRule {
 
 function TestXmlRule {
     Param(
-        [Parameter(Mandatory = $true)] [string] $binariesDirectory,
+        [Parameter(Mandatory = $true)] [string] $binDir,
         [Parameter(Mandatory = $true)] [string] $jsonConfigPath
     )
     # Test applocker rules generated to ensure they are applied as intended
@@ -415,8 +415,8 @@ function TestXmlRule {
                 foreach ($rule in $GPO.Value[0].$placeholderKey) {
 
                     if ($placeholderKey -like "*PRODUCT*") {
-                        if (Test-Path -PathType leaf -Path $(Join-Path -Path $binariesDirectory -ChildPath $rule.filepath)) {
-                            $testresult = Get-ChildItem -LiteralPath $binariesDirectory $rule.filepath |Convert-Path | Test-AppLockerPolicy -XmlPolicy $xmlOutFile -User $rule.UserOrGroupSid
+                        if (Test-Path -PathType leaf -Path $(Join-Path -Path $binDir -ChildPath $rule.filepath)) {
+                            $testresult = Get-ChildItem -LiteralPath $binDir $rule.filepath |Convert-Path | Test-AppLockerPolicy -XmlPolicy $xmlOutFile -User $rule.UserOrGroupSid
                             if ($testresult.PolicyDecision -ne $PolicyDecision.Item($rule.action) -and -not $rule.isException) {
                                 $msg = "'{0}' is '{1}' for '{2}' and should be ''{3}''" -f $testresult.FilePath, $testresult.PolicyDecision, $rule.UserOrGroup, $rule.action
                                 Write-Host $msg -ForegroundColor Red
@@ -428,7 +428,7 @@ function TestXmlRule {
                                 Write-Host $msg -ForegroundColor Green
                             }
                         } else {
-                            $msg = "file {0} could not be found in {1} directory, so it cannot be tested" -f $rule.filepath, $binariesDirectory
+                            $msg = "file {0} could not be found in {1} directory, so it cannot be tested" -f $rule.filepath, $binDir
                             Write-Warning $msg
                         }
                     } elseif ($placeholderKey -like "*PATH*") {
@@ -464,7 +464,7 @@ function ExportXmlRule {
 
 function GenerateApplockerXml {
     Param(
-        [Parameter(Mandatory = $true)] [string] $binariesDirectory,
+        [Parameter(Mandatory = $true)] [string] $binDir,
         [Parameter(Mandatory = $true)] [string] $jsonConfigPath,
         [Parameter(Mandatory = $true)] [string] $xmlTemplateFile,
         [Parameter(Mandatory = $true)] [string] $outDir
@@ -473,14 +473,14 @@ function GenerateApplockerXml {
     # Parse the config file
     # Create the rules according to createRules, testRules and exportRules options
 
-    CheckBinDirectory -binariesDirectory $binariesDirectory -jsonConfigPath $jsonConfigPath
+    CheckBinDirectory -binDir $binDir -jsonConfigPath $jsonConfigPath
 
     $configData = ReadJson $jsonConfigPath
     foreach ($GPO in $configData.PSObject.Properties) {
         $gpoName = $GPO.Name
         $xmlOutFile = Join-Path -Path $outDir -ChildPath ((Get-Date -Format "yyyyMMdd")+"_$gpoName.xml")
 
-        WriteXml -GPO $GPO -binariesDirectory $binariesDirectory -xmlOutFile $xmlOutFile -applockerXml $xmlTemplateFile
+        WriteXml -GPO $GPO -binDir $binDir -xmlOutFile $xmlOutFile -applockerXml $xmlTemplateFile
 
         $count_rules = 0
         foreach ($placeholder in $placeholders.Keys) {
@@ -490,14 +490,14 @@ function GenerateApplockerXml {
 }
 
 if ($createRules) {
-    CheckXmlTemplate -xmlpath $xmlTemplateFile -binariesDirectory $binDir -outDir $outDir
-    GenerateApplockerXml -jsonConfigPath $configFile -binariesDirectory $binDir -xmlTemplateFile $xmlTemplateFile -outDir $outDir
+    CheckXmlTemplate -xmlpath $xmlTemplateFile -binDir $binDir -outDir $outDir
+    GenerateApplockerXml -jsonConfigPath $configFile -binDir $binDir -xmlTemplateFile $xmlTemplateFile -outDir $outDir
 } else {
     $msg = "createRule option is at {0} so the rules defined in {1} won't be used" -f $createRules, $jsonConfigPath
 }
 
 if ($testRules) {
-    TestXmlRule -binariesDirectory $binDir -jsonConfigPath $configFile
+    TestXmlRule -binDir $binDir -jsonConfigPath $configFile
 }
 
 if ($exportRules) {
