@@ -1,0 +1,188 @@
+{
+        "CEA-SSI-ProtectionPostes-O":  [
+            {
+                "EXE PRODUCT DENY": [
+                    {
+                        "filepath": "AnyDesk.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "rulePublisher": "true",
+                        "ruleProduct": "true",
+                        "ruleBinary": "false",
+                        "action": "Deny"
+                    },
+                    {
+                        "filepath": "BraveBrowser.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "rulePublisher": "true",
+                        "ruleProduct": "true",
+                        "ruleBinary": "false",
+                        "action": "Deny"
+                    },
+                    {
+                        "filepath": "ngrok.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "rulePublisher": "true",
+                        "ruleProduct": "true",
+                        "ruleBinary": "false",
+                        "action": "Deny"
+                    },
+                    {
+                        "comments" : "The resulting exe from those msi must also be denied",
+                        "filepath": "AtlasVPN.msi",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "rulePublisher": "true",
+                        "ruleProduct": "true",
+                        "ruleBinary": "false",
+                        "action": "Deny"
+                    }
+                ],
+                "EXE PRODUCT ALLOW" : [
+                    {
+                        "filepath": "ClickShare_Setup.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "rulePublisher": "true",
+                        "ruleProduct": "true",
+                        "ruleBinary": "false",
+                        "action": "Allow"
+                    }
+                ],
+                "EXE PRODUCT DENY EXCEPTION" : [
+                    {
+                        "filepath": "Firefox.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "rulePublisher": "true",
+                        "ruleProduct": "true",
+                        "ruleBinary": "false",
+                        "action": "Allow",
+                        "isException": "true"
+                    }
+                ],
+                "EXE PATH ALLOW": [
+                    {
+                        "filepath": "%WINDIR%\\Temp\\EXEPATHALLOW\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "action": "Allow"
+                    }
+                ],
+                "EXE PATH DENY": [
+                    {
+                        "filepath": "%WINDIR%\\Temp\\EXEPATHDENY\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "action": "Deny"
+                    }
+                ],
+                "EXE PATH DENY EXCEPTION": [
+                    {
+                        "filepath": "%WINDIR%\\Temp\\EXEPATHDENYEXCEPTION\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "action": "Allow",
+                        "isException": "true"
+                    }
+                ],
+                "MSI PRODUCT DENY": [
+                    {
+                        "filepath": "AtlasVPN.msi",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "ruleCollection": "Msi",
+                        "rulePublisher": "true",
+                        "ruleProduct": "true",
+                        "ruleBinary": "false",
+                        "action": "Deny"
+                    },
+                    {
+                        "filepath": "hamachi.msi",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "ruleCollection": "Msi",
+                        "rulePublisher": "true",
+                        "ruleProduct": "true",
+                        "ruleBinary": "false",
+                        "action": "Deny"
+                    }
+                ],
+                "MSI PRODUCT ALLOW": [
+                    {
+                        "filepath": "MSIPRODUCTALLOW.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "rulePublisher": "true",
+                        "ruleProduct": "true",
+                        "ruleBinary": "false",
+                        "action": "Allow"
+                    }
+                ],
+                "MSI PRODUCT DENY EXCEPTION" : [
+                    {
+                        "filepath": "MSIPRODUCTDENYEXCEPTION.msi",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "rulePublisher": "true",
+                        "ruleProduct": "true",
+                        "ruleBinary": "false",
+                        "action": "Allow",
+                        "isException": "true"
+                    }
+                ],
+                "MSI PATH ALLOW": [
+                    {
+                        "filepath": "%WINDIR%\\Temp\\MSIPATHALLOW\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "action": "Allow"
+                    }
+                ],
+                "MSI PATH DENY": [
+                    {
+                        "filepath": "%WINDIR%\\Temp\\MSIPATHDENY\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "action": "Deny"
+                    }
+                ],
+                "MSI PATH DENY EXCEPTION": [
+                    {
+                        "filepath": "%WINDIR%\\Temp\\MSIPATHDENYEXCEPTION\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "action": "Allow",
+                        "isException": "true"
+                    }
+                ],
+                "SCRIPT PATH ALLOW": [
+                    {
+                        "filepath": "%WINDIR%\\Temp\\SCRIPTPATHALLOW\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "action": "Allow"
+                    }
+                ],
+                "SCRIPT PATH DENY": [
+                    {
+                        "filepath": "%WINDIR%\\Temp\\SCRIPTPATHALLOW\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "action": "Deny"
+                    }
+                ],
+                "SCRIPT PATH DENY EXCEPTION": [
+                    {
+                        "filepath": "%WINDIR%\\Temp\\SCRIPTPATHDENYEXCEPTION\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "action": "Allow",
+                        "isException": "true"
+                    }
+                ]
+            }    
+        ]
+}
