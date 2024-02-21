@@ -84,9 +84,9 @@ function CreateFilePublisherCondition {
 
     $filePublisherCondition = $xDocument.CreateElement("FilePublisherCondition")   
     if ($publisher.ProductName) {
-        $msg = "Building {0} rule for group {1} for product {2} in {3} directory" -f $rule.action, $rule.UserOrGroup, $publisher.ProductName, $directory
+        $msg = "Building '{0}' rule for group '{1}' for product '{2}' in '{3}' directory" -f $rule.action, $rule.UserOrGroup, $publisher.ProductName, $directory
     } else {
-        $msg = "Building {0} rule for group {1} for filename {2} in {3} directory" -f $rule.action, $rule.UserOrGroup, $rule.filename, $directory
+        $msg = "Building '{0}' rule for group '{1}' for filename '{2}' in '{3}' directory" -f $rule.action, $rule.UserOrGroup, $rule.filename, $directory
     }
     Write-Host $msg -ForegroundColor Green
 
@@ -122,10 +122,10 @@ function CreateFilePathCondition {
     # Create a FilePathCondition element
     # <FilePathCondition Path="ngrok*.exe" />
     # This XML is used between <Exceptions> OR <FilePathRule>
-    $filename_wc = "*{0}*.exe" -f $rule.filename.split('.')[0]
+    $filename_wc = "*'{0}'*.exe" -f $rule.filename.split('.')[0]
     $filePathCondition = $xDocument.CreateElement("FilePathCondition")   
     $filePathCondition.SetAttribute("Path", $filename_wc)
-    $msg = "Building {0} rule for group {1} for software {2} in {3} based on filename" -f $rule.action, $rule.UserOrGroup, $rule.filename, $directory
+    $msg = "Building '{0}' rule for group '{1}' for software '{2}' in '{3}' based on filename" -f $rule.action, $rule.UserOrGroup, $rule.filename, $directory
     Write-Warning $msg
     Return $filePathCondition
 }
@@ -182,17 +182,17 @@ function TestRule {
     foreach ($binary in $rules) {
 
         if (-not (Test-Path -Path $(Join-Path -Path $binariesDirectory -ChildPath $binary.filename))) {
-            $msg = "{0} could not be found in {1}, download it or fix the json config file" -f $binary.filename, $binariesDirectory
+            $msg = "'{0}' could not be found in '{1}', download it or fix the json config file" -f $binary.filename, $binariesDirectory
             Write-Warning $msg
         } 
         else 
         {
             $testresult = Get-ChildItem -LiteralPath $binariesDirectory $binary.filename |Convert-Path | Test-AppLockerPolicy -XmlPolicy $applockerPolicy -User $binary.UserOrGroupSid
             if ($testresult.PolicyDecision -ne $PolicyDecision.Item($binary.action) -and -not $binary.isException) {
-                $msg = "'{0}' is {1} for {2} and should be '{3}'" -f $testresult.FilePath, $testresult.PolicyDecision, $binary.UserOrGroup, $binary.action
+                $msg = "'{0}' is '{1}' for '{2}' and should be ''{3}''" -f $testresult.FilePath, $testresult.PolicyDecision, $binary.UserOrGroup, $binary.action
                 Write-Host $msg -ForegroundColor Red
             } else {
-                $msg = "'{0}' is {1} for {2} by '{3}'" -f $testresult.FilePath, $testresult.PolicyDecision, $binary.UserOrGroup, $testresult.MatchingRule
+                $msg = "'{0}' is '{1}' for '{2}' by ''{3}''" -f $testresult.FilePath, $testresult.PolicyDecision, $binary.UserOrGroup, $testresult.MatchingRule
                 Write-Host $msg -ForegroundColor Green
             }
         }
@@ -216,7 +216,7 @@ function CreateGPORules {
     foreach ($binary in $rules) {
 
         if (-not (Test-Path -Path $(Join-Path -Path $binariesDirectory -ChildPath $binary.filename))) {
-            $msg = "{0} could not be found in {1}, download it or fix the json config file" -f $binary.filename, $binariesDirectory
+            $msg = "'{0}' could not be found in '{1}', download it or fix the json config file" -f $binary.filename, $binariesDirectory
             Write-Warning $msg
         } 
         else 
@@ -227,7 +227,7 @@ function CreateGPORules {
         
             if ($null -eq $publisher)
             {
-                $msg = "Unable to build {0} rule based on signature for file {1} in {2} directory" -f $binary.action, $binary.filename, $binariesDirectory
+                $msg = "Unable to build '{0}' rule based on signature for file '{1}' in '{2}' directory" -f $binary.action, $binary.filename, $binariesDirectory
                 Write-Warning $msg
                 $fileRule = CreateFilePathRule $xDocument $binary
                 # Create a FilePathCondition element
@@ -279,7 +279,7 @@ foreach ($GPO in $configData.PSObject.Properties) {
     $xmlOutFile = Join-Path -Path $outDir -ChildPath ((Get-Date -Format "yyyyMMdd")+"_$gpoName.xml")
 
     if ($createRules) {
-        $msg = "Building Applocker GPO policy {0} to {1}" -f $gpoName, $xmlOutFile
+        $msg = "Building Applocker GPO policy '{0}' to '{1}'" -f $gpoName, $xmlOutFile
         Write-Host $msg
 
         CreateGPORules $xDocument "EXE DENY" $binDir $rules[0].'EXE DENY'
@@ -303,7 +303,7 @@ foreach ($GPO in $configData.PSObject.Properties) {
     }  
 
     if ($testRules) {
-        $msg = "TESTING RULES from {0}" -f $xmlOutFile
+        $msg = "TESTING RULES from '{0}'" -f $xmlOutFile
         Write-Host $msg
         TestRule "EXE DENY" $binDir $rules[0].'EXE DENY' $xmlOutFile
         TestRule "EXE ALLOW" $binDir $rules[0].'EXE ALLOW' $xmlOutFile
