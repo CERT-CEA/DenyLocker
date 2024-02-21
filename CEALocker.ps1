@@ -122,7 +122,7 @@ function CreateFilePathCondition {
     # Create a FilePathCondition element
     # <FilePathCondition Path="ngrok*.exe" />
     # This XML is used between <Exceptions> OR <FilePathRule>
-    $filename_wc = "*'{0}'*.exe" -f $rule.filename.split('.')[0]
+    $filename_wc = "*{0}*.exe" -f $rule.filename.split('.')[0]
     $filePathCondition = $xDocument.CreateElement("FilePathCondition")   
     $filePathCondition.SetAttribute("Path", $filename_wc)
     $msg = "Building '{0}' rule for group '{1}' for software '{2}' in '{3}' based on filename" -f $rule.action, $rule.UserOrGroup, $rule.filename, $directory
