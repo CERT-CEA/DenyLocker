@@ -38,12 +38,13 @@
 #>
 
 Param(
-    [Parameter(Mandatory=$False)][bool]$testRules=$false,
     [Parameter(Mandatory=$False)][string]$configFile="CEA-config.json",
+    [Parameter(Mandatory=$False)][string]$xmlTemplateFile="template.xml",
+    [Parameter(Mandatory=$False)][string]$binDir="binaries",
+    [Parameter(Mandatory=$False)][string]$outDir="output",
     [Parameter(Mandatory=$False)][bool]$createRules=$true,
     [Parameter(Mandatory=$False)][bool]$exportRules=$true,
-    [Parameter(Mandatory=$False)][string]$binDir="binaries",
-    [Parameter(Mandatory=$False)][string]$outDir="output"
+    [Parameter(Mandatory=$False)][bool]$testRules=$true
     )
 
 $ErrorActionPreference="Stop"
