@@ -2,12 +2,15 @@
     .SYNOPSIS
     Ce script génère un fichier xml de règles Applocker.
     Les règles autorise tout sauf la liste de logiciels présents dans différents dossiers
-    
+
     .PARAMETER JsonConfigFile
     Nom du fichier json contenant les binaires et la règle à leur appliquer
 
     .PARAMETER XmlTemplateFile
     Nom du fichier xml utilisé comme template
+
+    .PARAMETER GpoToTest
+    Specifies the Applocker GPO to test JsonConfigFile against
 
     .PARAMETER BinDir
     Dossier contenant les binaires définies dans JsonConfigFile
@@ -30,19 +33,20 @@
 
     TODO
     Example
-    .\CEALocker.ps1 
+    .\CEALocker.ps1
     Fichier de sortie par défaut : yyyyMMdd_cealocker.xml
     .\CEALocker.ps1
     Pour ne pas tester les règles générées :
     .\CEALocker.ps1 -TestRules $false
-    Pour tester un xml de règles : 
+    Pour tester un xml de règles :
     .\CEALocker.ps1 -XmlOutFile example.xml -CreateRules $false -ExportRules $false -TestRules $true
 
 #>
 
 Param(
-    [Parameter(Mandatory=$False)][string]$JsonConfigFile="CEA-config.json",
+    [Parameter(Mandatory=$False)][string]$JsonConfigFile="config.json",
     [Parameter(Mandatory=$False)][string]$XmlTemplateFile="Support/template.xml",
+    [Parameter(Mandatory=$False)]$GpoToTest,
     [Parameter(Mandatory=$False)][string]$BinDir="binaries",
     [Parameter(Mandatory=$False)][string]$OutDir="output",
     [Parameter(Mandatory=$False)][bool]$CreateRules=$true,
@@ -94,9 +98,15 @@ if ($CreateRules) {
 }
 
 if ($TestRules) {
-    TestXmlRule -BinDir $BinDir -JsonConfigFile $JsonConfigFile
+    TestXmlRule -BinDir $BinDir -JsonConfigFile $JsonConfigFile -GpoToTest $GpoToTest
 }
 
 if ($ExportRules) {
     ExportXmlRule -JsonConfigFile $JsonConfigFile
 }
+
+#TODO : paramètre UserOrGroup obligatoire dans la conf json des exceptions
+# refaire example-config, UserOrGroup est nécessaire pour les tests
+# résoudre SID et nom des objets, vérifier qu'ils sont égaux
+# résoudre le SID du groupe à partir du nom du groupe
+# Ecrire le README
