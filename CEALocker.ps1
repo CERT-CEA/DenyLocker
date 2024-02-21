@@ -246,56 +246,50 @@ function CreateGPORules {
 
     foreach ($rule in $rules) {
 
-        # check if the rule exists
-        if ($placeholderKey -like "*PRODUCT*" -and -not (Test-Path -Path $(Join-Path -Path $binariesDirectory -ChildPath $rule.filepath))) {
-            $msg = "'{0}' could not be found in '{1}', download it or fix the json config file" -f $rule.filepath, $binariesDirectory
-            Write-Warning $msg
-        } 
-        else 
+        CheckRule $placeholderKey $binariesDirectory $rule
+
+        if ($placeholderKey -like "*PRODUCT*" -and (Test-Path -PathType leaf -Path $(Join-Path -Path $binariesDirectory -ChildPath $rule.filepath))) {
+            # Get the publisher of the file
+            $file = Get-ChildItem -LiteralPath $binariesDirectory $rule.filepath
+            $publisher = (Get-AppLockerFileInformation $file.FullName).Publisher
+        }
+    
+        # the rule may not have a publisher if it is not signed
+        if ($null -eq $publisher)
         {
             if ($placeholderKey -like "*PRODUCT*") {
-                # Get the publisher of the file
-                $file = Get-ChildItem -LiteralPath $binariesDirectory $rule.filepath
-                $publisher = (Get-AppLockerFileInformation $file.FullName).Publisher
+                $msg = "Unable to build '{0}' rule based on signature for file '{1}' in '{2}' directory" -f $rule.action, $rule.filepath, $binariesDirectory
+                Write-Warning $msg
             }
-        
-            # the rule may not have a publisher if it is not signed
-            if ($null -eq $publisher)
-            {
-                if ($placeholderKey -like "*PRODUCT*") {
-                    $msg = "Unable to build '{0}' rule based on signature for file '{1}' in '{2}' directory" -f $rule.action, $rule.filepath, $binariesDirectory
-                    Write-Warning $msg
-                }
-                $fileRule = CreateFilePathRule $xDocument $rule
-                # Create a FilePathCondition element
-                # <FilePathCondition FilePath="ngrok">
-                $fileCondition = CreateFilePathCondition $xDocument $binariesDirectory $rule
-            }
-            else
-            {
-                $fileRule = CreateFilePublisherRule $xDocument $publisher $rule
-                # Create a FilePublisherCondition element   
-                # <FilePublisherCondition BinaryName="*" ProductName="*" PublisherName="O=DROPBOX, INC, L=SAN FRANCISCO, S=CALIFORNIA, C=US">
-                $fileCondition = CreateFilePublisherCondition $xDocument $publisher $binariesDirectory $rule
-            }
+            $fileRule = CreateFilePathRule $xDocument $rule
+            # Create a FilePathCondition element
+            # <FilePathCondition FilePath="ngrok">
+            $fileCondition = CreateFilePathCondition $xDocument $binariesDirectory $rule
+        }
+        else
+        {
+            $fileRule = CreateFilePublisherRule $xDocument $publisher $rule
+            # Create a FilePublisherCondition element   
+            # <FilePublisherCondition BinaryName="*" ProductName="*" PublisherName="O=DROPBOX, INC, L=SAN FRANCISCO, S=CALIFORNIA, C=US">
+            $fileCondition = CreateFilePublisherCondition $xDocument $publisher $binariesDirectory $rule
+        }
 
-            # If the binary is to be placed in an applocker exception
-            # the structure in "else" is not required
-            if ($rule.isException) {
-                $xPlaceholderParentNode.AppendChild($fileCondition) | Out-Null
-            } else {
-                $fileRule.SetAttribute("Action", $rule.action)
-                $fileRule.SetAttribute("UserOrGroupSid", $rule.UserOrGroupSid)
-                $fileRule.SetAttribute("Id", ([guid]::NewGuid()).Guid)
-                # Create a Conditions element
-                # <Conditions>
-                $condition = $xDocument.CreateElement("Conditions")
-                $condition.AppendChild($fileCondition) | Out-Null
-                $fileRule.AppendChild($condition) | Out-Null
-                # Add the publisher condition where the placeholder is
-                $xPlaceholderParentNode.AppendChild($fileRule) | Out-Null
-            }
-        } 
+        # If the binary is to be placed in an applocker exception
+        # the structure in "else" is not required
+        if ($rule.isException) {
+            $xPlaceholderParentNode.AppendChild($fileCondition) | Out-Null
+        } else {
+            $fileRule.SetAttribute("Action", $rule.action)
+            $fileRule.SetAttribute("UserOrGroupSid", $rule.UserOrGroupSid)
+            $fileRule.SetAttribute("Id", ([guid]::NewGuid()).Guid)
+            # Create a Conditions element
+            # <Conditions>
+            $condition = $xDocument.CreateElement("Conditions")
+            $condition.AppendChild($fileCondition) | Out-Null
+            $fileRule.AppendChild($condition) | Out-Null
+            # Add the publisher condition where the placeholder is
+            $xPlaceholderParentNode.AppendChild($fileRule) | Out-Null
+        }
     }     
     # Remove placeholder elements
     $xPlaceholderParentNode.RemoveChild($xPlaceholder) | Out-Null   
