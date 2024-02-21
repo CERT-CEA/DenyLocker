@@ -6,6 +6,9 @@
     .PARAMETER configFile
     Nom du fichier json contenant les binaires et la règle à leur appliquer
 
+    .PARAMETER xmlTemplateFile
+    Nom du fichier xml utilisé comme template
+
     .PARAMETER binDir
     Dossier contenant les binaires définies dans configFile
 
