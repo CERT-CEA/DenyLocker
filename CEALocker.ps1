@@ -64,7 +64,7 @@ $RootDir = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path)
 . $RootDir\Support\Config.ps1
 
 # Check arguments
-. $RootDir\Support\Init.ps1
+. $RootDir\Support\CheckParameters.ps1
 
 # Import required functions
 . $RootDir\Support\CheckFunctions.ps1
@@ -92,7 +92,7 @@ function GenerateApplockerXml {
     }
 }
 
-if ($CreateRules) {
+if ($CreateRules.IsPresent) {
     CheckXmlTemplate -xmlpath $XmlTemplateFile -BinDir $BinDir -OutDir $OutDir
     CheckBinDirectory -BinDir $BinDir -JsonConfigFile $JsonConfigFile
     GenerateApplockerXml -JsonConfigFile $JsonConfigFile -BinDir $BinDir -XmlTemplateFile $XmlTemplateFile -OutDir $OutDir
@@ -101,11 +101,19 @@ if ($CreateRules) {
     Write-Warning $Msg
 }
 
-if ($TestRules) {
-    TestXmlRule -BinDir $BinDir -JsonConfigFile $JsonConfigFile -GpoToTest $GpoToTest
+if ($TestRules.IsPresent) {
+    if ($GpoToTest) {
+        TestXmlRule -BinDir $BinDir -JsonConfigFile $JsonConfigFile -GpoToTest $GpoToTest
+    } elseif ($XmlToTest) {
+        TestXmlRule -BinDir $BinDir -JsonConfigFile $JsonConfigFile -XmlToTest $XmlToTest
+    } else {
+        TestXmlRule -BinDir $BinDir -JsonConfigFile $JsonConfigFile
+    }
+} elseif ($Verbose) {
+    Write-Hosting "Testing is disabled"
 }
 
-if ($ExportRules) {
+if ($ExportRules.IsPresent) {
     ExportXmlRule -JsonConfigFile $JsonConfigFile
 }
 
