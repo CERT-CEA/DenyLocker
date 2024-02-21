@@ -267,8 +267,17 @@ try {
     $configData = $jsonContent | ConvertFrom-Json
 } catch [System.ArgumentException] {
     $_.Exception.GetType().FullName
-    $msg = "{0} is not a valid json file" -f $configFile
+    $msg = "'{0}' is not a valid json file" -f $configFile
     Write-Error $msg
+}
+
+# Quick check that every file in $binDir folder is concerned by at least one rule in $configFile
+Get-ChildItem -LiteralPath $binDir | ForEach-Object {
+    $fileIsInConfig = Select-String -Path $configFile -Pattern $_.Name
+    if ($fileIsInConfig -eq $null) {
+        $msg = "File '{0}' does not appear in '{1}' config file and won't therefore be concerned by any applocker rule defined there" -f $_.Name, $configFile
+        Write-Warning $msg
+    }
 }
 
 foreach ($GPO in $configData.PSObject.Properties) {
