@@ -1,0 +1,21 @@
+{
+        "empty":  [
+            {
+                "EXE PRODUCT DENY": [],
+                "EXE PRODUCT ALLOW" : [],
+                "EXE PRODUCT DENY EXCEPTION" : [],
+                "EXE PATH ALLOW": [],
+                "EXE PATH DENY": [],
+                "EXE PATH DENY EXCEPTION": [],
+                "MSI PRODUCT DENY": [],
+                "MSI PRODUCT ALLOW": [],
+                "MSI PRODUCT DENY EXCEPTION" : [],
+                "MSI PATH ALLOW": [],
+                "MSI PATH DENY": [],
+                "MSI PATH DENY EXCEPTION": [],
+                "SCRIPT PATH ALLOW": [],
+                "SCRIPT PATH DENY": [],
+                "SCRIPT PATH DENY EXCEPTION": []
+            }    
+        ]
+}
