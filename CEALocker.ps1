@@ -111,12 +111,14 @@ function CreateFilePathCondition {
         $filename_wc = "*{0}*.exe" -f $rule.filepath.split('.')[0]
         $filePathCondition.SetAttribute("Path", $filename_wc)
         $msg = "Building '{0}' rule for group '{1}' for software '{2}' in '{3}' based on filename" -f $rule.action, $rule.UserOrGroup, $rule.filepath, $directory
+        Write-Warning $msg
     
     } else {
         $filePathCondition.SetAttribute("Path", $rule.filepath)
         $msg = "Building '{0}' rule for group '{1}' for path '{2}'" -f $rule.action, $rule.UserOrGroup, $rule.filepath
+        Write-Host $msg -ForegroundColor Green
     }  
-    Write-Warning $msg
+
     Return $filePathCondition
 }
 
@@ -160,9 +162,11 @@ function CreateFilePathRule {
 }
 
 function CheckRule {
-    [Parameter(Mandatory = $true)] [ValidateScript( { $_ -in $placeholders.Keys } )] [string] $placeholderKey,
-    [Parameter(Mandatory = $true)] [string] $binariesDirectory,
-    [Parameter(Mandatory = $true)] $rule
+    Param(
+        [Parameter(Mandatory = $true)] [ValidateScript( { $_ -in $placeholders.Keys } )] [string] $placeholderKey,
+        [Parameter(Mandatory = $true)] [string] $binariesDirectory,
+        [Parameter(Mandatory = $true)] $rule
+    )
 
     if ($placeholderKey -like "*PRODUCT*") {
         if (-not (Test-Path -PathType leaf -Path $(Join-Path -Path $binariesDirectory -ChildPath $rule.filepath))) {
