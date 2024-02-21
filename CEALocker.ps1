@@ -157,6 +157,51 @@ function CreateFilePathRule {
     $fileRule.SetAttribute("Name", $rule.action + " " + $rule.UserOrGroup + " " + $rule.filepath)
     Return $fileRule
 }
+
+function CheckRule {
+    [Parameter(Mandatory = $true)] [ValidateScript( { $_ -in $placeholders.Keys } )] [string] $placeholderKey,
+    [Parameter(Mandatory = $true)] [string] $binariesDirectory,
+    [Parameter(Mandatory = $true)] $rule
+
+    if ($placeholderKey -like "*PRODUCT*") {
+        if (-not (Test-Path -PathType leaf -Path $(Join-Path -Path $binariesDirectory -ChildPath $rule.filepath))) {
+            $msg = "file '{0}' could not be found in '{1}', download it or fix the json config file" -f $rule.filepath, $binariesDirectory
+            Write-Warning $msg
+        }
+        if ($rule.rulePublisher -ne $true -and $rule.rulePublisher -ne $false) {
+            $msg = "Invalid rulePublisher value {0} for {1}, must be true or false" -f $rule.rulePublisher, $rule.filepath
+            Write-Warning $msg 
+        }
+    
+        if ($rule.ruleProduct -ne $true -and $rule.ruleProduct -ne $false) {
+            $msg = "Invalid ruleProduct value {0} for {1}, must be true or false" -f $rule.ruleProduct, $rule.ruleProduct
+            Write-Warning $msg 
+        }
+    
+        if ($rule.ruleBinary -ne $true -and $rule.ruleBinary -ne $false) {
+            $msg = "Invalid ruleBinary value {0} for {1}, must be true or false" -f $rule.ruleBinary, $rule.filepath
+            Write-Warning $msg 
+        }
+        
+    }
+
+    if ($placeholderKey -like "*EXCEPTION*") {
+        if ($rule.isException -ne $true -and $rule.isException -ne $false) {
+            $msg = "Invalid isException value {0} for {1}, must be true or false" -f $rule.isException, $rule.filepath
+            Write-Warning $msg 
+        }
+    }
+    
+    if (-not ($rule.UserOrGroupSID -match "S-[0-9-]+" )) {
+        $msg = "Invalid group SID : {0}" -f $rule.UserOrGroupSID
+        Write-Warning $msg 
+    }
+
+    if ($rule.action -ne "Allow" -and $rule.action -ne "Deny") {
+        $msg = "Invalid action value {0} for {1}, must be Allow or Deniy" -f $rule.action, $rule.filepath
+        Write-Warning $msg 
+    }    
+}
 function TestRule {
 
     Param(
