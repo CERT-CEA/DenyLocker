@@ -1,7 +1,7 @@
-exetodeny-admin*
-producttodeny*
-publishertodeny*
 backup.xml
-output.xml
-*/*.exe
-*/*.msi
+everyonePublisherToDeny
+everyoneProductToDeny
+everyoneBinaryToDeny
+adminProductToDeny
+anyProductToDenyException
+*cealocker.xml
