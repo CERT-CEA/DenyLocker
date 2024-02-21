@@ -9,11 +9,13 @@ $everyoneProductToDenyDir = [System.IO.Path]::Combine($binariesDir, "everyonePro
 $everyoneBinaryToDenyDir = [System.IO.Path]::Combine($binariesDir, "everyoneBinaryToDeny")
 $adminProductToDenyDir = [System.IO.Path]::Combine($binariesDir, "adminProductToDeny")
 $anyProductToDenyExceptionDir = [System.IO.Path]::Combine($binariesDir, "anyProductToDenyException")
+$everyonePublisherToAllowDir = [System.IO.Path]::Combine($binariesDir, "everyonePublisherToAllow")
 
 $ps1_ExportPolicyToCSV = [System.IO.Path]::Combine($supportDir, "ExportPolicy-ToCsv.ps1")
 $ps1_ExportPolicyToExcel = [System.IO.Path]::Combine($supportDir, "ExportPolicy-ToExcel.ps1")
 
-$placeholders = @{"EXE DENY" = "PLACEHOLDER_EXETODENY"; "MSI DENY" = "PLACEHOLDER_MSITODENY"; "EXE EXCEPTION" = "PLACEHOLDER_EXETODENY_EXCEPTION"}
+$placeholders = @{"EXE DENY" = "PLACEHOLDER_EXETODENY"; "MSI DENY" = "PLACEHOLDER_MSITODENY"; 
+                "EXE EXCEPTION" = "PLACEHOLDER_EXETODENY_EXCEPTION" ; "EXE ALLOW" = "PLACEHOLDER_EXETOALLOW"}
 
 $applockerRuleCollection = ('Exe','Script','MSI','Dll','Appx')
 
@@ -55,6 +57,14 @@ $allowExceptDenyRule  |Add-Member Noteproperty directory $anyProductToDenyExcept
 $allowExceptDenyRule  |Add-Member Noteproperty action "Allow"
 $allowExceptDenyRule  |Add-Member Noteproperty UserOrGroupSid "S-1-1-0"
 $allowExceptDenyRule  |Add-Member Noteproperty UserOrGroup "Everyone"
+$allowExceptDenyRule  |Add-Member Noteproperty isException $true
+
+$everyonePublisherToAllowRule = New-Object PSObject
+$everyonePublisherToAllowRule |Add-Member Noteproperty rulePublisher $true
+$everyonePublisherToAllowRule  |Add-Member Noteproperty directory $everyonePublisherToAllowDir
+$everyonePublisherToAllowRule  |Add-Member Noteproperty action "Allow"
+$everyonePublisherToAllowRule  |Add-Member Noteproperty UserOrGroupSid "S-1-1-0"
+$everyonePublisherToAllowRule  |Add-Member Noteproperty UserOrGroup "Everyone"
 
 $denyRules = ($everyoneProductToDenyRule, $everyoneBinaryToDenyRule, 
                         $adminProductToDenyRule)

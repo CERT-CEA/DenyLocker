@@ -9,22 +9,32 @@
     .PARAMETER testRules
     Test les règles générés
 
+    .PARAMETER createRules
+    Génère les règles
+
+    .PARAMETER exportRules
+    Exporte les règles XML sous excel
+
     .NOTES
     (c) Florian MARTIN 2023
     version 1.0
 
     Example
-    .\CEALocker.ps1 xmlOutFile example.xml
+    .\CEALocker.ps1 -xmlOutFile example.xml
     Fichier de sortie par défaut : yyyyMMdd_cealocker.xml
     .\CEALocker.ps1
     Pour ne pas tester les règles générées :
     .\CEALocker.ps1 -testRules $false
+    Pour tester un xml de règles : 
+    .\CEALocker.ps1 -xmlOutFile example.xml -createRules $false -exportRules $false -testRules $true
 
 #>
 
 Param(
     [Parameter(Mandatory=$False)][string]$xmlOutFile=(Get-Date -Format "yyyyMMdd")+"_cealocker.xml",
-    [Parameter(Mandatory=$False)][bool]$testRules=$true
+    [Parameter(Mandatory=$False)][bool]$testRules=$true,
+    [Parameter(Mandatory=$False)][bool]$createRules=$true,
+    [Parameter(Mandatory=$False)][bool]$exportRules=$true
     )
 
 $rootDir = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path)
@@ -196,7 +206,9 @@ function CreateRule {
                 $fileCondition = CreateFilePublisherCondition $xDocument $publisher $filename $rule
             }
 
-            if ($rule.action -eq "Deny") {
+            if ($rule.isException) {
+                $xPlaceholderParentNode.AppendChild($fileCondition) | Out-Null
+            } else {
                 $fileRule.SetAttribute("Action", $rule.action)
                 $fileRule.SetAttribute("UserOrGroupSid", $rule.UserOrGroupSid)
                 $fileRule.SetAttribute("Id", ([guid]::NewGuid()).Guid)
@@ -207,8 +219,6 @@ function CreateRule {
                 $fileRule.AppendChild($condition) | Out-Null
                 # Add the publisher condition where the placeholder is
                 $xPlaceholderParentNode.AppendChild($fileRule) | Out-Null
-            } else {
-                $xPlaceholderParentNode.AppendChild($fileCondition) | Out-Null
             }
         } 
     }
@@ -229,7 +239,7 @@ function TestRule {
     foreach ($rule in $rules) {
         Get-ChildItem $rule.directory -File | ForEach-Object {
             $testresult = ($_  |Convert-Path| Test-AppLockerPolicy -XmlPolicy $applockerPolicy -User $rule.UserOrGroupSid)
-            if ($testresult.PolicyDecision -ne $PolicyDecision.Item($rule.action)) {
+            if ($testresult.PolicyDecision -ne $PolicyDecision.Item($rule.action) -and -not $rule.isException) {
                 $msg = "'{0}' is {1} for {2} and should be '{3}'" -f $testresult.FilePath, $testresult.PolicyDecision, $rule.UserOrGroup, $rule.action
                 Write-Host $msg -ForegroundColor Red
             } else {
@@ -242,16 +252,24 @@ function TestRule {
 
 }
 
-$msg = "BUILDING RULES TO {0}" -f $xmlOutFile
-Write-Host $msg
-CreateRule $xDocument "Exe" $denyRules "EXE DENY"
-CreateRule $xDocument "Msi" $denyRules "MSI DENY"
-CreateRule $xDocument "Exe" $allowExceptDenyRule "EXE EXCEPTION"
+if ($createRules) {
+    $msg = "BUILDING RULES TO {0}" -f $xmlOutFile
+    Write-Host $msg
+    CreateRule $xDocument "Exe" $denyRules "EXE DENY"
+    CreateRule $xDocument "Msi" $denyRules "MSI DENY"
+    CreateRule $xDocument "Exe" $allowExceptDenyRule "EXE EXCEPTION"
+    CreateRule $xDocument "Exe" $everyonePublisherToAllowRule "EXE ALLOW"
 
-Write-Debug $xDocument.OuterXml
+    Write-Debug $xDocument.OuterXml
 
-$masterPolicy = [Microsoft.Security.ApplicationId.PolicyManagement.PolicyModel.AppLockerPolicy]::FromXml($xDocument.OuterXml)
-SaveAppLockerPolicyAsUnicodeXml -ALPolicy $masterPolicy -xmlFilename $rulesFileEnforceNew
+    try {
+        $masterPolicy = [Microsoft.Security.ApplicationId.PolicyManagement.PolicyModel.AppLockerPolicy]::FromXml($xDocument.OuterXml)
+        SaveAppLockerPolicyAsUnicodeXml -ALPolicy $masterPolicy -xmlFilename $rulesFileEnforceNew
+    } catch [System.Management.Automation.MethodInvocationException] {
+        throw $_
+        exit 1
+    }
+}
 
 if ($testRules) {
     $msg = "TESTING RULES from {0}" -f $xmlOutFile
@@ -260,5 +278,7 @@ if ($testRules) {
     TestRule "Exe" $allowExceptDenyRule $xmlOutFile
 }
 
-$msg = "EXPORTING RULES {0} TO EXCEL" -f $xmlOutFile
-& $ps1_ExportPolicyToExcel -AppLockerXML $xmlOutFile
+if ($exportRules) {
+    $msg = "EXPORTING RULES {0} TO EXCEL" -f $xmlOutFile
+    & $ps1_ExportPolicyToExcel -AppLockerXML $xmlOutFile
+}
