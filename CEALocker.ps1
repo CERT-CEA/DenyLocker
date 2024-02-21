@@ -199,18 +199,21 @@ function CheckJsonRule {
             Write-Warning $msg
         }
         if ($rule.rulePublisher -ne $true -and $rule.rulePublisher -ne $false) {
-            $msg = "Invalid rulePublisher value {0} for {1}, must be true or false" -f $rule.rulePublisher, $rule.filepath
-            Write-Warning $msg 
+            $msg = "Invalid rulePublisher value {0} for {1}, must be true or false." -f $rule.rulePublisher, $rule.filepath
+            Write-Warning $msg
+            throw
         }
     
         if ($rule.ruleProduct -ne $true -and $rule.ruleProduct -ne $false) {
             $msg = "Invalid ruleProduct value {0} for {1}, must be true or false" -f $rule.ruleProduct, $rule.ruleProduct
             Write-Warning $msg 
+            throw
         }
     
         if ($rule.ruleBinary -ne $true -and $rule.ruleBinary -ne $false) {
             $msg = "Invalid ruleBinary value {0} for {1}, must be true or false" -f $rule.ruleBinary, $rule.filepath
             Write-Warning $msg 
+            throw
         }
         
     }
