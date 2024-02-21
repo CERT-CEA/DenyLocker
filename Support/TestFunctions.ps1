@@ -1,4 +1,5 @@
 function TestXmlRule {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)] [string] $BinDir,
         [Parameter(Mandatory = $true)] [string] $JsonConfigFile

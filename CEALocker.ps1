@@ -66,6 +66,7 @@ $RootDir = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path)
 . $RootDir\Support\TestFunctions.ps1
 . $RootDir\Support\XmlFunctions.ps1
 function GenerateApplockerXml {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)] [string] $BinDir,
         [Parameter(Mandatory = $true)] [string] $JsonConfigFile,

@@ -29,8 +29,8 @@ Paste the output directly into an Excel spreadsheet, replace "^|^" with Ctrl+Shi
 
 <#
 #TODO: Add option to get AppLocker policy from AD GPO
-E.g., 
-Get-AppLockerPolicy -Domain -LDAP "LDAP://DC13.Contoso.com/CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=Contoso,DC=com" 
+E.g.,
+Get-AppLockerPolicy -Domain -LDAP "LDAP://DC13.Contoso.com/CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=Contoso,DC=com"
 Figure out how to tie Get-GPO in with this...
 
 #>
@@ -105,34 +105,34 @@ $x.AppLockerPolicy.RuleCollection | ForEach-Object {
             $childNode = $_
             switch ( $childNode.LocalName )
             {
-        
+
             "FilePublisherRule"
             {
                 $ruletype = "Publisher"
                 $condition = $childNode.Conditions.FilePublisherCondition
-                $ruleInfo = 
-                    "Publisher: " + $condition.PublisherName + $linebreakSeq + 
-                    "Product: " + $condition.ProductName + $linebreakSeq + 
-                    "BinaryName: " + $condition.BinaryName + $linebreakSeq + 
+                $ruleInfo =
+                    "Publisher: " + $condition.PublisherName + $linebreakSeq +
+                    "Product: " + $condition.ProductName + $linebreakSeq +
+                    "BinaryName: " + $condition.BinaryName + $linebreakSeq +
                     "LowVersion: " + $condition.BinaryVersionRange.LowSection + $linebreakSeq +
                     "HighVersion: " + $condition.BinaryVersionRange.HighSection
             }
-        
-            "FilePathRule" 
+
+            "FilePathRule"
             {
                 $ruletype = "Path"
                 $ruleInfo = $childNode.Conditions.FilePathCondition.Path
             }
-        
-            "FileHashRule" 
+
+            "FileHashRule"
             {
                 $ruletype = "Hash"
                 $condition = $childNode.Conditions.FileHashCondition.FileHash
                 $ruleInfo = $condition.SourceFileName + "; length = " + $condition.SourceFileLength
             }
-        
+
             default { $ruletype = $_.LocalName; $condition = $ruleInfo = [string]::Empty; }
-        
+
             }
 
             $exceptions = [string]::Empty
@@ -148,7 +148,7 @@ $x.AppLockerPolicy.RuleCollection | ForEach-Object {
                 if ($null -ne $childNode.Exceptions.FilePublisherCondition)
                 {
                     $arrExceptions.Add( "[----- Publisher exceptions -----]" ) | Out-Null
-                    $arrExceptions.AddRange( @($childNode.Exceptions.FilePublisherCondition | 
+                    $arrExceptions.AddRange( @($childNode.Exceptions.FilePublisherCondition |
                         ForEach-Object {
                             $s = $_.BinaryName + ": " + $_.PublisherName + "; " + $_.ProductName
                             $bvrLow = $_.BinaryVersionRange.LowSection

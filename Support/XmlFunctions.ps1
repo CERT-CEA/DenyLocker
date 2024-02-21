@@ -2,6 +2,7 @@
 # Xml stuff
 ####################################################################################################
 function WriteXml {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)] [string] $BinDir,
         [Parameter(Mandatory = $true)] $Gpo,
@@ -39,6 +40,7 @@ function WriteXml {
 }
 
 function GenerateXmlRule {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)] $xDocument,
         [Parameter(Mandatory = $true)] [ValidateScript( { $_ -in $Placeholders.Keys } )] [string] $PlaceholderKey,
@@ -113,6 +115,7 @@ function GenerateXmlRule {
 }
 
 function ExportXmlRule {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)] [string] $JsonConfigFile
     )

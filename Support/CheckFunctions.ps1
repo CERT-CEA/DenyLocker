@@ -1,4 +1,5 @@
 function CheckXmlTemplate {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)] [string] $XmlPath,
         [Parameter(Mandatory = $true)] [string] $BinDir,
@@ -39,6 +40,7 @@ function CheckXmlTemplate {
 }
 
 function CheckJsonRule {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)] [ValidateScript( { $_ -in $Placeholders.Keys } )] [string] $PlaceholderKey,
         [Parameter(Mandatory = $true)] [string] $BinDir,
@@ -94,6 +96,7 @@ function CheckJsonRule {
 }
 
 function CheckBinDirectory {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)] [string] $BinDir,
         [Parameter(Mandatory = $true)] [string] $JsonConfigFile

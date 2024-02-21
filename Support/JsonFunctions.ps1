@@ -2,6 +2,7 @@
 # Json stuff
 ####################################################################################################
 function ReadJson {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)] [string] $FilePath
     )

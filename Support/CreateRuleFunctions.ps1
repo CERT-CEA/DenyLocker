@@ -1,5 +1,6 @@
 
 function CreateFilePublisherCondition {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)] $xDocument,
         [Parameter(Mandatory = $true)] $Publisher,
@@ -43,6 +44,7 @@ function CreateFilePublisherCondition {
 }
 
 function CreateFilePathCondition {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)] $xDocument,
         [Parameter(Mandatory = $true)] [string] $Directory,
@@ -68,6 +70,7 @@ function CreateFilePathCondition {
 }
 
 function CreateFilePublisherRule {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)] $xDocument,
         [Parameter(Mandatory = $true)] $Publisher,
@@ -92,6 +95,7 @@ function CreateFilePublisherRule {
 }
 
 function CreateFilePathRule {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)] $xDocument,
         [Parameter(Mandatory = $true)] $Rule
