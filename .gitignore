@@ -5,3 +5,5 @@ everyoneBinaryToDeny
 adminProductToDeny
 anyProductToDenyException
 *cealocker.xml
+*.xlsx
+*.csv

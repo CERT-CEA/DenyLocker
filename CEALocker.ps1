@@ -234,19 +234,21 @@ function TestRule {
 
 }
 
-#CreateRule $xDocument "Exe" $denyRules "EXE DENY"
-#CreateRule $xDocument "Msi" $denyRules "MSI DENY"
-#CreateRule $xDocument "Exe" $allowExceptDenyRule "EXE EXCEPTION"
+$msg = "TESTING RULES from {0}" -f $xmlOutFile
+Write-Host $msg
+CreateRule $xDocument "Exe" $denyRules "EXE DENY"
+CreateRule $xDocument "Msi" $denyRules "MSI DENY"
+CreateRule $xDocument "Exe" $allowExceptDenyRule "EXE EXCEPTION"
 
-#Write-Debug $xDocument.OuterXml
+Write-Debug $xDocument.OuterXml
 
-#$masterPolicy = [Microsoft.Security.ApplicationId.PolicyManagement.PolicyModel.AppLockerPolicy]::FromXml($xDocument.OuterXml)
-#SaveAppLockerPolicyAsUnicodeXml -ALPolicy $masterPolicy -xmlFilename $rulesFileEnforceNew
+$masterPolicy = [Microsoft.Security.ApplicationId.PolicyManagement.PolicyModel.AppLockerPolicy]::FromXml($xDocument.OuterXml)
+SaveAppLockerPolicyAsUnicodeXml -ALPolicy $masterPolicy -xmlFilename $rulesFileEnforceNew
 
-#$msg = "TESTING RULES from {0}" -f $xmlOutFile
-#Write-Host $msg
-#TestRule "Exe" $denyRules $xmlOutFile
-#TestRule "Exe" $allowExceptDenyRule $xmlOutFile
+$msg = "TESTING RULES from {0}" -f $xmlOutFile
+Write-Host $msg
+TestRule "Exe" $denyRules $xmlOutFile
+TestRule "Exe" $allowExceptDenyRule $xmlOutFile
 
 $msg = "EXPORTING RULES {0} TO EXCEL" -f $xmlOutFile
 & $ps1_ExportPolicyToExcel -AppLockerXML $xmlOutFile
