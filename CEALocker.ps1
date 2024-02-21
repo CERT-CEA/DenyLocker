@@ -323,8 +323,8 @@ foreach ($GPO in $configData.PSObject.Properties) {
     }
 
     if ($exportRules) {
-        $msg = "EXPORTING RULES {0} TO EXCEL" -f $xmlOutFile
-        & $ps1_ExportPolicyToExcel -AppLockerXML $xmlOutFile
+        $msg = "EXPORTING RULES '{0}' TO EXCEL" -f $xmlOutFile
+        & $ps1_ExportPolicyToExcel -AppLockerXML $xmlOutFile -SaveWorkbook
     }
 
 }
