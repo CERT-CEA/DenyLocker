@@ -9,9 +9,6 @@
     .PARAMETER XmlTemplateFile
     Nom du fichier xml utilisé comme template
 
-    .PARAMETER GpoToTest
-    Specifies the Applocker GPO to test JsonConfigFile against
-
     .PARAMETER BinDir
     Dossier contenant les binaires définies dans JsonConfigFile
 
@@ -21,11 +18,20 @@
     .PARAMETER TestRules
     Test les règles générés
 
+    .PARAMETER GpoToTest
+    Specify the Applocker GPO to test JsonConfigFile against
+
+    .PARAMETER XmlToTest
+    Specify the Applocker XML to test JsonConfigFile against
+
     .PARAMETER CreateRules
     Génère les règles
 
     .PARAMETER ExportRules
     Exporte les règles XML sous excel
+
+    .PARAMETER ResolveSID
+    Resolve user or group SID based on their name using the ActiveDirectory module
 
     .NOTES
     (c) Florian MARTIN 2023
@@ -33,25 +39,23 @@
 
     TODO
     Example
-    .\CEALocker.ps1
+    .\CEALocker.ps1 -CreateRules -ExportRules -TestRules -JsonConfigFile config.json
     Fichier de sortie par défaut : yyyyMMdd_cealocker.xml
-    .\CEALocker.ps1
-    Pour ne pas tester les règles générées :
-    .\CEALocker.ps1 -TestRules $false
-    Pour tester un xml de règles :
-    .\CEALocker.ps1 -XmlOutFile example.xml -CreateRules $false -ExportRules $false -TestRules $true
 
 #>
 
 Param(
     [Parameter(Mandatory=$False)][string]$JsonConfigFile="config.json",
     [Parameter(Mandatory=$False)][string]$XmlTemplateFile="Support/template.xml",
-    [Parameter(Mandatory=$False)]$GpoToTest,
     [Parameter(Mandatory=$False)][string]$BinDir="binaries",
     [Parameter(Mandatory=$False)][string]$OutDir="output",
-    [Parameter(Mandatory=$False)][bool]$CreateRules=$true,
-    [Parameter(Mandatory=$False)][bool]$ExportRules=$true,
-    [Parameter(Mandatory=$False)][bool]$TestRules=$true
+    [Parameter(Mandatory=$False)][switch]$CreateRules,
+    [Parameter(Mandatory=$False)][switch]$ExportRules,
+    [Parameter(Mandatory=$False)][switch]$TestRules,
+    [Parameter(Mandatory=$False)][switch]$ResolveSID,
+    [Parameter(Mandatory=$False)]$GpoToTest,
+    [Parameter(Mandatory=$False)]$XmlToTest,
+    [Parameter(Mandatory=$False)][switch]$Verbose
     )
 
 $ErrorActionPreference="Stop"
