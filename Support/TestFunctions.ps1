@@ -3,18 +3,22 @@ function TestXmlRule {
     Param(
         [Parameter(Mandatory = $true)] [string] $BinDir,
         [Parameter(Mandatory = $true)] [string] $JsonConfigFile,
-        [Parameter(Mandatory = $False)] $GpoToTest
+        [Parameter(Mandatory = $False)] $GpoToTest,
+        [Parameter(Mandatory = $False)] $XmlToTest
     )
     # Test applocker Rules generated to ensure they are applied as intended by JsonConfigFile
 
     $ConfigData = ReadJson $JsonConfigFile
+    
     foreach ($Gpo in $ConfigData.PSObject.Properties) {
         $GpoName = $Gpo.Name
 
-        if ($GpoToTest -and $TestRules) {
+        if ($GpoToTest) {
             TestRuleAgainstGpo -BinDir $BinDir -JsonConfigFile $JsonConfigFile -GpoToTest $GpoToTest
+        } elseif ($XmlToTest) {
+            TestRuleAgainstXml -BinDir $BinDir -JsonConfigFile $JsonConfigFile -Xml $XmlToTest
         }
-        elseif ($TestRules) {
+        else {
             $XmlOutFile = Join-Path -Path $OutDir -ChildPath ((Get-Date -Format "yyyyMMdd")+"_$GpoName.xml") 
             TestRuleAgainstXml -BinDir $BinDir -JsonConfigFile $JsonConfigFile -Xml $XmlOutFile
         }
@@ -91,13 +95,13 @@ function TestRuleAgainstGPO {
     } else {
         $DomainName = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().Name
         $DomainDN = ([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().PdcRoleOwner.Partitions)[0]
-        $GPOApplockerMISC = "LDAP://{0}/CN={{{1}}},CN=Policies,CN=System,{2}" -f $DomainName, $(Get-GPO $GpoToTest).Id, $DomainDN
-        $GPOPolicyObject = Get-AppLockerPolicy -Ldap $GPOApplockerMISC -Domain
+        $GPOApplocker = "LDAP://{0}/CN={{{1}}},CN=Policies,CN=System,{2}" -f $DomainName, $(Get-GPO $GpoToTest).Id, $DomainDN
+        $GPOPolicyObject = Get-AppLockerPolicy -Ldap $GPOApplocker -Domain
     }
     $CountRules = 0
     foreach ($Placeholder in $Placeholders.Keys) {
         $CountRules += ($Gpo.Value[0].$Placeholder|Measure-Object).Count
-    }
+    }   
 
     if ($CountRules -gt 0) {
         $Msg = "** TESTING RULES from '{0}' **" -f $GpoToTest
