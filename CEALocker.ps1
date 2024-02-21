@@ -57,6 +57,20 @@ $rootDir = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path)
 . $rootDir\Support\Init.ps1
 . $rootDir\Support\SupportFunctions.ps1
 
+if (-not [System.IO.Path]::IsPathRooted("$jsonConfigPath")) {
+    $jsonConfigPath = Join-Path -Path $rootDir -ChildPath $jsonConfigPath
+}
+if (-not [System.IO.Path]::IsPathRooted("$xmlTemplateFile")) {
+    $xmlTemplateFile = Join-Path -Path $rootDir -ChildPath $xmlTemplateFile
+}
+if (-not [System.IO.Path]::IsPathRooted("$binDir")) {
+    $binDir = Join-Path -Path $rootDir -ChildPath $binDir
+}
+if (-not [System.IO.Path]::IsPathRooted("$outDir")) {
+    $outDir = Join-Path -Path $rootDir -ChildPath $outDir
+}
+
+
 function CreateFilePublisherCondition {
     Param(
         [Parameter(Mandatory = $true)] $xDocument,
