@@ -6,6 +6,9 @@
     .PARAMETER xmlOutFile
     Nom du fichier de sortie xml Applocker voulu
 
+    .PARAMETER testRules
+    Test les règles générés
+
     .NOTES
     (c) Florian MARTIN 2023
     version 1.0
@@ -14,10 +17,15 @@
     .\CEALocker.ps1 xmlOutFile example.xml
     Fichier de sortie par défaut : yyyyMMdd_cealocker.xml
     .\CEALocker.ps1
+    Pour ne pas tester les règles générées :
+    .\CEALocker.ps1 -testRules $false
 
 #>
 
-Param([Parameter(Mandatory=$False)][string]$xmlOutFile=(Get-Date -Format "yyyyMMdd")+"_cealocker.xml")
+Param(
+    [Parameter(Mandatory=$False)][string]$xmlOutFile=(Get-Date -Format "yyyyMMdd")+"_cealocker.xml",
+    [Parameter(Mandatory=$False)][bool]$testRules=$true
+    )
 
 $rootDir = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path)
 # Dot-source the config file.
@@ -118,10 +126,10 @@ function CreateFilePublisherRule {
     $fileRule = $xDocument.CreateElement("FilePublisherRule")
 
     if ($publisher.ProductName) {
-        $fileRule.SetAttribute("Description", $publisher.ProductName)
+        $fileRule.SetAttribute("Description", $rule.action + " " + $rule.UserOrGroup + " " + $publisher.ProductName)
         $fileRule.SetAttribute("Name", $rule.action + " " + $rule.UserOrGroup + " " + $publisher.ProductName)
     } else {
-        $fileRule.SetAttribute("Description", $filename)
+        $fileRule.SetAttribute("Description", $rule.action + " " + $rule.UserOrGroup + " " + $filename)
         $fileRule.SetAttribute("Name", $rule.action + " " + $rule.UserOrGroup + " " + $filename)
     }
     Return $fileRule
@@ -138,7 +146,7 @@ function CreateFilePathRule {
     #      ...
     # </FilePathRule>
     $fileRule = $xDocument.CreateElement("FilePathRule")
-    $fileRule.SetAttribute("Description", $filename)
+    $fileRule.SetAttribute("Description", $rule.action + " " + $rule.UserOrGroup + " " + $filename)
     $fileRule.SetAttribute("Name", $rule.action + " " + $rule.UserOrGroup + " " + $filename)
     Return $fileRule
 }
@@ -151,7 +159,7 @@ function CreateRule {
         [Parameter(Mandatory = $true)] [array] $rules,
         [Parameter(Mandatory = $true)] [ValidateScript( { $_ -in $placeholders.Keys } )] [string] $placeholderKey
     )
-    $msg = "Building ruleCollection {0} {1} rules" -f $ruleCollection, $placeholderKey
+    $msg = "Building ruleCollection {0} '{1}' rules" -f $ruleCollection, $placeholderKey
     Write-Host $msg -ForegroundColor Green
 
     # Let's create an XML child
@@ -234,7 +242,7 @@ function TestRule {
 
 }
 
-$msg = "TESTING RULES from {0}" -f $xmlOutFile
+$msg = "BUILDING RULES TO {0}" -f $xmlOutFile
 Write-Host $msg
 CreateRule $xDocument "Exe" $denyRules "EXE DENY"
 CreateRule $xDocument "Msi" $denyRules "MSI DENY"
@@ -245,10 +253,12 @@ Write-Debug $xDocument.OuterXml
 $masterPolicy = [Microsoft.Security.ApplicationId.PolicyManagement.PolicyModel.AppLockerPolicy]::FromXml($xDocument.OuterXml)
 SaveAppLockerPolicyAsUnicodeXml -ALPolicy $masterPolicy -xmlFilename $rulesFileEnforceNew
 
-$msg = "TESTING RULES from {0}" -f $xmlOutFile
-Write-Host $msg
-TestRule "Exe" $denyRules $xmlOutFile
-TestRule "Exe" $allowExceptDenyRule $xmlOutFile
+if ($testRules) {
+    $msg = "TESTING RULES from {0}" -f $xmlOutFile
+    Write-Host $msg
+    TestRule "Exe" $denyRules $xmlOutFile
+    TestRule "Exe" $allowExceptDenyRule $xmlOutFile
+}
 
 $msg = "EXPORTING RULES {0} TO EXCEL" -f $xmlOutFile
 & $ps1_ExportPolicyToExcel -AppLockerXML $xmlOutFile
