@@ -3,7 +3,7 @@
     Ce script génère un fichier xml de règles Applocker.
     Les règles autorise tout sauf la liste de logiciels présents dans différents dossiers
     
-    .PARAMETER OutFile
+    .PARAMETER xmlOutFile
     Nom du fichier de sortie xml Applocker voulu
 
     .NOTES
@@ -11,13 +11,13 @@
     version 1.0
 
     Example
-    .\CEALocker.ps1 -OutFile example.xml
+    .\CEALocker.ps1 xmlOutFile example.xml
     Fichier de sortie par défaut : yyyyMMdd_cealocker.xml
     .\CEALocker.ps1
 
 #>
 
-Param([Parameter(Mandatory=$False)][string]$OutFile=(Get-Date -Format "yyyyMMdd")+"_cealocker.xml")
+Param([Parameter(Mandatory=$False)][string]$xmlOutFile=(Get-Date -Format "yyyyMMdd")+"_cealocker.xml")
 
 $rootDir = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path)
 # Dot-source the config file.
@@ -95,7 +95,7 @@ function CreateFilePathCondition {
     # <FilePathCondition Path="ngrok*.exe" />
     # This XML is used between <Exceptions> OR <FilePathRule>
     $filePathCondition = $xDocument.CreateElement("FilePathCondition")   
-    $filePathCondition.SetAttribute("Path", $filename+"*.exe")
+    $filePathCondition.SetAttribute("Path", "*"+$filename+"*.exe")
     $msg = "Building {0} rule for group {1} for software {2} IN {3} based on filename" -f $rule.action, $rule.UserOrGroup, $filename, $rule.directory
     Write-Warning $msg
     Return $filePathCondition
@@ -215,24 +215,34 @@ function TestRule {
         [Parameter(Mandatory = $true)] $applockerPolicy
     )
 
+    $PolicyDecision = @{"Allow" = "Allowed"; "Deny" = "Denied"}
+
     foreach ($rule in $rules) {
         Get-ChildItem $rule.directory -File | ForEach-Object {
-            $_  |Convert-Path| Test-AppLockerPolicy -XmlPolicy $applockerPolicy|Select FilePath, PolicyDecision
+            $testresult = ($_  |Convert-Path| Test-AppLockerPolicy -XmlPolicy $applockerPolicy -User $rule.UserOrGroupSid)
+            if ($testresult.PolicyDecision -ne $PolicyDecision.Item($rule.action)) {
+                $msg = "'{0}' is {1} for {2} and should be '{3}'" -f $testresult.FilePath, $testresult.PolicyDecision, $rule.UserOrGroup, $rule.action
+                Write-Host $msg -ForegroundColor Red
+            } else {
+                $msg = "'{0}' is {1} for {2} by '{3}'" -f $testresult.FilePath, $testresult.PolicyDecision, $rule.UserOrGroup, $testresult.MatchingRule
+                Write-Host $msg -ForegroundColor Green
+            }
+            
         }
     }
 
 }
 
-#CreateRule $xDocument "Exe" $denyRules "EXE DENY"
-#CreateRule $xDocument "Msi" $denyRules "MSI DENY"
-#CreateRule $xDocument "Exe" $allowExceptDenyRule "EXE EXCEPTION"
-
-TestRule "Exe" $denyRules $OutFile
-TestRule "Exe" $allowExceptDenyRule $OutFile
+CreateRule $xDocument "Exe" $denyRules "EXE DENY"
+CreateRule $xDocument "Msi" $denyRules "MSI DENY"
+CreateRule $xDocument "Exe" $allowExceptDenyRule "EXE EXCEPTION"
 
 Write-Debug $xDocument.OuterXml
 
-#$masterPolicy = [Microsoft.Security.ApplicationId.PolicyManagement.PolicyModel.AppLockerPolicy]::FromXml($xDocument.OuterXml)
-
+$masterPolicy = [Microsoft.Security.ApplicationId.PolicyManagement.PolicyModel.AppLockerPolicy]::FromXml($xDocument.OuterXml)
 SaveAppLockerPolicyAsUnicodeXml -ALPolicy $masterPolicy -xmlFilename $rulesFileEnforceNew
 
+$msg = "TESTING RULES from {0}" -f $xmlOutFile
+Write-Host $msg
+TestRule "Exe" $denyRules $xmlOutFile
+TestRule "Exe" $allowExceptDenyRule $xmlOutFile
