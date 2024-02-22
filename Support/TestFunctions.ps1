@@ -49,7 +49,13 @@ function TestRuleAgainstXml {
                 if ($PlaceholderKey -like "*PRODUCT*") {
                     # Does the file exist
                     if (Test-Path -PathType leaf -Path $(Join-Path -Path $BinDir -ChildPath $Rule.Filepath)) {
-                        $TestResult = Get-ChildItem -LiteralPath $BinDir $Rule.Filepath |Convert-Path | Test-AppLockerPolicy -XmlPolicy $Xml -User $Rule.UserOrGroupSid
+                        try {
+                            $TestResult = Get-ChildItem -LiteralPath $BinDir $Rule.Filepath |Convert-Path | Test-AppLockerPolicy -XmlPolicy $Xml -User $Rule.UserOrGroupSid
+                        } catch [Microsoft.Security.ApplicationId.PolicyManagement.TestFileAllowedException] {
+                            $Msg = "Test failed for file {0} and group {1} with SID {2}" -f $Rule.FilePath, $Rule.UserOrGroup, $Rule.UserOrGroupSid
+                            Write-Host $Msg -ForegroundColor Red
+                            continue
+                        }
                         # Checking Appocker result
                         if ($TestResult.PolicyDecision -ne $PolicyDecision.Item($Rule.Action)) {
                             if ($Rule.isException -and $TestResult.PolicyDecision -eq "DeniedByDefault") {
