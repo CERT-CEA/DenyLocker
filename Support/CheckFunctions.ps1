@@ -7,10 +7,10 @@ function CheckXmlTemplate {
     )
     # Check template file
 
-    if ($Verbose.IsPresent) {
-        $Msg = "Checking that the template file {0} is valid" -f $XmlPath
-        Write-Host $Msg
-    }
+
+    $Msg = "Checking that the template file {0} is valid" -f $XmlPath
+    Write-Verbose $Msg
+
 
 
     # Check that the file exists
@@ -115,10 +115,10 @@ function CheckBinDirectory {
     )
     # Check that every file in $BinDir folder is concerned by at least one Rule in $JsonConfigFile
     $Msg = "Checking that every file in {0} folder is concerned by at least one Rule in {1}" -f $BinDir, $JsonConfigFile
-    Write-Host $Msg
+    Write-Verbose $Msg
     Get-ChildItem -LiteralPath $BinDir | ForEach-Object {
         $FileIsInConfig = Select-String -Path $JsonConfigFile -Pattern $_.Name
-        if ($null -eq $FileIsInConfig -and $Verbose.IsPresent) {
+        if ($null -eq $FileIsInConfig -and $Verbose) {
             $Msg = "File '{0}' does not appear in '{1}' config file and won't therefore be concerned by any applocker Rule defined there" -f $_.Name, $JsonConfigFile
             Write-Warning $Msg
         }

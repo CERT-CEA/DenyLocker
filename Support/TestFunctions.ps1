@@ -40,7 +40,7 @@ function TestRuleAgainstXml {
 
     if ($CountRules -gt 0) {
         $Msg = "** TESTING RULES from '{0}' **" -f $Xml
-        Write-Host $Msg
+        Write-Verbose $Msg
 
         foreach ($PlaceholderKey in $Placeholders.Keys) {
         # Iterate over every EXE, MSI and SCRIPT Rules
@@ -54,22 +54,25 @@ function TestRuleAgainstXml {
                         if ($TestResult.PolicyDecision -ne $PolicyDecision.Item($Rule.Action)) {
                             if ($Rule.isException -and $TestResult.PolicyDecision -eq "DeniedByDefault") {
                                 $Msg = "'{0}' is '{1}' for '{2}' due to an exception" -f $TestResult.FilePath, $TestResult.PolicyDecision, $Rule.UserOrGroup
-                                Write-Host $Msg -ForegroundColor Green
+                                if ($Verbose) {
+                                     Write-Host $Msg -ForegroundColor Green
+                                }
                             } else {
                                 $Msg = "'{0}' is '{1}' for '{2}' and should be ''{3}''" -f $TestResult.FilePath, $TestResult.PolicyDecision, $Rule.UserOrGroup, $Rule.Action
                                 Write-Host $Msg -ForegroundColor Red
                             }
                         } else {
                             $Msg = "'{0}' is '{1}' for '{2}' by ''{3}''" -f $TestResult.FilePath, $TestResult.PolicyDecision, $Rule.UserOrGroup, $TestResult.MatchingRule
-                            Write-Host $Msg -ForegroundColor Green
+                            if ($Verbose) {
+                                Write-Host $Msg -ForegroundColor Green
+                            }
                         }
                     } else {
                         $Msg = "file {0} could not be found in {1} directory, so it cannot be tested" -f $Rule.Filepath, $BinDir
                         Write-Warning $Msg
                     }
                 } elseif ($PlaceholderKey -like "*PATH*") {
-                    $Msg = "Not testing {0} Rules based on PATH" -f $PlaceholderKey
-                    Write-Warning $Msg
+                        Write-Verbose $Msg
                 } else {
                     $Msg = "Invalid Rule name {0}" -f $PlaceholderKey
                     Write-Warning $Msg
@@ -118,7 +121,7 @@ function TestRuleAgainstGPO {
                         if ($TestResult.PolicyDecision -ne $PolicyDecision.Item($Rule.Action)) {
                             if ($Rule.isException -and $TestResult.PolicyDecision -eq "DeniedByDefault") {
                                 $Msg = "'{0}' is '{1}' for '{2}' due to an exception" -f $TestResult.FilePath, $TestResult.PolicyDecision, $Rule.UserOrGroup
-                                if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent) {
+                                if ($Verbose) {
                                     Write-Host $Msg -ForegroundColor Green
                                 }
                             } else {
@@ -131,7 +134,7 @@ function TestRuleAgainstGPO {
                                 Write-Host $Msg -ForegroundColor Red
                             } else {
                                 $Msg = "'{0}' is '{1}' for '{2}' by '{3}'" -f $TestResult.FilePath, $TestResult.PolicyDecision, $Rule.UserOrGroup, $TestResult.MatchingRule
-                                if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent) {
+                                if ($Verbose) {
                                     Write-Host $Msg -ForegroundColor Green
                                 }
                             }
@@ -142,7 +145,7 @@ function TestRuleAgainstGPO {
                     }
                 } elseif ($PlaceholderKey -like "*PATH*") {
                     $Msg = "Not testing {0} Rules based on PATH" -f $PlaceholderKey
-                    if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent) {
+                    if ($Verbose) {
                         Write-Warning $Msg
                     }
                 } else {

@@ -18,9 +18,7 @@ function CreateFilePublisherCondition {
     } else {
         $Msg = "Building '{0}' Rule for group '{1}' for filename '{2}' in '{3}' Directory" -f $Rule.Action, $Rule.UserOrGroup, $Rule.Filepath, $Directory
     }
-    if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent) {
-        Write-Host $Msg -ForegroundColor Green
-    }
+    Write-Verbose $Msg
 
     $FilePublisherCondition.SetAttribute("PublisherName", $Publisher.PublisherName)
 
@@ -60,16 +58,14 @@ function CreateFilePathCondition {
         $FilenameWildcard = "*{0}*.exe" -f $Rule.Filepath.split('.')[0]
         $FilePathCondition.SetAttribute("Path", $FilenameWildcard)
         $Msg = "Building '{0}' Rule for group '{1}' for software '{2}' in '{3}' based on filename" -f $Rule.Action, $Rule.UserOrGroup, $Rule.Filepath, $Directory
-        if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent) {
+        if ($Verbose) {
             Write-Warning $Msg
         }
 
     } else {
         $FilePathCondition.SetAttribute("Path", $Rule.Filepath)
         $Msg = "Building '{0}' Rule for group '{1}' for path '{2}'" -f $Rule.Action, $Rule.UserOrGroup, $Rule.Filepath
-        if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent) {
-            Write-Host $Msg -ForegroundColor Green
-        }
+        Write-Verbose $Msg
     }
 
     Return $FilePathCondition
