@@ -1,222 +1,336 @@
 {
         "ApplockerGPOName1":  [
             {
-                "EXE PRODUCT DENY": [
-                    {
-                        "rule_number": 0,
-
-                        "FilePath": "EXEPRODUCTDENY.msi",
-                        "UserOrGroup": "Everyone",
-                        "UserOrGroupSID": "S-1-1-0",
-                        "RulePublisher": "true",
-                        "RuleProduct": "true",
-                        "RuleBinary": "false",
-                        "Action": "Deny"
-                    }
+                "EXE PRODUCT DENY": [],
+                "EXE PRODUCT ALLOW" : [],
+                "EXE PRODUCT DENY WITH EXCEPTION" : [],
+                "EXE PATH ALLOW": [],
+                "EXE PATH DENY": [],
+                "EXE PATH DENY WITH EXCEPTION": [{
+                    "FilePath": "%OSDRIVE%\\$Recycle.bin\\*",
+                    "UserOrGroup": "Everyone",
+                    "UserOrGroupSID": "S-1-1-0",
+                    "Action": "Allow",
+                    "IsException": "true"
+                },
+                {
+                    "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCache\\*",
+                    "UserOrGroup": "Everyone",
+                    "UserOrGroupSID": "S-1-1-0",
+                    "Action": "Allow",
+                    "IsException": "true"
+                },
+                {
+                    "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\*",
+                    "UserOrGroup": "Everyone",
+                    "UserOrGroupSID": "S-1-1-0",
+                    "Action": "Allow",
+                    "IsException": "true"
+                },
+                {
+                    "FilePath": "%OSDRIVE%\\Users\\Public\\*",
+                    "UserOrGroup": "Everyone",
+                    "UserOrGroupSID": "S-1-1-0",
+                    "Action": "Allow",
+                    "IsException": "true"
+                },
+                {
+                    "FilePath": "%OSDRIVE%\\Users\\All Users\\*",
+                    "UserOrGroup": "Everyone",
+                    "UserOrGroupSID": "S-1-1-0",
+                    "Action": "Allow",
+                    "IsException": "true"
+                },
+                {
+                    "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\*",
+                    "UserOrGroup": "Everyone",
+                    "UserOrGroupSID": "S-1-1-0",
+                    "Action": "Allow",
+                    "IsException": "true"
+                },
+                {
+                    "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Temp\\MicrosoftEdgeDownloads\\*",
+                    "UserOrGroup": "Everyone",
+                    "UserOrGroupSID": "S-1-1-0",
+                    "Action": "Allow",
+                    "IsException": "true"
+                },
+                {
+                    "FilePath": "%HOT%\\*",
+                    "UserOrGroup": "Everyone",
+                    "UserOrGroupSID": "S-1-1-0",
+                    "Action": "Allow",
+                    "IsException": "true"
+                },
+                {
+                    "FilePath": "%REMOVABLE%\\*",
+                    "UserOrGroup": "Everyone",
+                    "UserOrGroupSID": "S-1-1-0",
+                    "Action": "Allow",
+                    "IsException": "true"
+                },
+                {
+                    "FilePath": "%SYSTEM32%\\spool\\drivers\\color\\*",
+                    "UserOrGroup": "Everyone",
+                    "UserOrGroupSID": "S-1-1-0",
+                    "Action": "Allow",
+                    "IsException": "true"
+                },
+                {
+                    "FilePath": "%SYSTEM32%\\tasks\\*",
+                    "UserOrGroup": "Everyone",
+                    "UserOrGroupSID": "S-1-1-0",
+                    "Action": "Allow",
+                    "IsException": "true"
+                },
+                {
+                    "FilePath": "%WINDIR%\\debug\\wia\\*",
+                    "UserOrGroup": "Everyone",
+                    "UserOrGroupSID": "S-1-1-0",
+                    "Action": "Allow",
+                    "IsException": "true"
+                },
+                {
+                    "FilePath": "%WINDIR%\\tasks\\*",
+                    "UserOrGroup": "Everyone",
+                    "UserOrGroupSID": "S-1-1-0",
+                    "Action": "Allow",
+                    "IsException": "true"
+                },
+                {
+                    "FilePath": "%WINDIR%\\tracing\\*",
+                    "UserOrGroup": "Everyone",
+                    "UserOrGroupSID": "S-1-1-0",
+                    "Action": "Allow",
+                    "IsException": "true"
+                },
+                {
+                    "FilePath": "%WINDIR%\\Temp\\*",
+                    "UserOrGroup": "Everyone",
+                    "UserOrGroupSID": "S-1-1-0",
+                    "Action": "Allow",
+                    "IsException": "true"
+                }],
+                "MSI PRODUCT DENY": [],
+                "MSI PRODUCT ALLOW": [],
+                "MSI PRODUCT DENY WITH EXCEPTION" : [],
+                "MSI PATH ALLOW": [],
+                "MSI PATH DENY": [],
+                "MSI PATH DENY WITH EXCEPTION": [
                     
-                ],
-                "EXE PRODUCT ALLOW" : [
                     {
-                        "rule_number": 1,
-                        "mandatory": "Mandatory fields : FilePath, UserOrGroup, UserOrGroupSID, RulePublisher, RuleProduct, RuleBinary, Action",
-                        "comment": "firefox is allowed for the group Administrators only, thanks to the exception in rule 2",
-                        "FilePath": "firefox.exe",
-                        "UserOrGroup": "Administrators",
-                        "UserOrGroupSID": "S-1-5-32-544",
-                        "RulePublisher": "true",
-                        "RuleProduct": "true",
-                        "RuleBinary": "false",
-                        "Action": "Allow"
-                    }
-                ],
-                "EXE PRODUCT DENY WITH EXCEPTION" : [
-                    {
-                        "rule_number": 2,
-                        "mandatory": "Mandatory fields : FilePath, UserOrGroup, UserOrGroupSID, RulePublisher, RuleProduct, RuleBinary, Action, IsException",
-                        "comment": "firefox is placed in an exception, to be allowed by rule 1 for Administrators only",
-                        "FilePath": "firefox.exe",
+                        "FilePath": "%OSDRIVE%\\$Recycle.bin\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
-                        "RulePublisher": "true",
-                        "RuleProduct": "true",
-                        "RuleBinary": "false",
                         "Action": "Allow",
                         "IsException": "true"
-                    }
-                ],
-                "EXE PATH ALLOW": [
-                    {
-                        "rule_number": 3,
-                        "mandatory": "Mandatory fields : FilePath, UserOrGroup, UserOrGroupSID, Action",
-                        "FilePath": "%WINDIR%\\Temp\\EXEPATHALLOW\\*",
-                        "UserOrGroup": "Everyone",
-                        "UserOrGroupSID": "S-1-1-0",
-                        "Action": "Allow"
                     },
                     {
-                        "rule_number": 4,
-                        "comment": "same principle than rule 1 and 2, but with rule 6",
-                        "FilePath": "%WINDIR%\\Temp\\EXEPATHDENYEXCEPTION\\*",
-                        "UserOrGroup": "Administrators",
-                        "UserOrGroupSID": "S-1-1-0",
-                        "Action": "Allow"
-                    }
-                ],
-                "EXE PATH DENY": [
-                    {
-                        "rule_number": 5,
-                        "mandatory": "Mandatory fields : FilePath, UserOrGroup, UserOrGroupSID, Action",
-                        "FilePath": "%WINDIR%\\Temp\\EXEPATHDENY\\*",
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCache\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
-                        "Action": "Deny"
-                    }
-                ],
-                "EXE PATH DENY WITH EXCEPTION": [
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
                     {
-                        "rule_number": 6,
-                        "mandatory": "Mandatory fields : FilePath, UserOrGroup, UserOrGroupSID, Action, IsException",
-                        "comment": "same principle than rule 1 and 2, but with rule 4",
-                        "FilePath": "%WINDIR%\\Temp\\EXEPATHDENYEXCEPTION\\*",
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\Public\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\All Users\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Temp\\MicrosoftEdgeDownloads\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%HOT%\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%REMOVABLE%\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%SYSTEM32%\\spool\\drivers\\color\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%SYSTEM32%\\tasks\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\debug\\wia\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\tasks\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\tracing\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\Temp\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
                         "Action": "Allow",
                         "IsException": "true"
                     }
                 ],
-                "MSI PRODUCT DENY": [
-                    {
-                        "mandatory": "Mandatory fields : FilePath, UserOrGroup, UserOrGroupSID, RulePublisher, RuleProduct, RuleBinary, Action",
-                        "FilePath": "MSIPRODUCTDENY.msi",
-                        "UserOrGroup": "Everyone",
-                        "UserOrGroupSID": "S-1-1-0",
-                        "RulePublisher": "true",
-                        "RuleProduct": "true",
-                        "RuleBinary": "false",
-                        "Action": "Deny"
-                    }
-                ],
-                "MSI PRODUCT ALLOW": [
-                    {
-                        "mandatory": "Mandatory fields : FilePath, UserOrGroup, UserOrGroupSID, RulePublisher, RuleProduct, RuleBinary, Action",
-                        "FilePath": "MSIPRODUCTALLOW.msi",
-                        "UserOrGroup": "Everyone",
-                        "UserOrGroupSID": "S-1-1-0",
-                        "RulePublisher": "true",
-                        "RuleProduct": "true",
-                        "RuleBinary": "false",
-                        "Action": "Allow"
-                    }
-                ],
-                "MSI PRODUCT DENY WITH EXCEPTION" : [
-                    {
-                        "mandatory": "Mandatory fields : FilePath, UserOrGroup, UserOrGroupSID, RulePublisher, RuleProduct, RuleBinary, Action, IsException",
-                        "FilePath": "MSIPRODUCTDENYEXCEPTION.msi",
-                        "UserOrGroup": "Everyone",
-                        "UserOrGroupSID": "S-1-1-0",
-                        "RulePublisher": "true",
-                        "RuleProduct": "true",
-                        "RuleBinary": "false",
-                        "Action": "Allow",
-                        "IsException": "true"
-                    }
-                ],
-                "MSI PATH ALLOW": [
-                    {
-                        "mandatory": "Mandatory fields : FilePath, UserOrGroup, UserOrGroupSID, Action",
-                        "FilePath": "%WINDIR%\\Temp\\MSIPATHALLOW\\*",
-                        "UserOrGroup": "Everyone",
-                        "UserOrGroupSID": "S-1-1-0",
-                        "Action": "Allow"
-                    }
-                ],
-                "MSI PATH DENY": [
-                    {
-                        "mandatory": "Mandatory fields : FilePath, UserOrGroup, UserOrGroupSID, Action",
-                        "FilePath": "%WINDIR%\\Temp\\MSIPATHDENY\\*",
-                        "UserOrGroup": "Everyone",
-                        "UserOrGroupSID": "S-1-1-0",
-                        "Action": "Deny"
-                    }
-                ],
-                "MSI PATH DENY WITH EXCEPTION": [
-                    {
-                        "mandatory": "Mandatory fields : FilePath, UserOrGroup, UserOrGroupSID, Action, IsException",
-                        "FilePath": "%WINDIR%\\Temp\\MSIPATHDENYEXCEPTION\\*",
-                        "UserOrGroup": "Everyone",
-                        "UserOrGroupSID": "S-1-1-0",
-                        "Action": "Allow",
-                        "IsException": "true"
-                    }
-                ],
-                "SCRIPT PATH ALLOW": [
-                    {
-                        "mandatory": "Mandatory fields : FilePath, UserOrGroup, UserOrGroupSID, Action",
-                        "FilePath": "%WINDIR%\\Temp\\SCRIPTPATHALLOW\\*",
-                        "UserOrGroup": "Everyone",
-                        "UserOrGroupSID": "S-1-1-0",
-                        "Action": "Allow"
-                    }
-                ],
-                "SCRIPT PATH DENY": [
-                    {
-                        "mandatory": "Mandatory fields : FilePath, UserOrGroup, UserOrGroupSID, Action",
-                        "FilePath": "%WINDIR%\\Temp\\SCRIPTPATHALLOW\\*",
-                        "UserOrGroup": "Everyone",
-                        "UserOrGroupSID": "S-1-1-0",
-                        "Action": "Deny"
-                    }
-                ],
+                "SCRIPT PATH ALLOW": [],
+                "SCRIPT PATH DENY": [],
                 "SCRIPT PATH DENY WITH EXCEPTION": [
                     {
-                        "mandatory": "Mandatory fields : FilePath, UserOrGroup, UserOrGroupSID, Action, IsException",
-                        "FilePath": "%WINDIR%\\Temp\\SCRIPTPATHDENYEXCEPTION\\*",
+                        "FilePath": "%OSDRIVE%\\$Recycle.bin\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
                         "Action": "Allow",
                         "IsException": "true"
-                    }
-                ]
-            },
-            {
-                "ApplockerGPOName2":  [
+                    },
                     {
-                        "EXE PRODUCT DENY": [],
-                        "EXE PRODUCT ALLOW" : [],
-                        "EXE PRODUCT DENY WITH EXCEPTION" : [],
-                        "EXE PATH ALLOW": [],
-                        "EXE PATH DENY": [],
-                        "EXE PATH DENY WITH EXCEPTION": [],
-                        "MSI PRODUCT DENY": [],
-                        "MSI PRODUCT ALLOW": [],
-                        "MSI PRODUCT DENY WITH EXCEPTION" : [],
-                        "MSI PATH ALLOW": [],
-                        "MSI PATH DENY": [],
-                        "MSI PATH DENY WITH EXCEPTION": [],
-                        "SCRIPT PATH ALLOW": [],
-                        "SCRIPT PATH DENY": [],
-                        "SCRIPT PATH DENY WITH EXCEPTION": []
-                    }
-                ]
-            },
-            {
-                "ApplockerGPOName3":  [
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCache\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
                     {
-                        "EXE PRODUCT DENY": [],
-                        "EXE PRODUCT ALLOW" : [],
-                        "EXE PRODUCT DENY WITH EXCEPTION" : [],
-                        "EXE PATH ALLOW": [],
-                        "EXE PATH DENY": [],
-                        "EXE PATH DENY WITH EXCEPTION": [],
-                        "MSI PRODUCT DENY": [],
-                        "MSI PRODUCT ALLOW": [],
-                        "MSI PRODUCT DENY WITH EXCEPTION" : [],
-                        "MSI PATH ALLOW": [],
-                        "MSI PATH DENY": [],
-                        "MSI PATH DENY WITH EXCEPTION": [],
-                        "SCRIPT PATH ALLOW": [],
-                        "SCRIPT PATH DENY": [],
-                        "SCRIPT PATH DENY WITH EXCEPTION": []
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\Public\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\All Users\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Temp\\MicrosoftEdgeDownloads\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%HOT%\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%REMOVABLE%\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%SYSTEM32%\\spool\\drivers\\color\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%SYSTEM32%\\tasks\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\debug\\wia\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\tasks\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\tracing\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\Temp\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
                     }
                 ]
             }
