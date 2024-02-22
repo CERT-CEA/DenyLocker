@@ -1,12 +1,393 @@
 {
-        "ApplockerGPOName1":  [
+        "ApplockerGPO":  [
             {
-                "EXE PRODUCT DENY": [],
-                "EXE PRODUCT ALLOW" : [],
-                "EXE PRODUCT DENY WITH EXCEPTION" : [],
+                "EXE PRODUCT DENY": [
+                    {
+                        "FilePath": "BraveBrowser.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },                
+                    {
+                        "FilePath": "ccsetup.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "expressvpn.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },                {
+                        "FilePath": "Iperius.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "ipvanish.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "iTopVPN.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "IVPN.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "localtonet.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "mullvadbrowser.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "MullvadVPN.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "ngrok.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "NordVPN.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "parsec.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "pktriot.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "PlexMediaServer.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "ProtonVPN.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "purevpn.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "rustdesk.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "SetupIperius.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "Shadowsocks.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "StrongVPN.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "SugarSync.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "Supremo.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "Surfshark.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "tigerVPN.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "torbrowser.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "TunnelBear.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "viewer.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "VPNFacile.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "VPN_Unlimited.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "VyprVPN.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "comments" : "The resulting exe from those msi must also be denied",
+                        "FilePath": "AtlasVPN.msi",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "comments" : "The resulting exe from those msi must also be denied",
+                        "FilePath": "hamachi.msi",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    }
+
+                ],
+                "EXE PRODUCT ALLOW" : [
+                    {
+                        "FilePath": "firefox.exe",
+                        "UserOrGroup": "AllowFirefox",
+                        "UserOrGroupSID": "S-1-5-21-1293688190-1484503298-98056765-123",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Allow"
+                    },
+                    {
+                        "FilePath": "openvpn.exe",
+                        "UserOrGroup": "AllowOpenVPN",
+                        "UserOrGroupSID": "S-1-5-21-1293688190-1484503298-98056765-456",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Allow"
+                    },
+                    {
+                        "FilePath": "wireguard.exe",
+                        "UserOrGroup": "AllowWireguard",
+                        "UserOrGroupSID": "S-1-5-21-1293688190-1484503298-98056765-789",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Allow"
+                    }
+                ],
+                "EXE PRODUCT DENY WITH EXCEPTION" : [
+                    {
+                        "FilePath": "AnyDesk.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Allow",
+                        "IsException": "True"
+                    },
+                    {
+                        "FilePath": "TeamViewer.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Allow",
+                        "IsException": "True"
+                    },
+                    {
+                        "FilePath": "firefox.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "openvpn.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "wireguard.exe",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    }
+                    
+                ],
                 "EXE PATH ALLOW": [],
                 "EXE PATH DENY": [],
-                "EXE PATH DENY WITH EXCEPTION": [{
+                "EXE PATH DENY WITH EXCEPTION": [
+                {
                     "FilePath": "%OSDRIVE%\\$Recycle.bin\\*",
                     "UserOrGroup": "Everyone",
                     "UserOrGroupSID": "S-1-1-0",
@@ -110,14 +491,435 @@
                     "UserOrGroupSID": "S-1-1-0",
                     "Action": "Allow",
                     "IsException": "true"
-                }],
-                "MSI PRODUCT DENY": [],
+                }
+            ],
+                "MSI PRODUCT DENY": [
+                    {
+                        "FilePath": "AtlasVPN.msi",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "hamachi.msi",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "ScreenConnect.msi",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    }
+                ],
                 "MSI PRODUCT ALLOW": [],
                 "MSI PRODUCT DENY WITH EXCEPTION" : [],
                 "MSI PATH ALLOW": [],
                 "MSI PATH DENY": [],
                 "MSI PATH DENY WITH EXCEPTION": [
                     
+                    {
+                        "FilePath": "%OSDRIVE%\\$Recycle.bin\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCache\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\Public\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\All Users\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Temp\\MicrosoftEdgeDownloads\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%HOT%\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%REMOVABLE%\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%SYSTEM32%\\spool\\drivers\\color\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%SYSTEM32%\\tasks\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\debug\\wia\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\tasks\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\tracing\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\Temp\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    }
+                ],
+                "SCRIPT PATH ALLOW": [],
+                "SCRIPT PATH DENY": [],
+                "SCRIPT PATH DENY WITH EXCEPTION": [
+                    {
+                        "FilePath": "%OSDRIVE%\\$Recycle.bin\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCache\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\Public\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\All Users\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Temp\\MicrosoftEdgeDownloads\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%HOT%\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%REMOVABLE%\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%SYSTEM32%\\spool\\drivers\\color\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%SYSTEM32%\\tasks\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\debug\\wia\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\tasks\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\tracing\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\Temp\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    }
+                ]
+            }
+        ],
+        "ApplockerGPOAdminDenyInternet":  [
+            {
+                "EXE PRODUCT DENY": [
+                    {
+                        "FilePath": "chrome.exe",
+                        "UserOrGroup": "Administrators",
+                        "UserOrGroupSID": "S-1-5-32-544",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "firefox.exe",
+                        "UserOrGroup": "Administrators",
+                        "UserOrGroupSID": "S-1-5-32-544",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "iexplore.exe",
+                        "UserOrGroup": "Administrators",
+                        "UserOrGroupSID": "S-1-5-32-544",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "msedge.exe",
+                        "UserOrGroup": "Administrators",
+                        "UserOrGroupSID": "S-1-5-32-544",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "OUTLOOK.EXE",
+                        "UserOrGroup": "Administrators",
+                        "UserOrGroupSID": "S-1-5-32-544",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    },
+                    {
+                        "FilePath": "Thunderbird.exe",
+                        "UserOrGroup": "Administrators",
+                        "UserOrGroupSID": "S-1-5-32-544",
+                        "RulePublisher": "true",
+                        "RuleProduct": "true",
+                        "RuleBinary": "false",
+                        "Action": "Deny"
+                    }
+                ],
+                "EXE PRODUCT ALLOW" : [],
+                "EXE PRODUCT DENY WITH EXCEPTION" : [],
+                "EXE PATH ALLOW": [],
+                "EXE PATH DENY": [],
+                "EXE PATH DENY WITH EXCEPTION": [
+                    {
+                        "FilePath": "%OSDRIVE%\\$Recycle.bin\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCache\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\Public\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\All Users\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Temp\\MicrosoftEdgeDownloads\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%HOT%\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%REMOVABLE%\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%SYSTEM32%\\spool\\drivers\\color\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%SYSTEM32%\\tasks\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\debug\\wia\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\tasks\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\tracing\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    },
+                    {
+                        "FilePath": "%WINDIR%\\Temp\\*",
+                        "UserOrGroup": "Everyone",
+                        "UserOrGroupSID": "S-1-1-0",
+                        "Action": "Allow",
+                        "IsException": "true"
+                    }
+                ],
+                "MSI PRODUCT DENY" : [],
+                "MSI PRODUCT ALLOW" : [],
+                "MSI PRODUCT DENY WITH EXCEPTION" : [],
+                "MSI PATH ALLOW": [],
+                "MSI PATH DENY": [],
+                "MSI PATH DENY WITH EXCEPTION": [
                     {
                         "FilePath": "%OSDRIVE%\\$Recycle.bin\\*",
                         "UserOrGroup": "Everyone",
