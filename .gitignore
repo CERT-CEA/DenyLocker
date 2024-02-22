@@ -5,3 +5,5 @@ backup.xml
 Binaries/*
 output
 test
+test-config.json
+prod-config.json
