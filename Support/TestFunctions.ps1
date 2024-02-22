@@ -78,7 +78,10 @@ function TestRuleAgainstXml {
                         Write-Warning $Msg
                     }
                 } elseif ($PlaceholderKey -like "*PATH*") {
-                        Write-Verbose $Msg
+                    $Msg = "Not testing {0} Rules based on PATH : {1}" -f $PlaceholderKey, $Rule.Filepath
+                    if ($Verbose) {
+                        Write-Warning $Msg
+                    }
                 } else {
                     $Msg = "Invalid Rule name {0}" -f $PlaceholderKey
                     Write-Warning $Msg
@@ -150,7 +153,7 @@ function TestRuleAgainstGPO {
                         Write-Warning $Msg
                     }
                 } elseif ($PlaceholderKey -like "*PATH*") {
-                    $Msg = "Not testing {0} Rules based on PATH" -f $PlaceholderKey
+                    $Msg = "Not testing {0} Rules based on PATH : {1}" -f $PlaceholderKey, $Rule.Filepath
                     if ($Verbose) {
                         Write-Warning $Msg
                     }
