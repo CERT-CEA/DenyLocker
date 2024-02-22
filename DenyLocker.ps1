@@ -1,22 +1,22 @@
 <#
     .SYNOPSIS
-    Ce script génère un fichier xml de règles Applocker.
-    Les règles autorise tout sauf la liste de logiciels présents dans différents dossiers
+    This script create a valid Applocker XML file. 
+    Rules are in DenyList mode. Everything is allowed except the sofware and path you specify in the json config file.
 
     .PARAMETER JsonConfigFile
-    Nom du fichier json contenant les binaires et la règle à leur appliquer
+    Path to the json config file. Default : Support/empty.json.
 
     .PARAMETER XmlTemplateFile
-    Nom du fichier xml utilisé comme template
+    Path to the XML template file. Default : Support/template.xml
 
     .PARAMETER BinDir
-    Dossier contenant les binaires définies dans JsonConfigFile
+    Directory with the binaries to extract the signature from. Default : binaries
 
     .PARAMETER OutDir
-    Dossier dans lequel les xml Applocker seront écrits
+    Directory where the resulting xml, csv and xlsx are written. Default : output
 
     .PARAMETER TestRules
-    Test les règles générés
+    Test the rules configured in JsonConfigFile against an XML file or a GPO
 
     .PARAMETER GpoToTest
     Specify the Applocker GPO to test JsonConfigFile against
@@ -25,10 +25,10 @@
     Specify the Applocker XML to test JsonConfigFile against
 
     .PARAMETER CreateRules
-    Génère les règles
+    Create the rules from JsonConfigFile
 
     .PARAMETER ExportRules
-    Exporte les règles XML sous excel
+    Export the resulting XML rules to Excel
 
     .PARAMETER ResolveSID
     Resolve user or group SID based on their name using the ActiveDirectory module
@@ -53,7 +53,7 @@
 #>
 
 Param(
-    [Parameter(Mandatory=$False)][string]$JsonConfigFile="example-config.json",
+    [Parameter(Mandatory=$False)][string]$JsonConfigFile="Support/empty.json",
     [Parameter(Mandatory=$False)][string]$XmlTemplateFile="Support/template.xml",
     [Parameter(Mandatory=$False)][string]$BinDir="binaries",
     [Parameter(Mandatory=$False)][string]$OutDir="output",
@@ -66,6 +66,9 @@ Param(
     )
 
 $ErrorActionPreference="Stop"
+if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent) {
+    $Verbose=$true
+}
 $RootDir = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path)
 # Dot-source the config file.
 . $RootDir\Support\Config.ps1
@@ -123,9 +126,3 @@ if ($TestRules.IsPresent) {
 if ($ExportRules.IsPresent) {
     ExportXmlRule -JsonConfigFile $JsonConfigFile
 }
-
-#TODO : paramètre UserOrGroup obligatoire dans la conf json des exceptions
-# refaire example-config, UserOrGroup est nécessaire pour les tests
-# résoudre SID et nom des objets, vérifier qu'ils sont égaux
-# résoudre le SID du groupe à partir du nom du groupe
-# Ecrire le README
