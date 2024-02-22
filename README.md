@@ -10,6 +10,9 @@ The main goal is to block virus, not a sneak red-teamer by :
 # Requirements
 Powershell ActiveDirectory Module if you don't want to manually enter every object SID in your json file. Their SID can be automatically resolved based on their name.
 
+# Demo
+Check `Example\PowerShell_transcript.txt` for an execution. The resulting Applocker XML are in `Example\output`.
+
 ## Rules architecture
 Let's say you want the following policy :
 - App1 and App2 are forbidden, except for some security groups : GroupA and GroupB
@@ -73,7 +76,7 @@ PS > Set-AppLockerPolicy -XmlPolicy '.\20240202_GPOApplocker.xml' -Ldap $GPOAppl
 
 ## Config
 
-The config fields are explained in the `readme-config.json` file. You can use `Support/empty.json` to start your conf from scratch. Check also `example-config.json` for some more examples.
+The config fields are explained in the `readme-config.json` file. You can use `Support/empty.json` to start your conf from scratch. Check also `Example\example-config.json` for some more examples.
 
 The following list can be configured (Apply to MSI and SCRIPT as well):
 * `EXE|MSI|SCRIPT PRODUCT DENY` : EXE/MSI/SCRIPT file added will be denied for the group you specify, based on their signature
@@ -93,7 +96,7 @@ Some fields are mandatory :
 * `Action`: Possible value : Allow or Deny.
 * `isException`: Only for `* PATH DENY WITH EXCEPTION` rules. Possible value : True.
 
-### example-config.json
+### Example\example-config.json
 This config files defines 2 GPO :
 * ApplockerGPO
 * ApplockerGPOAdminDenyInternet

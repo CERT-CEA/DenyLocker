@@ -1,0 +1,397 @@
+﻿**********************
+Début de la transcription Windows PowerShell
+Heure de début : 20240222161917
+Nom d'utilisateur : ATTACKRANGE\USER
+Utilisateur runAs :  ATTACKRANGE\USER
+Nom de la configuration : 
+Ordinateur : MACHINE (Microsoft Windows NT 10.0.19045.0)
+Application hôte : C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+ID de processus : 21816
+PSVersion: 5.1.19041.3930
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.3930
+BuildVersion: 10.0.19041.3930
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcription démarrée, le fichier de sortie est C:\Users\USER\Documents\PowerShell_transcript.MACHINE.YmtUAhoV.20240222161917.txt
+PS C:\Users\USER\Documents\DenyLocker> .\DenyLocker.ps1 -JsonConfigFile .\example-config.json -CreateRules -TestRules -ExportRules -Verbose
+EN CLAIR : Checking that the template file C:\Users\USER\Documents\DenyLocker\Support\template.xml is valid
+EN CLAIR : Building Applocker Gpo policy 'empty' to 'C:\Users\USER\Documents\DenyLocker\output\20240222_empty.xml'
+EN CLAIR : No Rules defined for EXE PRODUCT DENY
+EN CLAIR : No Rules defined for EXE PRODUCT ALLOW
+EN CLAIR : No Rules defined for MSI PRODUCT DENY WITH EXCEPTION
+EN CLAIR : No Rules defined for SCRIPT PATH DENY
+EN CLAIR : No Rules defined for EXE PATH DENY
+EN CLAIR : No Rules defined for EXE PATH ALLOW
+EN CLAIR : No Rules defined for MSI PATH DENY WITH EXCEPTION
+EN CLAIR : No Rules defined for MSI PRODUCT ALLOW
+EN CLAIR : No Rules defined for EXE PRODUCT DENY WITH EXCEPTION
+EN CLAIR : No Rules defined for SCRIPT PATH DENY WITH EXCEPTION
+EN CLAIR : No Rules defined for MSI PATH DENY
+EN CLAIR : No Rules defined for EXE PATH DENY WITH EXCEPTION
+EN CLAIR : No Rules defined for SCRIPT PATH ALLOW
+EN CLAIR : No Rules defined for MSI PRODUCT DENY
+EN CLAIR : No Rules defined for MSI PATH ALLOW
+EN CLAIR : Checking that every file in C:\Users\USER\Documents\DenyLocker\binaries folder is concerned by at least one Rule in C:\Users\USER\Documents\DenyLocker\.\example-config.json
+AVERTISSEMENT : File 'ClickShare_Setup.exe' does not appear in 'C:\Users\USER\Documents\DenyLocker\.\example-config.json' config file and won't therefore be concerned by any applocker Rule defined there
+AVERTISSEMENT : File 'Cozy-Drive.exe' does not appear in 'C:\Users\USER\Documents\DenyLocker\.\example-config.json' config file and won't therefore be concerned by any applocker Rule defined there
+AVERTISSEMENT : File 'Cyberduck.exe' does not appear in 'C:\Users\USER\Documents\DenyLocker\.\example-config.json' config file and won't therefore be concerned by any applocker Rule defined there
+AVERTISSEMENT : File 'DropboxInstaller.exe' does not appear in 'C:\Users\USER\Documents\DenyLocker\.\example-config.json' config file and won't therefore be concerned by any applocker Rule defined there
+AVERTISSEMENT : File 'EpicInstaller-15.17.1.msi' does not appear in 'C:\Users\USER\Documents\DenyLocker\.\example-config.json' config file and won't therefore be concerned by any applocker Rule defined there
+AVERTISSEMENT : File 'GoogleDrive.exe' does not appear in 'C:\Users\USER\Documents\DenyLocker\.\example-config.json' config file and won't therefore be concerned by any applocker Rule defined there
+AVERTISSEMENT : File 'inlets.exe' does not appear in 'C:\Users\USER\Documents\DenyLocker\.\example-config.json' config file and won't therefore be concerned by any applocker Rule defined there
+AVERTISSEMENT : File 'MEGAsync.exe' does not appear in 'C:\Users\USER\Documents\DenyLocker\.\example-config.json' config file and won't therefore be concerned by any applocker Rule defined there
+AVERTISSEMENT : File 'OneDrive.exe' does not appear in 'C:\Users\USER\Documents\DenyLocker\.\example-config.json' config file and won't therefore be concerned by any applocker Rule defined there
+AVERTISSEMENT : File 'Opera.exe' does not appear in 'C:\Users\USER\Documents\DenyLocker\.\example-config.json' config file and won't therefore be concerned by any applocker Rule defined there
+AVERTISSEMENT : File 'tor-browser.exe' does not appear in 'C:\Users\USER\Documents\DenyLocker\.\example-config.json' config file and won't therefore be concerned by any applocker Rule defined there
+EN CLAIR : Building Applocker Gpo policy 'ApplockerGPO' to 'C:\Users\USER\Documents\DenyLocker\output\20240222_ApplockerGPO.xml'
+EN CLAIR : Building RuleCollection 'EXE PRODUCT DENY' Rules
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'BRAVESOFTWARE UPDATE' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'CCLEANER' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'EXPRESSVPN' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'IPERIUS REMOTE' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'IPVANISH' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'ITOPVPN' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for filename 'IVPN.exe' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+AVERTISSEMENT : Unable to build 'Deny' Rule based on signature for File 'localtonet.exe' in 'C:\Users\USER\Documents\DenyLocker\binaries' directory
+AVERTISSEMENT : Building 'Deny' Rule for group 'Everyone' for software 'localtonet.exe' in 'C:\Users\USER\Documents\DenyLocker\binaries' based on filename
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'MULLVAD BROWSER' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'MULLVAD VPN' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'NGROK AGENT' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'NORDVPN' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for filename 'parsec.exe' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+AVERTISSEMENT : Unable to build 'Deny' Rule based on signature for File 'pktriot.exe' in 'C:\Users\USER\Documents\DenyLocker\binaries' directory
+AVERTISSEMENT : Building 'Deny' Rule for group 'Everyone' for software 'pktriot.exe' in 'C:\Users\USER\Documents\DenyLocker\binaries' based on filename
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'PLEX MEDIA SERVER' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'PROTONVPN' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'PUREVPN' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'RUSTDESK' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'IPERIUS BACKUP' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+AVERTISSEMENT : Unable to build 'Deny' Rule based on signature for File 'Shadowsocks.exe' in 'C:\Users\USER\Documents\DenyLocker\binaries' directory
+AVERTISSEMENT : Building 'Deny' Rule for group 'Everyone' for software 'Shadowsocks.exe' in 'C:\Users\USER\Documents\DenyLocker\binaries' based on filename
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'STRONGVPN' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'SUGARSYNC' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'SUPREMO REMOTE CONTROL' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'SURFSHARK' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'TIGERVPN' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for filename 'torbrowser.exe' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'TUNNELBEAR' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'REMOTE UTILITIES - VIEWER' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+AVERTISSEMENT : Unable to build 'Deny' Rule based on signature for File 'VPNFacile.exe' in 'C:\Users\USER\Documents\DenyLocker\binaries' directory
+AVERTISSEMENT : Building 'Deny' Rule for group 'Everyone' for software 'VPNFacile.exe' in 'C:\Users\USER\Documents\DenyLocker\binaries' based on filename
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'VPN UNLIMITED' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+AVERTISSEMENT : file 'VyprVPN.exe' could not be found in 'C:\Users\USER\Documents\DenyLocker\binaries', download it or fix the json config file
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'VPN UNLIMITED' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'ATLASVPN' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'LOGMEIN HAMACHI' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building RuleCollection 'EXE PRODUCT ALLOW' Rules
+EN CLAIR : Building 'Allow' Rule for group 'AllowFirefox' for product 'FIREFOX' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Allow' Rule for group 'AllowOpenVPN' for product 'OPENVPN' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Allow' Rule for group 'AllowWireguard' for product 'WIREGUARD' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : No Rules defined for MSI PRODUCT DENY WITH EXCEPTION
+EN CLAIR : No Rules defined for SCRIPT PATH DENY
+EN CLAIR : No Rules defined for EXE PATH DENY
+EN CLAIR : No Rules defined for EXE PATH ALLOW
+EN CLAIR : Building RuleCollection 'MSI PATH DENY WITH EXCEPTION' Rules
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\$Recycle.bin\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\INetCache\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\Temporary Internet Files\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\Public\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\All Users\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Temp\MicrosoftEdgeDownloads\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%HOT%\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%REMOVABLE%\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%SYSTEM32%\spool\drivers\color\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%SYSTEM32%\tasks\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\debug\wia\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\tasks\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\tracing\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\Temp\*'
+EN CLAIR : No Rules defined for MSI PRODUCT ALLOW
+EN CLAIR : Building RuleCollection 'EXE PRODUCT DENY WITH EXCEPTION' Rules
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for product 'ANYDESK' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for product 'TEAMVIEWER' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for product 'FIREFOX' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for product 'OPENVPN' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for product 'WIREGUARD' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building RuleCollection 'SCRIPT PATH DENY WITH EXCEPTION' Rules
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\$Recycle.bin\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\INetCache\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\Temporary Internet Files\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\Public\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\All Users\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Temp\MicrosoftEdgeDownloads\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%HOT%\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%REMOVABLE%\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%SYSTEM32%\spool\drivers\color\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%SYSTEM32%\tasks\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\debug\wia\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\tasks\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\tracing\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\Temp\*'
+EN CLAIR : No Rules defined for MSI PATH DENY
+EN CLAIR : Building RuleCollection 'EXE PATH DENY WITH EXCEPTION' Rules
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\$Recycle.bin\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\INetCache\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\Temporary Internet Files\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\Public\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\All Users\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Temp\MicrosoftEdgeDownloads\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%HOT%\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%REMOVABLE%\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%SYSTEM32%\spool\drivers\color\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%SYSTEM32%\tasks\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\debug\wia\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\tasks\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\tracing\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\Temp\*'
+EN CLAIR : No Rules defined for SCRIPT PATH ALLOW
+EN CLAIR : Building RuleCollection 'MSI PRODUCT DENY' Rules
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'ATLASVPN' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'LOGMEIN HAMACHI' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Everyone' for product 'SCREENCONNECT' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : No Rules defined for MSI PATH ALLOW
+EN CLAIR : Building Applocker Gpo policy 'ApplockerGPOAdminDenyInternet' to 'C:\Users\USER\Documents\DenyLocker\output\20240222_ApplockerGPOAdminDenyInternet.xml'
+EN CLAIR : Building RuleCollection 'EXE PRODUCT DENY' Rules
+EN CLAIR : Building 'Deny' Rule for group 'Administrators' for product 'GOOGLE CHROME' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Administrators' for product 'FIREFOX' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Administrators' for product 'INTERNET EXPLORER' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Administrators' for product 'MICROSOFT EDGE' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Administrators' for product 'MICROSOFT OUTLOOK' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : Building 'Deny' Rule for group 'Administrators' for product 'THUNDERBIRD' in 'C:\Users\USER\Documents\DenyLocker\binaries' Directory
+EN CLAIR : No Rules defined for EXE PRODUCT ALLOW
+EN CLAIR : No Rules defined for MSI PRODUCT DENY WITH EXCEPTION
+EN CLAIR : No Rules defined for SCRIPT PATH DENY
+EN CLAIR : No Rules defined for EXE PATH DENY
+EN CLAIR : No Rules defined for EXE PATH ALLOW
+EN CLAIR : Building RuleCollection 'MSI PATH DENY WITH EXCEPTION' Rules
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\$Recycle.bin\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\INetCache\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\Temporary Internet Files\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\Public\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\All Users\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Temp\MicrosoftEdgeDownloads\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%HOT%\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%REMOVABLE%\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%SYSTEM32%\spool\drivers\color\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%SYSTEM32%\tasks\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\debug\wia\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\tasks\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\tracing\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\Temp\*'
+EN CLAIR : No Rules defined for MSI PRODUCT ALLOW
+EN CLAIR : No Rules defined for EXE PRODUCT DENY WITH EXCEPTION
+EN CLAIR : Building RuleCollection 'SCRIPT PATH DENY WITH EXCEPTION' Rules
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\$Recycle.bin\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\INetCache\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\Temporary Internet Files\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\Public\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\All Users\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Temp\MicrosoftEdgeDownloads\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%HOT%\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%REMOVABLE%\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%SYSTEM32%\spool\drivers\color\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%SYSTEM32%\tasks\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\debug\wia\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\tasks\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\tracing\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\Temp\*'
+EN CLAIR : No Rules defined for MSI PATH DENY
+EN CLAIR : Building RuleCollection 'EXE PATH DENY WITH EXCEPTION' Rules
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\$Recycle.bin\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\INetCache\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\Temporary Internet Files\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\Public\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\All Users\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%OSDRIVE%\Users\*\AppData\Local\Temp\MicrosoftEdgeDownloads\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%HOT%\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%REMOVABLE%\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%SYSTEM32%\spool\drivers\color\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%SYSTEM32%\tasks\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\debug\wia\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\tasks\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\tracing\*'
+EN CLAIR : Building 'Allow' Rule for group 'Everyone' for path '%WINDIR%\Temp\*'
+EN CLAIR : No Rules defined for SCRIPT PATH ALLOW
+EN CLAIR : No Rules defined for MSI PRODUCT DENY
+EN CLAIR : No Rules defined for MSI PATH ALLOW
+EN CLAIR : ** TESTING RULES from 'C:\Users\USER\Documents\DenyLocker\output\20240222_ApplockerGPO.xml' **
+'C:\Users\USER\Documents\DenyLocker\binaries\BraveBrowser.exe' is 'Denied' for 'Everyone' by ''Deny Everyone BRAVESOFTWARE UPDATE''
+'C:\Users\USER\Documents\DenyLocker\binaries\ccsetup.exe' is 'Denied' for 'Everyone' by ''Deny Everyone CCLEANER''
+'C:\Users\USER\Documents\DenyLocker\binaries\expressvpn.exe' is 'Denied' for 'Everyone' by ''Deny Everyone EXPRESSVPN''
+'C:\Users\USER\Documents\DenyLocker\binaries\Iperius.exe' is 'Denied' for 'Everyone' by ''Deny Everyone IPERIUS REMOTE''
+'C:\Users\USER\Documents\DenyLocker\binaries\ipvanish.exe' is 'Denied' for 'Everyone' by ''Deny Everyone IPVANISH''
+'C:\Users\USER\Documents\DenyLocker\binaries\iTopVPN.exe' is 'Denied' for 'Everyone' by ''Deny Everyone ITOPVPN''
+'C:\Users\USER\Documents\DenyLocker\binaries\IVPN.exe' is 'Denied' for 'Everyone' by ''Deny Everyone IVPN.exe''
+'C:\Users\USER\Documents\DenyLocker\binaries\localtonet.exe' is 'Denied' for 'Everyone' by ''Deny Everyone localtonet.exe''
+'C:\Users\USER\Documents\DenyLocker\binaries\mullvadbrowser.exe' is 'Denied' for 'Everyone' by ''Deny Everyone MULLVAD BROWSER''
+'C:\Users\USER\Documents\DenyLocker\binaries\MullvadVPN.exe' is 'Denied' for 'Everyone' by ''Deny Everyone MULLVAD VPN''
+'C:\Users\USER\Documents\DenyLocker\binaries\ngrok.exe' is 'Denied' for 'Everyone' by ''Deny Everyone NGROK AGENT''
+'C:\Users\USER\Documents\DenyLocker\binaries\NordVPN.exe' is 'Denied' for 'Everyone' by ''Deny Everyone NORDVPN''
+'C:\Users\USER\Documents\DenyLocker\binaries\parsec.exe' is 'Denied' for 'Everyone' by ''Deny Everyone parsec.exe''
+'C:\Users\USER\Documents\DenyLocker\binaries\pktriot.exe' is 'Denied' for 'Everyone' by ''Deny Everyone pktriot.exe''
+'C:\Users\USER\Documents\DenyLocker\binaries\PlexMediaServer.exe' is 'Denied' for 'Everyone' by ''Deny Everyone PLEX MEDIA SERVER''
+'C:\Users\USER\Documents\DenyLocker\binaries\ProtonVPN.exe' is 'Denied' for 'Everyone' by ''Deny Everyone PROTONVPN''
+'C:\Users\USER\Documents\DenyLocker\binaries\purevpn.exe' is 'Denied' for 'Everyone' by ''Deny Everyone PUREVPN''
+'C:\Users\USER\Documents\DenyLocker\binaries\rustdesk.exe' is 'Denied' for 'Everyone' by ''Deny Everyone RUSTDESK''
+'C:\Users\USER\Documents\DenyLocker\binaries\SetupIperius.exe' is 'Denied' for 'Everyone' by ''Deny Everyone IPERIUS BACKUP''
+'C:\Users\USER\Documents\DenyLocker\binaries\Shadowsocks.exe' is 'Denied' for 'Everyone' by ''Deny Everyone Shadowsocks.exe''
+'C:\Users\USER\Documents\DenyLocker\binaries\StrongVPN.exe' is 'Denied' for 'Everyone' by ''Deny Everyone STRONGVPN''
+'C:\Users\USER\Documents\DenyLocker\binaries\SugarSync.exe' is 'Denied' for 'Everyone' by ''Deny Everyone SUGARSYNC''
+'C:\Users\USER\Documents\DenyLocker\binaries\Supremo.exe' is 'Denied' for 'Everyone' by ''Deny Everyone SUPREMO REMOTE CONTROL''
+'C:\Users\USER\Documents\DenyLocker\binaries\Surfshark.exe' is 'Denied' for 'Everyone' by ''Deny Everyone SURFSHARK''
+'C:\Users\USER\Documents\DenyLocker\binaries\tigerVPN.exe' is 'Denied' for 'Everyone' by ''Deny Everyone TIGERVPN''
+'C:\Users\USER\Documents\DenyLocker\binaries\torbrowser.exe' is 'Denied' for 'Everyone' by ''Deny Everyone torbrowser.exe''
+'C:\Users\USER\Documents\DenyLocker\binaries\TunnelBear.exe' is 'Denied' for 'Everyone' by ''Deny Everyone TUNNELBEAR''
+'C:\Users\USER\Documents\DenyLocker\binaries\viewer.exe' is 'Denied' for 'Everyone' by ''Deny Everyone REMOTE UTILITIES - VIEWER''
+'C:\Users\USER\Documents\DenyLocker\binaries\VPNFacile.exe' is 'Denied' for 'Everyone' by ''Deny Everyone VPNFacile.exe''
+'C:\Users\USER\Documents\DenyLocker\binaries\VPN_Unlimited.exe' is 'Denied' for 'Everyone' by ''Deny Everyone VPN UNLIMITED''
+AVERTISSEMENT : file VyprVPN.exe could not be found in C:\Users\USER\Documents\DenyLocker\binaries directory, so it cannot be tested
+'C:\Users\USER\Documents\DenyLocker\binaries\AtlasVPN.msi' is 'Denied' for 'Everyone' by ''Deny Everyone ATLASVPN''
+'C:\Users\USER\Documents\DenyLocker\binaries\hamachi.msi' is 'Denied' for 'Everyone' by ''Deny Everyone LOGMEIN HAMACHI''
+PS C:\Users\USER\Documents\DenyLocker> Erreur de terminaison (Test-AppLockerPolicy) : « L’exécution de la commande s’est arrêtée, car la variable de préférence « ErrorActionPreference » ou le paramètre courant a la valeur Stop : AppLocker ne peut pas déterminer si le fichier spécifié, C:\Users\USER\Documents\DenyLocker\binaries\Firefox.exe est autorisé. Raison : Erreur non spécifiée
+
+« * » viole la contrainte pattern de « ([0-9]{1,5}.){3}[0-9]{1,5} ».
+ »
+Test failed for file firefox.exe and group AllowFirefox with SID S-1-5-21-1293688190-1484503298-98056765-123
+PS C:\Users\USER\Documents\DenyLocker> Erreur de terminaison (Test-AppLockerPolicy) : « L’exécution de la commande s’est arrêtée, car la variable de préférence « ErrorActionPreference » ou le paramètre courant a la valeur Stop : AppLocker ne peut pas déterminer si le fichier spécifié, C:\Users\USER\Documents\DenyLocker\binaries\openvpn.exe est autorisé. Raison : Erreur non spécifiée
+
+« * » viole la contrainte pattern de « ([0-9]{1,5}.){3}[0-9]{1,5} ».
+ »
+Test failed for file openvpn.exe and group AllowOpenVPN with SID S-1-5-21-1293688190-1484503298-98056765-456
+PS C:\Users\USER\Documents\DenyLocker> Erreur de terminaison (Test-AppLockerPolicy) : « L’exécution de la commande s’est arrêtée, car la variable de préférence « ErrorActionPreference » ou le paramètre courant a la valeur Stop : AppLocker ne peut pas déterminer si le fichier spécifié, C:\Users\USER\Documents\DenyLocker\binaries\wireguard.exe est autorisé. Raison : Erreur non spécifiée
+
+« * » viole la contrainte pattern de « ([0-9]{1,5}.){3}[0-9]{1,5} ».
+ »
+Test failed for file wireguard.exe and group AllowWireguard with SID S-1-5-21-1293688190-1484503298-98056765-789
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\$Recycle.bin\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\INetCache\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\Temporary Internet Files\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\Public\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\All Users\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Temp\MicrosoftEdgeDownloads\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %HOT%\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %REMOVABLE%\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %SYSTEM32%\spool\drivers\color\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %SYSTEM32%\tasks\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\debug\wia\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\tasks\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\tracing\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\Temp\*
+'C:\Users\USER\Documents\DenyLocker\binaries\AnyDesk.exe' is 'DeniedByDefault' for 'Everyone' due to an exception
+'C:\Users\USER\Documents\DenyLocker\binaries\TeamViewer.exe' is 'DeniedByDefault' for 'Everyone' due to an exception
+'C:\Users\USER\Documents\DenyLocker\binaries\Firefox.exe' is 'DeniedByDefault' for 'Everyone' due to an exception
+'C:\Users\USER\Documents\DenyLocker\binaries\openvpn.exe' is 'DeniedByDefault' for 'Everyone' due to an exception
+'C:\Users\USER\Documents\DenyLocker\binaries\wireguard.exe' is 'DeniedByDefault' for 'Everyone' due to an exception
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\$Recycle.bin\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\INetCache\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\Temporary Internet Files\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\Public\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\All Users\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Temp\MicrosoftEdgeDownloads\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %HOT%\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %REMOVABLE%\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %SYSTEM32%\spool\drivers\color\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %SYSTEM32%\tasks\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\debug\wia\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\tasks\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\tracing\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\Temp\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\$Recycle.bin\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\INetCache\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\Temporary Internet Files\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\Public\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\All Users\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Temp\MicrosoftEdgeDownloads\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %HOT%\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %REMOVABLE%\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %SYSTEM32%\spool\drivers\color\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %SYSTEM32%\tasks\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\debug\wia\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\tasks\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\tracing\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\Temp\*
+'C:\Users\USER\Documents\DenyLocker\binaries\AtlasVPN.msi' is 'Denied' for 'Everyone' by ''Deny Everyone ATLASVPN''
+'C:\Users\USER\Documents\DenyLocker\binaries\hamachi.msi' is 'Denied' for 'Everyone' by ''Deny Everyone LOGMEIN HAMACHI''
+'C:\Users\USER\Documents\DenyLocker\binaries\ScreenConnect.msi' is 'Denied' for 'Everyone' by ''Deny Everyone SCREENCONNECT''
+EN CLAIR : ** TESTING RULES from 'C:\Users\USER\Documents\DenyLocker\output\20240222_ApplockerGPOAdminDenyInternet.xml' **
+'C:\Users\USER\Documents\DenyLocker\binaries\chrome.exe' is 'Denied' for 'Administrators' by ''Deny Administrators GOOGLE CHROME''
+'C:\Users\USER\Documents\DenyLocker\binaries\Firefox.exe' is 'Denied' for 'Administrators' by ''Deny Administrators FIREFOX''
+'C:\Users\USER\Documents\DenyLocker\binaries\iexplore.exe' is 'Denied' for 'Administrators' by ''Deny Administrators INTERNET EXPLORER''
+'C:\Users\USER\Documents\DenyLocker\binaries\msedge.exe' is 'Denied' for 'Administrators' by ''Deny Administrators MICROSOFT EDGE''
+'C:\Users\USER\Documents\DenyLocker\binaries\OUTLOOK.EXE' is 'Denied' for 'Administrators' by ''Deny Administrators MICROSOFT OUTLOOK''
+'C:\Users\USER\Documents\DenyLocker\binaries\Thunderbird.exe' is 'Denied' for 'Administrators' by ''Deny Administrators THUNDERBIRD''
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\$Recycle.bin\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\INetCache\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\Temporary Internet Files\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\Public\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\All Users\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Temp\MicrosoftEdgeDownloads\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %HOT%\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %REMOVABLE%\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %SYSTEM32%\spool\drivers\color\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %SYSTEM32%\tasks\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\debug\wia\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\tasks\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\tracing\*
+AVERTISSEMENT : Not testing MSI PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\Temp\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\$Recycle.bin\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\INetCache\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\Temporary Internet Files\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\Public\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\All Users\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Temp\MicrosoftEdgeDownloads\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %HOT%\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %REMOVABLE%\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %SYSTEM32%\spool\drivers\color\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %SYSTEM32%\tasks\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\debug\wia\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\tasks\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\tracing\*
+AVERTISSEMENT : Not testing SCRIPT PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\Temp\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\$Recycle.bin\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\INetCache\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Microsoft\Windows\Temporary Internet Files\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\Public\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\All Users\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %OSDRIVE%\Users\*\AppData\Local\Temp\MicrosoftEdgeDownloads\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %HOT%\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %REMOVABLE%\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %SYSTEM32%\spool\drivers\color\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %SYSTEM32%\tasks\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\debug\wia\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\tasks\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\tracing\*
+AVERTISSEMENT : Not testing EXE PATH DENY WITH EXCEPTION Rules based on PATH : %WINDIR%\Temp\*
+EN CLAIR : ** EXPORTING RULES 'C:\Users\USER\Documents\DenyLocker\output\20240222_ApplockerGPO.xml' TO EXCEL **
+Starting Excel...
+EN CLAIR : L’objet écrit dans le pipeline est une instance du type « Microsoft.Office.Interop.Excel.ApplicationClass » de l’assembly PIA (Primary Interop Assembly) du composant. Si ce type expose des membres autres que ceux d’IDispatch, les scripts écrits pour fonctionner avec cet objet peuvent ne pas fonctionner si l’assembly PIA n’est pas installé.
+Populating tab "20240222_ApplockerGPO"...
+Saving workbook as "C:\Users\USER\Documents\DenyLocker\output\20240222_ApplockerGPO.xlsx"...
+Releasing Excel...
+EN CLAIR : ** EXPORTING RULES 'C:\Users\USER\Documents\DenyLocker\output\20240222_ApplockerGPOAdminDenyInternet.xml' TO EXCEL **
+Starting Excel...
+EN CLAIR : L’objet écrit dans le pipeline est une instance du type « Microsoft.Office.Interop.Excel.ApplicationClass » de l’assembly PIA (Primary Interop Assembly) du composant. Si ce type expose des membres autres que ceux d’IDispatch, les scripts écrits pour fonctionner avec cet objet peuvent ne pas fonctionner si l’assembly PIA n’est pas installé.
+Populating tab "20240222_ApplockerGPOAdminDenyInternet"...
+Saving workbook as "C:\Users\USER\Documents\DenyLocker\output\20240222_ApplockerGPOAdminDenyInternet.xlsx"...
+Releasing Excel...
+PS C:\Users\USER\Documents\DenyLocker> Stop-Transcript
+**********************
+Fin de la transcription Windows PowerShell
+Heure de fin : 20240222162132
+**********************
