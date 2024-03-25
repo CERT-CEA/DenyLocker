@@ -13,10 +13,18 @@ function CreateFilePublisherCondition {
     # This XML is used between <Exceptions> OR <FilePublisherRule>
 
     $FilePublisherCondition = $xDocument.CreateElement("FilePublisherCondition")
-    if ($Publisher.ProductName) {
-        $Msg = "Building '{0}' Rule for group '{1}' for product '{2}' in '{3}' Directory" -f $Rule.Action, $Rule.UserOrGroup, $Publisher.ProductName, $Directory
+    if ($Rule.isException) {
+        if ($Publisher.ProductName) {
+            $Msg = "Building 'AllowExcept {1}' Rule for product '{2}' currently in '{3}' Directory" -f $Rule.Action, $Rule.UserOrGroup, $Publisher.ProductName, $Directory
+        } else {
+            $Msg = "Building 'AllowExcept {1}' Rule for filename '{2}' currently in '{3}' Directory" -f $Rule.Action, $Rule.UserOrGroup, $Rule.Filepath, $Directory
+        }
     } else {
-        $Msg = "Building '{0}' Rule for group '{1}' for filename '{2}' in '{3}' Directory" -f $Rule.Action, $Rule.UserOrGroup, $Rule.Filepath, $Directory
+        if ($Publisher.ProductName) {
+            $Msg = "Building '{0}' Rule for group '{1}' for product '{2}' currently in '{3}' Directory" -f $Rule.Action, $Rule.UserOrGroup, $Publisher.ProductName, $Directory
+        } else {
+            $Msg = "Building '{0}' Rule for group '{1}' for filename '{2}' currently in '{3}' Directory" -f $Rule.Action, $Rule.UserOrGroup, $Rule.Filepath, $Directory
+        }
     }
     Write-Verbose $Msg
 
@@ -57,14 +65,22 @@ function CreateFilePathCondition {
     if ($Rule -like "*PRODUCT*") {
         $FilenameWildcard = "*{0}*.exe" -f $Rule.Filepath.split('.')[0]
         $FilePathCondition.SetAttribute("Path", $FilenameWildcard)
-        $Msg = "Building '{0}' Rule for group '{1}' for software '{2}' in '{3}' based on filename" -f $Rule.Action, $Rule.UserOrGroup, $Rule.Filepath, $Directory
+        if ($Rule.isException) {
+            $Msg = "Building 'AllowExcept {1}' Rule for software '{2}' in '{3}' based on filename" -f $Rule.Action, $Rule.UserOrGroup, $Rule.Filepath, $Directory
+        } else {
+            $Msg = "Building '{0}' Rule for group '{1}' for software '{2}' in '{3}' based on filename" -f $Rule.Action, $Rule.UserOrGroup, $Rule.Filepath, $Directory
+        }
         if ($Verbose) {
             Write-Warning $Msg
         }
 
     } else {
         $FilePathCondition.SetAttribute("Path", $Rule.Filepath)
-        $Msg = "Building '{0}' Rule for group '{1}' for path '{2}'" -f $Rule.Action, $Rule.UserOrGroup, $Rule.Filepath
+        if ($Rule.isException) {
+            $Msg = "Building 'AllowExcept {1}' Rule for path '{2}'" -f $Rule.Action, $Rule.UserOrGroup, $Rule.Filepath
+        } else {
+            $Msg = "Building '{0}' Rule for group '{1}' for path '{2}'" -f $Rule.Action, $Rule.UserOrGroup, $Rule.Filepath
+        }
         Write-Verbose $Msg
     }
 
