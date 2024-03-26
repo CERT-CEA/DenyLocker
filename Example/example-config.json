@@ -6,6 +6,7 @@
                         "FilePath": "BraveBrowser.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -15,6 +16,7 @@
                         "FilePath": "ccsetup.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -24,6 +26,7 @@
                         "FilePath": "expressvpn.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -32,6 +35,7 @@
                         "FilePath": "Iperius.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -41,6 +45,7 @@
                         "FilePath": "ipvanish.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -50,6 +55,7 @@
                         "FilePath": "iTopVPN.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -59,6 +65,7 @@
                         "FilePath": "IVPN.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -68,6 +75,7 @@
                         "FilePath": "localtonet.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -77,6 +85,7 @@
                         "FilePath": "mullvadbrowser.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -86,6 +95,7 @@
                         "FilePath": "MullvadVPN.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -95,6 +105,7 @@
                         "FilePath": "ngrok.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -104,6 +115,7 @@
                         "FilePath": "NordVPN.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -113,6 +125,7 @@
                         "FilePath": "parsec.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -122,6 +135,7 @@
                         "FilePath": "pktriot.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -131,6 +145,7 @@
                         "FilePath": "PlexMediaServer.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -140,6 +155,7 @@
                         "FilePath": "ProtonVPN.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -149,6 +165,7 @@
                         "FilePath": "purevpn.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -158,6 +175,7 @@
                         "FilePath": "rustdesk.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -167,6 +185,7 @@
                         "FilePath": "SetupIperius.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -176,6 +195,7 @@
                         "FilePath": "Shadowsocks.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -185,6 +205,7 @@
                         "FilePath": "StrongVPN.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -194,6 +215,7 @@
                         "FilePath": "SugarSync.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -203,6 +225,7 @@
                         "FilePath": "Supremo.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -212,6 +235,7 @@
                         "FilePath": "Surfshark.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -221,6 +245,7 @@
                         "FilePath": "tigerVPN.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -230,6 +255,7 @@
                         "FilePath": "torbrowser.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -239,6 +265,7 @@
                         "FilePath": "TunnelBear.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -248,6 +275,7 @@
                         "FilePath": "viewer.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -257,6 +285,7 @@
                         "FilePath": "VPNFacile.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -266,6 +295,7 @@
                         "FilePath": "VPN_Unlimited.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -275,6 +305,7 @@
                         "FilePath": "VyprVPN.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -285,6 +316,7 @@
                         "FilePath": "AtlasVPN.msi",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -295,6 +327,7 @@
                         "FilePath": "hamachi.msi",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -307,6 +340,7 @@
                         "FilePath": "firefox.exe",
                         "UserOrGroup": "AllowFirefox",
                         "UserOrGroupSID": "S-1-5-21-1293688190-1484503298-98056765-123",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -316,6 +350,7 @@
                         "FilePath": "openvpn.exe",
                         "UserOrGroup": "AllowOpenVPN",
                         "UserOrGroupSID": "S-1-5-21-1293688190-1484503298-98056765-456",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -325,6 +360,7 @@
                         "FilePath": "wireguard.exe",
                         "UserOrGroup": "AllowWireguard",
                         "UserOrGroupSID": "S-1-5-21-1293688190-1484503298-98056765-789",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -336,6 +372,7 @@
                         "FilePath": "AnyDesk.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -346,6 +383,7 @@
                         "FilePath": "TeamViewer.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -356,6 +394,7 @@
                         "FilePath": "firefox.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -366,6 +405,7 @@
                         "FilePath": "openvpn.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -376,6 +416,7 @@
                         "FilePath": "wireguard.exe",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -391,6 +432,7 @@
                     "FilePath": "%OSDRIVE%\\$Recycle.bin\\*",
                     "UserOrGroup": "Everyone",
                     "UserOrGroupSID": "S-1-1-0",
+                    "UserOrGroupType": "Group",
                     "Action": "Allow",
                     "IsException": "true"
                 },
@@ -398,6 +440,7 @@
                     "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCache\\*",
                     "UserOrGroup": "Everyone",
                     "UserOrGroupSID": "S-1-1-0",
+                    "UserOrGroupType": "Group",
                     "Action": "Allow",
                     "IsException": "true"
                 },
@@ -405,6 +448,7 @@
                     "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\*",
                     "UserOrGroup": "Everyone",
                     "UserOrGroupSID": "S-1-1-0",
+                    "UserOrGroupType": "Group",
                     "Action": "Allow",
                     "IsException": "true"
                 },
@@ -412,6 +456,7 @@
                     "FilePath": "%OSDRIVE%\\Users\\Public\\*",
                     "UserOrGroup": "Everyone",
                     "UserOrGroupSID": "S-1-1-0",
+                    "UserOrGroupType": "Group",
                     "Action": "Allow",
                     "IsException": "true"
                 },
@@ -419,6 +464,7 @@
                     "FilePath": "%OSDRIVE%\\Users\\All Users\\*",
                     "UserOrGroup": "Everyone",
                     "UserOrGroupSID": "S-1-1-0",
+                    "UserOrGroupType": "Group",
                     "Action": "Allow",
                     "IsException": "true"
                 },
@@ -426,6 +472,7 @@
                     "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\*",
                     "UserOrGroup": "Everyone",
                     "UserOrGroupSID": "S-1-1-0",
+                    "UserOrGroupType": "Group",
                     "Action": "Allow",
                     "IsException": "true"
                 },
@@ -433,6 +480,7 @@
                     "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Temp\\MicrosoftEdgeDownloads\\*",
                     "UserOrGroup": "Everyone",
                     "UserOrGroupSID": "S-1-1-0",
+                    "UserOrGroupType": "Group",
                     "Action": "Allow",
                     "IsException": "true"
                 },
@@ -440,6 +488,7 @@
                     "FilePath": "%HOT%\\*",
                     "UserOrGroup": "Everyone",
                     "UserOrGroupSID": "S-1-1-0",
+                    "UserOrGroupType": "Group",
                     "Action": "Allow",
                     "IsException": "true"
                 },
@@ -447,6 +496,7 @@
                     "FilePath": "%REMOVABLE%\\*",
                     "UserOrGroup": "Everyone",
                     "UserOrGroupSID": "S-1-1-0",
+                    "UserOrGroupType": "Group",
                     "Action": "Allow",
                     "IsException": "true"
                 },
@@ -454,6 +504,7 @@
                     "FilePath": "%SYSTEM32%\\spool\\drivers\\color\\*",
                     "UserOrGroup": "Everyone",
                     "UserOrGroupSID": "S-1-1-0",
+                    "UserOrGroupType": "Group",
                     "Action": "Allow",
                     "IsException": "true"
                 },
@@ -461,6 +512,7 @@
                     "FilePath": "%SYSTEM32%\\tasks\\*",
                     "UserOrGroup": "Everyone",
                     "UserOrGroupSID": "S-1-1-0",
+                    "UserOrGroupType": "Group",
                     "Action": "Allow",
                     "IsException": "true"
                 },
@@ -468,6 +520,7 @@
                     "FilePath": "%WINDIR%\\debug\\wia\\*",
                     "UserOrGroup": "Everyone",
                     "UserOrGroupSID": "S-1-1-0",
+                    "UserOrGroupType": "Group",
                     "Action": "Allow",
                     "IsException": "true"
                 },
@@ -475,6 +528,7 @@
                     "FilePath": "%WINDIR%\\tasks\\*",
                     "UserOrGroup": "Everyone",
                     "UserOrGroupSID": "S-1-1-0",
+                    "UserOrGroupType": "Group",
                     "Action": "Allow",
                     "IsException": "true"
                 },
@@ -482,6 +536,7 @@
                     "FilePath": "%WINDIR%\\tracing\\*",
                     "UserOrGroup": "Everyone",
                     "UserOrGroupSID": "S-1-1-0",
+                    "UserOrGroupType": "Group",
                     "Action": "Allow",
                     "IsException": "true"
                 },
@@ -489,6 +544,7 @@
                     "FilePath": "%WINDIR%\\Temp\\*",
                     "UserOrGroup": "Everyone",
                     "UserOrGroupSID": "S-1-1-0",
+                    "UserOrGroupType": "Group",
                     "Action": "Allow",
                     "IsException": "true"
                 }
@@ -498,6 +554,7 @@
                         "FilePath": "AtlasVPN.msi",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -507,6 +564,7 @@
                         "FilePath": "hamachi.msi",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -516,6 +574,7 @@
                         "FilePath": "ScreenConnect.msi",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -532,6 +591,7 @@
                         "FilePath": "%OSDRIVE%\\$Recycle.bin\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -539,6 +599,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCache\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -546,6 +607,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -553,6 +615,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\Public\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -560,6 +623,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\All Users\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -567,6 +631,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -574,6 +639,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Temp\\MicrosoftEdgeDownloads\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -581,6 +647,7 @@
                         "FilePath": "%HOT%\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -588,6 +655,7 @@
                         "FilePath": "%REMOVABLE%\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -595,6 +663,7 @@
                         "FilePath": "%SYSTEM32%\\spool\\drivers\\color\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -602,6 +671,7 @@
                         "FilePath": "%SYSTEM32%\\tasks\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -609,6 +679,7 @@
                         "FilePath": "%WINDIR%\\debug\\wia\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -616,6 +687,7 @@
                         "FilePath": "%WINDIR%\\tasks\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -623,6 +695,7 @@
                         "FilePath": "%WINDIR%\\tracing\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -630,6 +703,7 @@
                         "FilePath": "%WINDIR%\\Temp\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     }
@@ -641,6 +715,7 @@
                         "FilePath": "%OSDRIVE%\\$Recycle.bin\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -648,6 +723,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCache\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -655,6 +731,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -662,6 +739,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\Public\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -669,6 +747,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\All Users\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -676,6 +755,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -683,6 +763,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Temp\\MicrosoftEdgeDownloads\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -690,6 +771,7 @@
                         "FilePath": "%HOT%\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -697,6 +779,7 @@
                         "FilePath": "%REMOVABLE%\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -704,6 +787,7 @@
                         "FilePath": "%SYSTEM32%\\spool\\drivers\\color\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -711,6 +795,7 @@
                         "FilePath": "%SYSTEM32%\\tasks\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -718,6 +803,7 @@
                         "FilePath": "%WINDIR%\\debug\\wia\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -725,6 +811,7 @@
                         "FilePath": "%WINDIR%\\tasks\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -732,6 +819,7 @@
                         "FilePath": "%WINDIR%\\tracing\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -739,6 +827,7 @@
                         "FilePath": "%WINDIR%\\Temp\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     }
@@ -752,6 +841,7 @@
                         "FilePath": "chrome.exe",
                         "UserOrGroup": "Administrators",
                         "UserOrGroupSID": "S-1-5-32-544",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -761,6 +851,7 @@
                         "FilePath": "firefox.exe",
                         "UserOrGroup": "Administrators",
                         "UserOrGroupSID": "S-1-5-32-544",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -770,6 +861,7 @@
                         "FilePath": "iexplore.exe",
                         "UserOrGroup": "Administrators",
                         "UserOrGroupSID": "S-1-5-32-544",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -779,6 +871,7 @@
                         "FilePath": "msedge.exe",
                         "UserOrGroup": "Administrators",
                         "UserOrGroupSID": "S-1-5-32-544",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -788,6 +881,7 @@
                         "FilePath": "OUTLOOK.EXE",
                         "UserOrGroup": "Administrators",
                         "UserOrGroupSID": "S-1-5-32-544",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -797,6 +891,7 @@
                         "FilePath": "Thunderbird.exe",
                         "UserOrGroup": "Administrators",
                         "UserOrGroupSID": "S-1-5-32-544",
+                        "UserOrGroupType": "Group",
                         "RulePublisher": "true",
                         "RuleProduct": "true",
                         "RuleBinary": "false",
@@ -812,6 +907,7 @@
                         "FilePath": "%OSDRIVE%\\$Recycle.bin\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -819,6 +915,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCache\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -826,6 +923,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -833,6 +931,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\Public\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -840,6 +939,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\All Users\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -847,6 +947,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -854,6 +955,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Temp\\MicrosoftEdgeDownloads\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -861,6 +963,7 @@
                         "FilePath": "%HOT%\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -868,6 +971,7 @@
                         "FilePath": "%REMOVABLE%\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -875,6 +979,7 @@
                         "FilePath": "%SYSTEM32%\\spool\\drivers\\color\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -882,6 +987,7 @@
                         "FilePath": "%SYSTEM32%\\tasks\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -889,6 +995,7 @@
                         "FilePath": "%WINDIR%\\debug\\wia\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -896,6 +1003,7 @@
                         "FilePath": "%WINDIR%\\tasks\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -903,6 +1011,7 @@
                         "FilePath": "%WINDIR%\\tracing\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -910,6 +1019,7 @@
                         "FilePath": "%WINDIR%\\Temp\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     }
@@ -924,6 +1034,7 @@
                         "FilePath": "%OSDRIVE%\\$Recycle.bin\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -931,6 +1042,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCache\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -938,6 +1050,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -945,6 +1058,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\Public\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -952,6 +1066,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\All Users\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -959,6 +1074,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -966,6 +1082,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Temp\\MicrosoftEdgeDownloads\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -973,6 +1090,7 @@
                         "FilePath": "%HOT%\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -980,6 +1098,7 @@
                         "FilePath": "%REMOVABLE%\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -987,6 +1106,7 @@
                         "FilePath": "%SYSTEM32%\\spool\\drivers\\color\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -994,6 +1114,7 @@
                         "FilePath": "%SYSTEM32%\\tasks\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1001,6 +1122,7 @@
                         "FilePath": "%WINDIR%\\debug\\wia\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1008,6 +1130,7 @@
                         "FilePath": "%WINDIR%\\tasks\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1015,6 +1138,7 @@
                         "FilePath": "%WINDIR%\\tracing\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1022,6 +1146,7 @@
                         "FilePath": "%WINDIR%\\Temp\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     }
@@ -1033,6 +1158,7 @@
                         "FilePath": "%OSDRIVE%\\$Recycle.bin\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1040,6 +1166,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCache\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1047,6 +1174,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1054,6 +1182,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\Public\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1061,6 +1190,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\All Users\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1068,6 +1198,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1075,6 +1206,7 @@
                         "FilePath": "%OSDRIVE%\\Users\\*\\AppData\\Local\\Temp\\MicrosoftEdgeDownloads\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1082,6 +1214,7 @@
                         "FilePath": "%HOT%\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1089,6 +1222,7 @@
                         "FilePath": "%REMOVABLE%\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1096,6 +1230,7 @@
                         "FilePath": "%SYSTEM32%\\spool\\drivers\\color\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1103,6 +1238,7 @@
                         "FilePath": "%SYSTEM32%\\tasks\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1110,6 +1246,7 @@
                         "FilePath": "%WINDIR%\\debug\\wia\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1117,6 +1254,7 @@
                         "FilePath": "%WINDIR%\\tasks\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1124,6 +1262,7 @@
                         "FilePath": "%WINDIR%\\tracing\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     },
@@ -1131,6 +1270,7 @@
                         "FilePath": "%WINDIR%\\Temp\\*",
                         "UserOrGroup": "Everyone",
                         "UserOrGroupSID": "S-1-1-0",
+                        "UserOrGroupType": "Group",
                         "Action": "Allow",
                         "IsException": "true"
                     }
