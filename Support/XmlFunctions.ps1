@@ -100,7 +100,7 @@ function GenerateXmlRule {
             $FileRule.SetAttribute("Action", $Rule.Action)
 
             if (-not ($Rule.UserOrGroupSid)) {
-                $ResolvedUserOrGroupSID = (GetObjectSID -UserOrGroup $Rule.UserOrGroup)
+                $ResolvedUserOrGroupSID = (GetObjectSID -UserOrGroup $Rule.UserOrGroup -UserOrGroupType $Rule.UserOrGroupType)
                 $FileRule.SetAttribute("UserOrGroupSid", $ResolvedUserOrGroupSID)
             } else {
                 $FileRule.SetAttribute("UserOrGroupSid", $Rule.UserOrGroupSid)

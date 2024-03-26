@@ -50,7 +50,7 @@ function CheckJsonRule {
         [Parameter(Mandatory = $true)] $Rule
     )
     # Verify som attributes of a given Rule
-    # Display a warning if
+    # Display a warning if a parameter is wrong
 
     if ($PlaceholderKey -like "*PRODUCT*") {
         if (-not (Test-Path -PathType leaf -Path $(Join-Path -Path $BinDir -ChildPath $Rule.FilePath))) {
@@ -86,13 +86,19 @@ function CheckJsonRule {
     }
 
     if (-not ($Rule.UserOrGroup)) {
-        $Msg = "No group where specified in {0} : FilePath {1}" -f $PlaceholderKey, $Rule.FilePath
+        $Msg = "No group was specified in the field UserOrGroup {0} : FilePath {1}" -f $PlaceholderKey, $Rule.FilePath
+        Write-Warning $Msg
+        throw
+    }
+
+    if (-not ($Rule.UserOrGroupType)) {
+        $Msg = "No object type was specified in the field UserOrGroupType in {0} : FilePath {1}" -f $PlaceholderKey, $Rule.FilePath
         Write-Warning $Msg
         throw
     }
 
     if (-not ($Rule.UserOrGroupSID -match "S-[0-9-]+" )) {
-        $ResolvedUserOrGroupSID = (GetObjectSID -UserOrGroup $Rule.UserOrGroup)
+        $ResolvedUserOrGroupSID = (GetObjectSID -UserOrGroup $Rule.UserOrGroup -UserOrGroupType $Rule.UserOrGroupType)
         if (-not $ResolvedUserOrGroupSID) {
             $Msg = "An error occured for {0}. FilePath {1}. Look at the warning above." -f $PlaceholderKey, $Rule.FilePath
             Write-Warning $Msg
@@ -129,7 +135,8 @@ function CheckBinDirectory {
 function GetObjectSID {
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory = $true)] [string] $UserOrGroup
+        [Parameter(Mandatory = $true)] [string] $UserOrGroup,
+        [Parameter(Mandatory = $true)] [string] $UserOrGroupType
     )
     # Given a user or group name, get its SID
 
@@ -142,9 +149,18 @@ function GetObjectSID {
         }
 
         try {
-            (Get-ADGroup $UserOrGroup).SID.Value
+            if ($UserOrGroupType -eq "User") {
+                (Get-ADUser $UserOrGroup).SID.Value
+            } elif ($UserOrGroupType -eq "Group") {
+                (Get-ADGroup $UserOrGroup).SID.Value
+            } else {
+                $Msg = "Object type {0} not supported" -f $UserOrGroupType
+                Write-Warning $Msg
+                throw [Microsoft.ActiveDirectory.Management.ADIdentityNotFoundException]
+            }
+            
         } catch [Microsoft.ActiveDirectory.Management.ADIdentityNotFoundException] {
-            $Msg = "Group {0} could not be resolved" -f $UserOrGroup
+            $Msg = "Object {0} could not be resolved" -f $UserOrGroup
             Write-Warning $Msg
         }
     } else  {
