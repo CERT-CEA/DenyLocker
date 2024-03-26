@@ -1,19 +1,29 @@
 # Overview
-Deploying Applocker in AllowList is a struggle. But it provides so much value with its log, it would be absurd not to use it. That's why we developped DenyLocker.
-DenyLocker is designed to make the creation and maintenance of Applocker rules in DenyList as easy and practical as possible. It only involves a few Powershell scripts.
+Deploying Applocker is tedious, especially in AllowList mode. But it provides so much value with its log, it would be absurd not to use it. That's why we developped DenyLocker.
 
-The main goal is to block virus, not a sneaky red-teamer by :
-- blocking forbidden sofware in your company (Tor, remote access software etc.)
-- blocking any execution on removable devices : USB, ISO etc.
-- logging every EXE, MSI, SCRIPT AND APPX/MSIX execution 
+DenyLocker is designed to make the creation and maintenance of Applocker rules in DenyList mode as easy and practical as possible. It only involves a few Powershell scripts.
+[AaronLocker](https://github.com/microsoft/AaronLocker) can be used if you want to deploy Applocker in a more common but difficult manner.
+
+DenyLocker can be used in 4 steps :
+- Download the binaries you want to block or allow
+- Define your rule in a json config file
+- Execute DenyLocker
+- Import the resulting XML in a GPO
+
+Some configuration coule be for example :
+- To block forbidden sofware in your company (Tor, remote access software etc.)
+- To block any execution on removable devices : USB, ISO etc.
+- To block any execution on path commonly used by malwares
+- To log every EXE, MSI, SCRIPT AND APPX/MSIX execution 
+
+## Demo
+Check `Example\PowerShell_transcript.txt` for an execution. The resulting Applocker XML are in `Example\output`.
 
 # Requirements
 Powershell ActiveDirectory Module if you don't want to manually provide every object SID in your json file. Their SID can be automatically resolved based on their name.
+Binaries that you want to block or allow must be downloaded in the `binaries` directory before executing DenyLocker.
 
-# Demo
-Check `Example\PowerShell_transcript.txt` for an execution. The resulting Applocker XML are in `Example\output`.
-
-## Rules architecture
+# Rules architecture
 Let's say you want the following policy :
 - App1 and App2 are forbidden, except for some security groups : GroupA and GroupB
 - App3 is forbidden, with no exception
@@ -68,13 +78,13 @@ Saving workbook as "C:\Users\github\Documents\DenyLocker\output\20240202_GPOAppl
 
 ### Import the rules in a GPO
 
-The resulting XML can then be imported in a GPO. Replace ATTACKRANGE.LOCAL with your domain :
+The resulting XML can then be imported in a GPO. Here, my GPO is named `GPOApplocker` Replace ATTACKRANGE.LOCAL with your domain :
 ```powershell
 PS > $GPOApplocker="LDAP://ATTACKRANGE.LOCAL/CN={{{0}}},CN=Policies,CN=System,DC=attackrange,DC=local" -f $(Get-GPO "GPOApplocker").Id
 PS > Set-AppLockerPolicy -XmlPolicy '.\20240202_GPOApplocker.xml' -Ldap $GPOApplocker
 ```
 
-## Config
+# Config
 
 The config fields are explained in the `readme-config.json` file. You can use `Support/empty.json` to start your conf from scratch. Check also `Example\example-config.json` for some more examples.
 
@@ -90,13 +100,14 @@ Some fields are mandatory :
 * `FilePath`: filepath to the file you want to allow or block.
 * `UserOrGroup`: Name of the user or group that should be allowed or denied to execute FilePath.
 * `UserOrGroupSID`: SID of the user or group that should be allowed or denied to execute FilePath.
-* `RulePublisher`: Only for `* PRODUCT DENY` rules. True if filepath should be allowed/denied based on their Publisher.
-* `RuleProduct`: Only for `* PRODUCT DENY` rules. True if filepath should be allowed/denied based on their ProductName.
-* `RuleBinary`: Only for `* PRODUCT DENY` rules. True if filepath should be allowed/denied based on their BinaryName.
-* `Action`: Possible value : Allow or Deny.
-* `isException`: Only for `* PATH DENY WITH EXCEPTION` rules. Possible value : True.
+* `UserOrGroupType`: Object type of UserOrGroup. Expected values : `User` or `Group`
+* `RulePublisher`: Only for `* PRODUCT DENY` rules. `True` if filepath should be allowed/denied based on their Publisher. `False` otherwise.
+* `RuleProduct`: Only for `* PRODUCT DENY` rules. `True` if filepath should be allowed/denied based on their ProductName. `False` otherwise.
+* `RuleBinary`: Only for `* PRODUCT DENY` rules. `True` if filepath should be allowed/denied based on their BinaryName. `False` otherwise.
+* `Action`: Possible value : `Allow` or `Deny`.
+* `isException`: Only for `* PATH DENY WITH EXCEPTION` rules. Possible value : `True`.
 
-### Example\example-config.json
+## Example\example-config.json
 This config files defines 2 GPO :
 * ApplockerGPO
 * ApplockerGPOAdminDenyInternet
@@ -111,9 +122,9 @@ ApplockerGPO goals :
 ApplockerGPOAdminDenyInternet goals :
 - Deny Administrators to execute anything related to internet. Here, outlook and web browsers.
 
-## Advices
+# Advices
 
-### Do not define multiple `Allow Everyone any except` rules
+## Do not define multiple `Allow Everyone any except` rules
 Allow rules are applied simultaneously, but the exception they define do not block their execution. Therefore, multiple rules "Allow Everyone any except" could cancel each other.
 Let's have 2 rules:
 - Rule 1 : Allow Everyone any except App1
@@ -128,7 +139,7 @@ This case could happen when using multiple GPO since Applocker rules are added t
 | 1             | Allow Everyone Any   | Allow         | *             | Everyone      | App1          |
 | 2             | Allow Everyone Any   | Allow         | *             | Everyone      | App2          |
 
-### Be careful with allow rules on PATH
+## Be careful with allow rules on PATH
 Let's have 2 rules:
 - Rule 1 : Allow Everyone %PROGRAMFILES%
 - Rule 2 : Allow Everyone any except App2
@@ -140,8 +151,8 @@ If App2 is installed in %PROGRAMFILES%, which is quite common, its execution wil
 | 1             | Allow Everyone PROGRAMFILES   | Allow         | *             | Everyone      |           |
 | 2             | Allow Everyone Any            | Allow         | *             | Everyone      | App2          |
 
-### Rule names
+## Rule names
 Rule names appear in the field RuleName of your event log. So don't choose them too long.
 
 # Credits
-AaronLocker : https://github.com/microsoft/AaronLocker
+[AaronLocker](https://github.com/microsoft/AaronLocker)
