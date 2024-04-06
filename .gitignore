@@ -1,9 +1,6 @@
-backup.xml
-*cealocker.xml
 *.xlsx
 *.csv
-Binaries/*
+binaries/*
 output
-test
 test-config.json
 prod-config.json
